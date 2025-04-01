@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "target": "ES6",
+    "lib": ["ES2017", "DOM"],
+    "types": ["node"],
+    "module": "CommonJS"
+  }
+}

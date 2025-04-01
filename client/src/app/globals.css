@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* chrome  */
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+html {
+  overflow: visible !important;
+}
+/* Standard */
+.no-spinner {
+  appearance: textfield;
+}
+
+.removeOnFocus:focus {
+  outline: none;
+}
