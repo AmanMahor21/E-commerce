@@ -1,3 +1,4 @@
+'use client';
 import { useLazyGetFilterProductsQuery } from '@/services/api';
 import Prodc from '../Prodc/page';
 import { useEffect } from 'react';
