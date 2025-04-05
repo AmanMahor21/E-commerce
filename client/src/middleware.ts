@@ -12,6 +12,7 @@ export function middleware(request: NextRequest) {
   const AccessToken = request.cookies.get('_Tt');
   const RefreshToken = request.cookies.get('_Trt');
 
+  const noToken = !AccessToken || !RefreshToken;
   // Public routes that don't need auth
   // if (
   //   currentPath.startsWith('/login') ||
@@ -21,11 +22,22 @@ export function middleware(request: NextRequest) {
   //   if (AccessToken && RefreshToken && currentPath.startsWith('/login')) {
   //     return NextResponse.redirect(new URL('/', request.url));
   //   }
-
-  if (currentPath.startsWith('/otp') && !request.headers.get('referer')?.includes('/login')) {
+  console.log(currentPath, 'aaaasd');
+  if (request.method !== 'GET') {
+    console.log('Non-GET request detected');
+  }
+  if (!AccessToken || !RefreshToken) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
-  if (currentPath === '/Profile' && !request.headers.get('referer')?.includes('/otp')) {
+
+  if (
+    currentPath.startsWith('/otp') &&
+    !request.headers.get('referer')?.includes('/login') &&
+    !noToken
+  ) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  if (currentPath === '/Profile' && !request.headers.get('referer')?.includes('/otp') && noToken) {
     return NextResponse.redirect(new URL('/', request.url));
   }
   //   return NextResponse.next();
@@ -40,7 +52,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/:path*', '/:path*'],
+  matcher: ['/Profile/:path*', '/cart/:path*'],
 };
 
 // import { NextResponse } from 'next/server';

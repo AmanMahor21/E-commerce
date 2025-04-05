@@ -27,14 +27,14 @@ const PriceFilter = () => {
   };
 
   return (
-    <div className="flex pb-5 pl-5">
+    <div className="flex lg:w-fit items-center w-full lg:h-fit justify-center">
       <div
         onClick={toggleActive}
-        className={`relative py-4 h-[44px] border-[2px] p-3 flex items-center rounded-[8px] text-[26px] font-medium tracking-[0.02em] decoration-skip-ink-none decoration-from-font cursor-pointer ${
-          isActive ? 'bg-[#FF7F32] text-white border-[#FF7F32]' : 'border-black'
+        className={`relative h-fit  lg:w-fit flex lg:pt-[2px]  items-center rounded-[8px] text-sm lg:text-sm font-medium tracking-[0.02em] decoration-skip-ink-none decoration-from-font cursor-pointer ${
+          isActive ? ' text-orange-400 underline lg:font-bold border-[#FF7F32]' : 'border-black'
         } w-auto min-w-[120px] max-w-[300px]`}
       >
-        <span className="mr-4 ml-1">Lowest Price</span>
+        <span className=" lg:ml-1 w-full flex justify-center">Price--Low to High</span>
       </div>
     </div>
   );

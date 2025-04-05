@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 // import Sidebar from '../Profile/Sidebar/page';
-import { useCompleteProfileMutation } from '@/services/authApi';
+import { useCompleteProfileMutation, useLogoutMutation } from '@/services/authApi';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import internal from 'stream';
@@ -10,6 +10,7 @@ export default function ProfilePage() {
   const [setProfile] = useCompleteProfileMutation();
   const router = useRouter();
   const customer = useSelector((state: any) => state.internal.customerInfo);
+  const [logoutRes] = useLogoutMutation();
 
   const [userInfo, setUserInfo] = useState({
     fName: customer?.firstName || '',
@@ -23,6 +24,7 @@ export default function ProfilePage() {
     setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
+  console.log(customer, 'nnnn');
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const savedUser = await setProfile({ ...userInfo });
@@ -36,14 +38,12 @@ export default function ProfilePage() {
     }
     // Add API call to save the profile data
   };
+  const handleLogout = () => {
+    logoutRes();
+  };
 
   return (
-    <div className="h-screen flex mt-28 justify-center bg-white p-6 w-full relative">
-      {/* Logout Button */}
-      <button className="absolute top-10 right-14 p-2 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition">
-        <img src="/logout.svg" alt="Logout" className="w-6 h-6" />
-      </button>
-
+    <div className="h-screen flex mt-28 lg:justify-center justify-around bg-white p-6 w-full relative">
       <div className="max-w-2xl flex flex-col">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Update Your Profile</h1>
 
@@ -129,6 +129,14 @@ export default function ProfilePage() {
             </button>
           </div>
         </form>
+      </div>
+      <div className="">
+        <button
+          className=" p-2 h-fit bg-red-500 text-white rounded-full shadow-md hover:bg-red-600"
+          onClick={handleLogout}
+        >
+          <img src="/logout.svg" alt="Logout" className="w-6 h-6" />
+        </button>
       </div>
     </div>
   );

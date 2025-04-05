@@ -330,9 +330,7 @@ export class ProductFavoriteController {
       };
       return response.status(200).send(successResponses);
     }
-
-    const deleteFavoriteProduct = await this.productFavoriteService.delete(favoriteProduct);
-
+    const deleteFavoriteProduct = await this.productFavoriteService.delete(favoriteProduct.productFavoriteId);
     if (!deleteFavoriteProduct) {
       const successResponses: any = {
         status: 0,

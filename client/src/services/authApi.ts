@@ -54,6 +54,13 @@ export const authApi = api.injectEndpoints({
         body: profile,
       }),
     }),
+    logout: build.mutation<generalRes, void>({
+      query: () => ({
+        url: '/storefront-customer/logout',
+        method: 'POST',
+        // body: profile,
+      }),
+    }),
     // refreshToken: build.mutation<tokenRefreshResponse, void>({
     //   query: (code) => ({
     //     url: '/storefront-customer/refresh-token',
@@ -74,4 +81,5 @@ export const {
   useSendOtpMutation,
   useVerifyOtpMutation,
   useCompleteProfileMutation,
+  useLogoutMutation,
 } = authApi;

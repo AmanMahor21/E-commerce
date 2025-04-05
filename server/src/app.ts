@@ -10,7 +10,7 @@ import { Container } from 'typedi';
 import { authorizationChecker } from './auth/authorizationChecker';
 import { connectMysql, AppDataSource } from './database/connection';
 import path from 'path';
-
+import { CustomErrorHandler } from './auth/errorHandler';
 useContainer(Container);
 dotenv.config();
 
@@ -39,8 +39,9 @@ connectMysql()
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
       },
+      middlewares: [CustomErrorHandler],
       authorizationChecker: authorizationChecker(),
-      // defaultErrorHandler: true, // ✅ This will send proper error messages
+      defaultErrorHandler: false, // ✅ This will send proper error messages
     });
 
     app.listen(PORT, () => {

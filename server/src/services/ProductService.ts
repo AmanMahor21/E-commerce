@@ -3,6 +3,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions';
 import { Product } from '../models/ProductModel';
 import { Brackets, Like, Repository, getConnection } from 'typeorm';
 import { AppDataSource } from '../database/connection';
+import { ProductRating } from '../models/ProductRating';
 // import { pluginModule } from '../../../../src/loaders/pluginLoader';
 
 // import uncino from 'uncino';
@@ -100,9 +101,6 @@ export class ProductService {
     relations: any = [],
     userId: number
   ): Promise<any> {
-    console.log(userId, 'jhh');
-    // const queryBuilder = this.productRepository.createQueryBuilder('product');
-    // const queryBuilder: any = await getConnection().getRepository(Product).createQueryBuilder('product');
     const queryBuilder = AppDataSource.getRepository(Product).createQueryBuilder('product');
 
     if (select && select.length > 0) {
@@ -111,11 +109,15 @@ export class ProductService {
     queryBuilder
       .leftJoin('product.vendorProducts', 'vendorProduct')
       .leftJoin('vendorProduct.vendor', 'vendor')
-      .leftJoin('product.cart', 'CustomerCart', `CustomerCart.customerId = ${userId}`)
-      .addSelect('ANY_VALUE(vendor.companyName)', 'companyName')
-      .addSelect('MIN(CustomerCart.quantity)', 'cartQuantity');
+      .addSelect('ANY_VALUE(vendor.companyName)', 'companyName');
     // .addSelect('MAX(CustomerCart.id)', 'cartQuantity');
 
+    if (userId) {
+      console.log('on eproducttt ');
+      queryBuilder
+        .leftJoin('product.cart', 'CustomerCart', `CustomerCart.customerId = ${userId}`)
+        .addSelect('MIN(CustomerCart.quantity)', 'cartQuantity');
+    }
     // Join and aggregate for popularity
     if (popularity) {
       queryBuilder
@@ -142,41 +144,37 @@ export class ProductService {
         }
       });
     }
+    console.log(queryBuilder.getQuery());
+    const products = await queryBuilder.getRawMany();
+    return products;
+  }
 
-    // Handle search conditions
-    // if (search && search.length > 0) {
-    //   search.forEach((condition: any) => {
-    //     if (Array.isArray(condition.name) && condition.value && condition.value !== null) {
-    //       const columnCondition = condition.name.map((col: any) => `${col} LIKE :keyword`).join(' OR ');
-    //       queryBuilder.andWhere(`(${columnCondition})`, {
-    //         keyword: `%${condition.value}%`,
-    //       });
-    //     }
-    //   });
-    // }
+  public async getRating(
+    select: any = [],
+    whereConditions: any = [],
+    // relations: any = [],
+    userId: number
+  ): Promise<any> {
+    const queryBuilder = AppDataSource.getRepository(ProductRating).createQueryBuilder('rating');
 
-    // Filter by rating
-    // if (rating && rating > 0) {
-    //   queryBuilder.andWhere('product.rating >= :rating', { rating });
-    // }
-    // // filter by bestdeal
-    // if (bestDeal && bestDeal !== null) {
-    //   queryBuilder.andWhere('product.discount >= :bestDeal', { bestDeal });
-    // }
-    // if (freeDelivery === 'true') {
-    //   queryBuilder.andWhere('JSON_EXTRACT(product.serviceCharges, "$.shippingCost") = :freeOfCost', {
-    //     freeOfCost: 0,
-    //   });
-    // }
-    // // filter by price
-    // if (lowestPrice === 'true') {
-    //   console.log(lowestPrice, 'lowes asd asd s');
-    //   queryBuilder.addOrderBy(`product.price`, 'ASC');
-    // }
-    // // filter by popularity
-    // if (popularity === 'true') {
-    //   queryBuilder.addOrderBy('orderCount', 'DESC');
-    // }
+    if (select && select.length > 0) {
+      queryBuilder.select(select);
+      // queryBuilder.select(select.map((field: string) => field));
+      // queryBuilder.select(select.map((field: string) => `rating.${field}`));
+    }
+
+    if (whereConditions && whereConditions.length > 0) {
+      whereConditions.forEach((ele: any) => {
+        if (ele.op === 'where' && ele.sign === undefined) {
+          queryBuilder.where(`${ele.name} = ${ele.value}`);
+        } else if (ele.op === 'and' && ele.sign === undefined) {
+          queryBuilder.andWhere(`${ele.name} = ${ele.value}`);
+        } else if (ele.op === 'and' && ele.sign !== undefined) {
+          queryBuilder.andWhere(`${ele.name} ${ele.sign} ${ele.value}`);
+        }
+      });
+    }
+    console.log(select, 'mmm');
     console.log(queryBuilder.getQuery());
     const products = await queryBuilder.getRawMany();
     return products;

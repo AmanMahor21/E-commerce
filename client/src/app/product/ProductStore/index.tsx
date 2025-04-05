@@ -1,5 +1,8 @@
 'use client';
 
+// import parse from 'html-react-parser';
+// import he from 'he';
+
 import { setCartItemId } from '@/reduxStore/internalSlice';
 import {
   useAddToCartMutation,
@@ -61,12 +64,15 @@ export default function ProductStore({ product }: ProductStoreProps) {
   // const isAlreadyAdded = product?.some((ele: any) => ele.productId === product.productId);
   return (
     <div className="mt-22">
-      <div className="w-[650px] h-full flex flex-col">
-        <div>
+      <div className="lg:w-[650px] w-full px-2 h-full flex flex-col">
+        <div className="w-full">
           <div className="text-black font-[500] text-[32px] mb-4">{product?.companyName}</div>
           <div className="mb-5">
-            <div className="text-black font-[800] text-[32px] ">{product.name}</div>
-            <div className="text-black font-[500] text-[18px]">{product.description}</div>
+            <div className="text-black font-[800] text-2xl lg:text-[32px] ">{product.name}</div>
+            <div className="text-black font-[500] text-[18px]">
+              {product.description}
+              {/* dangerouslySetInnerHTML={{ __html: String(he.decode(product.description || '')) }} */}
+            </div>
           </div>
         </div>
         <div className="flex justify-start items-center mb-8">
@@ -106,8 +112,8 @@ export default function ProductStore({ product }: ProductStoreProps) {
             <Image src="/DropDownArrowBlack.svg" alt="DropDownArrow Logo" width={25} height={25} />
           </button>
         </div>
-        <Dropdown>
-          <Dropdown.Toggle className="!flex !items-center !justify-between !w-44 !px-4 !py-2 !bg-stone-700 !text-white !border !border-stone-700 hover:!bg-stone-800 focus:!bg-stone-700 focus:!ring-0 active:!bg-stone-800 after:!ml-2 after:!border-t-white">
+        <Dropdown className="hidden">
+          <Dropdown.Toggle className=" !lg:flex !items-center !justify-between !w-44 !px-4 !py-2 !bg-stone-700 !text-white !border !border-stone-700 hover:!bg-stone-800 focus:!bg-stone-700 focus:!ring-0 active:!bg-stone-800 after:!ml-2 after:!border-t-white">
             <span className="flex-1 text-left">Quantity</span>
           </Dropdown.Toggle>
 
@@ -124,7 +130,7 @@ export default function ProductStore({ product }: ProductStoreProps) {
           </Dropdown.Menu>
         </Dropdown>
 
-        <div className="flex gap-4 mt-4">
+        <div className="flex gap-4 mt-4 justify-center">
           <div
             className={`w-[300px] rounded-sm text-white h-[40px] font-[600] text-[22px] flex justify-center items-center ${isAdded || Number(product.cartQuantity) ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-black hover:bg-gray-800'}`}
             onClick={isAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)}

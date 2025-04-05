@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+
 import {
   useAddToCartMutation,
   useGetCartProductsQuery,
@@ -12,20 +14,22 @@ import { usePathname, useRouter } from 'next/navigation';
 
 interface ProductCardProps {
   product: Product;
+  // handleSaveBtn: (e: React.MouseEvent, product: Product) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  // const ProductCard: React.FC<ProductCardProps> = ({ product, handleSaveBtn }) => {
   const BASE_URL = process.env.BASE_URL;
   const cartItem = useSelector((state: any) => state.internal.cartItemId);
 
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
-
   const [saveFavProduct, { data, isLoading, error }] = useSaveFavProductMutation();
-  const [addProdToCart] = useAddToCartMutation();
+
   const [removeFavProduct, { data: response, isLoading: loading, error: err }] =
     useRemoveFavProductMutation();
+  const [addProdToCart] = useAddToCartMutation();
   const { data: cartProducts } = useGetCartProductsQuery();
 
   const internalState = useSelector((state: any) => state.internal);
@@ -50,6 +54,30 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Handle Add to cart btn
   const handleAddTocart = async (e: any) => {
     e.stopPropagation();
+    Swal.fire({
+      position: 'top',
+      icon: 'warning',
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+      },
+      customClass: {
+        popup: 'custom-swal-style', // Apply styles only to this alert
+      },
+      title: 'Please login',
+      showConfirmButton: false,
+      timer: 1500,
+    });
 
     const discountedPrice =
       product?.productDiscount && product.productDiscount > 0
@@ -67,6 +95,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     dispatch(setCartItemId(cartProducts?.data));
   };
 
+  console.log(cartProducts, 'kkkk');
   // Checking product already added in cart
   const isAlreadyAdded = cartProducts?.data?.some(
     (ele: any) => ele.productId === product.productId,
@@ -142,18 +171,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Rating & Wishlist - Now properly aligned to bottom */}
-        <div className="flex flex-row lg:flex-col items-center justify-end lg:justify-between w-full lg:w-auto space-x-4 lg:space-x-0 lg:space-y-4 lg:h-auto">
+        <div className="flex flex-row items-end  justify-end lg:justify-between w-full lg:w-auto space-x-4 lg:space-y-4 lg:h-auto">
           <div className="flex items-center bg-orange-100 px-3 py-1.5 rounded-full">
             <img src="/RatingStarYello.svg" alt="rating" className="w-4 h-4 md:w-5 md:h-5 mr-1" />
             <span className="text-sm md:text-base font-semibold">{product?.rating}</span>
           </div>
 
           <div
-            className={`w-8 h-8 cursor-pointer ${isFavorite ? 'scale-110' : ''}`}
+            className={`w-8 h-8 cursor-pointer ${isAlreadyAdded ? 'scale-110' : ''}`}
+            // onClick={(e) => handleSaveBtn(e, product)}
             onClick={handleSaveBtn}
           >
             <img
-              src={isFavorite ? '/iconoir_heart.svg' : '/Heart.svg'}
+              src={isAlreadyAdded ? '/iconoir_heart.svg' : '/Heart.svg'}
               alt="wishlist"
               className="w-full h-full"
             />
@@ -162,81 +192,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="pb-[28px]">
-  //     <div
-  //       className="flex pt-[25px] h-[300px] shadow-2xl rounded-[12px] px-[45px]"
-  //       onClick={handleProductDetail}
-  //     >
-  //       <div>
-  //         <img src={imageUrl} alt="" className="w-[350px] h-[250px] gap-0 rounded-[8px]" />
-  //       </div>
-  //       <div className="w-[700px] h-[228px] ml-[80px] p-1">
-  //         <div className="w-full h-[27px] font-sans text-[22px] font-medium leading-[26.63px] tracking-[0.02em] mb-[21px]">
-  //           {product?.companyName}
-  //         </div>
-  //         <div className="w-full h-14 font-sans text-[22px] font-extrabold leading-[31.47px] tracking-[0.02em]">
-  //           {product?.name}asd
-  //         </div>
-  //         <div className="flex items-center w-[318px] h-[38px] gap-6 mt-[26px]">
-  //           <div className="flex items-center gap-6">
-  //             <span className="font-serif text-[24px] font-bold ">
-  //               ₹{Math.max(originalPrice - 75, 0)}
-  //             </span>
-  //             <span className="font-serif text-[20px] font-normal text-gray-500 line-through">
-  //               ₹{originalPrice}
-  //             </span>
-  //           </div>
-  //           <div className="w-[102px] h-[38px] rounded-tl-2xl rounded-br-2xl bg-[#D32F2F] p-[10px] flex justify-center items-center">
-  //             <span className="text-white font-sans font-semibold">
-  //               {`${discountPercentage}% OFF`}
-  //             </span>
-  //           </div>
-  //         </div>
-  //         <button
-  //           className={`py-[11.5px] px-[75px] mt-[20px] w-[300px] h-[54px] ${isAlreadyAdded ? 'bg-yellow-800' : 'bg-black'}  text-white font-sans text-[26px] font-semibold leading-[31.47px] tracking-[0.02em] text-center gap-[10px] rounded-[4px] hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400`}
-  //           onClick={isAlreadyAdded ? () => router.push('/cart') : handleAddTocart}
-  //         >
-  //           {isAlreadyAdded ? 'Go to Cart' : 'Add to Cart'}
-  //         </button>
-  //       </div>
-  //       <div className="ml-auto">
-  //         <div className="w-[195px] h-[51px] flex items-center justify-center bg-[#FFE1CE] rounded-[30px] gap-[10px] hover:cursor-pointer">
-  //           <div className="w-[32px] h-[32px]">
-  //             <svg
-  //               width="32"
-  //               height="30"
-  //               viewBox="0 0 32 30"
-  //               fill="none"
-  //               xmlns="http://www.w3.org/2000/svg"
-  //             >
-  //               <path
-  //                 d="M16 0.5L19.5922 11.5557H31.2169L21.8123 18.3885L25.4046 29.4443L16 22.6115L6.59544 29.4443L10.1877 18.3885L0.783095 11.5557H12.4078L16 0.5Z"
-  //                 fill="black"
-  //               />
-  //             </svg>
-  //           </div>
-  //           <span className="font-inter text-2xl font-semibold leading-[31.47px] tracking-[0.02em] items-center decoration-solid decoration-from-font">
-  //             {/* {rating} ({reviews}) */}
-  //             {product?.rating}
-  //           </span>
-  //         </div>
-  //         <div
-  //           className={`w-[26.67px] h-[24px] mt-[131px] ml-[122.67px] hover:cursor-pointer ${isFavorite ? 'w-[37px] h-[37px]' : ''}`}
-  //         >
-  //           <img
-  //             // src="/Heart.svg"
-  //             onClick={handleSaveBtn}
-  //             src={isFavorite ? '/iconoir_heart.svg' : '/Heart.svg'}
-  //             alt="heart"
-  //             className={`w-full h-full `}
-  //           />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default ProductCard;

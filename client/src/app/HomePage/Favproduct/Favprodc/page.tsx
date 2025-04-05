@@ -10,7 +10,7 @@ export default function page() {
           alt="Favorite product"
           width={200}
           height={200}
-          className="w-auto h-[120px] md:h-[150px] object-contain flex-shrink-0"
+          className="w-auto h-[120px] md:h-[150px] object-contain "
         />
       </div>
 

@@ -25,7 +25,7 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
       if (!emblaMainApi) return;
       emblaMainApi.scrollTo(index);
     },
-    [emblaMainApi]
+    [emblaMainApi],
   );
 
   // Update selected index when main carousel changes
@@ -51,15 +51,12 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
     <div className="space-y-4  flex flex-col items-center">
       {/* Main Carousel */}
       <div
-        className="overflow-hidden rounded-lg shadow-lg h-[500px] w-[500px] bg-red-200 flex justify-center items-center"
+        className="overflow-hidden rounded-lg shadow-lg w-full h-full md:h-[500px] md:w-[500px] bg-red-200 flex justify-center items-center"
         ref={emblaMainRef}
       >
         <div className="flex">
           {slides.map((src, index) => (
-            <div
-              key={index}
-              className="flex-[0_0_100%]   flex justify-center items-center "
-            >
+            <div key={index} className="flex-[0_0_100%]   flex justify-center items-center ">
               <Image
                 src={src}
                 width={800}

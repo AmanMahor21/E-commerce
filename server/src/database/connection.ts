@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
   logging: false,
   subscribers: [],
   entities: [path.join(__dirname, '/../models/*.ts')],
-  // migrations: Object.values(migrations),
+  migrations: Object.values(migrations),
 
   // entities: Object.values(entit) as Function[], // Ensure entities are correctly loaded
 });

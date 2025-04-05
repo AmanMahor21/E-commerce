@@ -23,9 +23,12 @@ export const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, add
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 mt-16 pt-0">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/30 mt-16 pt-0">
       <div className="bg-white p-6 rounded-lg shadow-lg w-3/5 relative mt-5">
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-500 pr-3 text-2xl">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 pr-3 text-2xl hover:text-gray-600"
+        >
           ×
         </button>
         <h2 className="text-xl font-bold mb-4">Edit Address</h2>
@@ -186,10 +189,16 @@ export const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, add
         </div>
 
         <div className="flex justify-end mt-6">
-          <button onClick={onClose} className="mr-2 bg-gray-300 px-4 py-2 rounded">
+          <button
+            onClick={onClose}
+            className="mr-2 bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded"
+          >
             Cancel
           </button>
-          <button onClick={handleSave} className="bg-violet-500 text-white px-4 py-2 rounded">
+          <button
+            onClick={handleSave}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded"
+          >
             Save
           </button>
         </div>

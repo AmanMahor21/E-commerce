@@ -7,10 +7,9 @@ import Slide1 from './Slide1/page';
 import Slide2 from './Slide2/page';
 import Slide3 from './Slide3/page';
 export default function Page() {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, dragFree: true },
-    [Autoplay({ delay: 5000 })]
-  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, dragFree: true }, [
+    Autoplay({ delay: 5000 }),
+  ]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dots, setDots] = useState<number[]>([]);
@@ -31,7 +30,9 @@ export default function Page() {
   return (
     <div className="relative ">
       {/* Carousel Wrapper */}
-      <div className="overflow-hidden w-[70vw] h-full" ref={emblaRef}>
+      {/* <div className="overflow-hidden w-[70vw] h-full"> */}
+      {/* <div className="overflow-hidden w-[75vw] h-full"> */}
+      <div className="overflow-hidden w-[75vw] md:w-[80vw] h-full" ref={emblaRef}>
         <div className="flex">
           {/* Use Slide Components */}
           <Slide1 />

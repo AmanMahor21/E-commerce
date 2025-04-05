@@ -1,4 +1,4 @@
-import ProductCard from './Product/page'; // Adjust the import path based on your file structure
+import { ProductCard } from './Product/ProductCard'; // Adjust the import path based on your file structure
 
 export default function Page() {
   const products = [
@@ -23,16 +23,32 @@ export default function Page() {
   ];
 
   return (
-    <div className="flex items-center justify-around w-full">
-      {products.map((product, index) => (
-        <ProductCard
-          key={index}
-          price={product.price}
-          name={product.name}
-          mainImage={product.mainImage}
-          bannerImage={product.bannerImage}
-        />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-wrap justify-center lg:justify-around gap-4">
+        {products.map((product, index) => (
+          <div key={index} className="">
+            <ProductCard
+              price={product.price}
+              name={product.name}
+              mainImage={product.mainImage}
+              bannerImage={product.bannerImage}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
+  // return (
+  //   <div className="flex items-center justify-around w-3/4">
+  //     {products.map((product, index) => (
+  //       <ProductCard
+  //         key={index}
+  //         price={product.price}
+  //         name={product.name}
+  //         mainImage={product.mainImage}
+  //         bannerImage={product.bannerImage}
+  //       />
+  //     ))}
+  //   </div>
+  // );
 }

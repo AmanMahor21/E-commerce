@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { MapPin, PenSquare } from 'lucide-react';
 import Sidebar from '../Sidebar/page';
-import { AddAddressForm } from '../adress/add-adress';
+import { AddAddressForm } from './add-adress';
 import { useGetAddressListQuery, useUpdateAddressMutation } from '@/services/api';
 import { GetAddress } from '@/services/types';
 import { AddressModal } from '../components/AddressModal';
@@ -152,7 +152,7 @@ export default function Page() {
   return (
     <div className="flex min-h-screen bg-gray-50 mt-[96px]">
       <Sidebar />
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 w-full">
         <div className="bg-green-600 text-white p-4 rounded-lg mb-6 flex items-center gap-3">
           <MapPin className="w-6 h-6" />
           <h1 className="text-xl font-semibold">Saved addresses</h1>

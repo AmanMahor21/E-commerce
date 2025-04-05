@@ -9,8 +9,10 @@
   margin: 0;
 }
 
-html {
+html,
+body {
   overflow: visible !important;
+  background: rgb(202, 202, 245) !important;
 }
 /* Standard */
 .no-spinner {
@@ -19,4 +21,13 @@ html {
 
 .removeOnFocus:focus {
   outline: none;
+}
+
+.custom-swal-style {
+  /* color: white !important; */
+  width: 400px !important;
+  top: 100px !important;
+  left: 50% !important;
+  transform: translate(-50%, 0);
+  /* color: rgb(75, 72, 72) !important; */
 }

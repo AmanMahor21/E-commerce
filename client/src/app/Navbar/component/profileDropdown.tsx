@@ -23,7 +23,7 @@ export const Dropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed md:absolute left-0 md:-left-28 top-16 md:top-9 w-full md:w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden">
+        <div className="fixed md:absolute -right-0 md:-left-28 top-[70px] md:top-9 w-[50%] md:w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden">
           <ul className="py-1">
             {[
               { name: 'About me', path: '/Profile/user' },

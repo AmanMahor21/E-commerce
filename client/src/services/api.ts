@@ -9,6 +9,7 @@ import {
   categoryList,
   AddToCart,
 } from './types';
+import { baseQueryWithReauth } from './baseQuery/reduxInterceptor';
 
 export interface ProductRatingResponse {
   status: number;
@@ -65,17 +66,18 @@ export interface GetCartProductsResponse {
 }
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000/api/',
-    credentials: 'include',
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  // baseQuery: fetchBaseQuery({
+  //   baseUrl: 'http://localhost:8000/api/',
+  //   credentials: 'include',
+  //   prepareHeaders: (headers) => {
+  //     const token = localStorage.getItem('token');
+  //     if (token) {
+  //       headers.set('Authorization', `Bearer ${token}`);
+  //     }
+  //     return headers;
+  //   },
+  // }),
+  baseQuery: baseQueryWithReauth,
 
   // baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: 'api',
@@ -90,8 +92,8 @@ export const api = createApi({
     'cart',
   ],
   endpoints: (build) => ({
-    getProductRating: build.query<ProductRating[], { productId: number }>({
-      query: ({ productId }) => `storefront/product-rating/${productId}`,
+    getProductRating: build.query<ProductRating[], number>({
+      query: (productId) => `storefront-product/product-detail/rating/${productId}`,
       transformResponse: (response: ProductRatingResponse) => response.data,
       providesTags: (result) =>
         result
@@ -172,9 +174,9 @@ export const api = createApi({
       query: () => {
         return {
           url: `/favorites/list`,
-          headers: {
-            Authorization: `Bearer U2FsdGVkX1/QOBzMqbixfhT58ra6pSS+A+JAz7Umbhrm8xcKwXcvYBTup7enUiMc5D8xvzJltuodk1eeke4gE3v5diyLXr1/1mir7JysvtXQS8yejRixbMqKnv+19OdIGXTW6KbaEvhm04ckSnXd2ViqrfZ+VojnUAlOaTAjo9M7Gw9gJNTyYfWCwjfwygjKuRy2auaqdFbFDlTRRPQdRA==`,
-          },
+          // headers: {
+          //   Authorization: `Bearer U2FsdGVkX1/QOBzMqbixfhT58ra6pSS+A+JAz7Umbhrm8xcKwXcvYBTup7enUiMc5D8xvzJltuodk1eeke4gE3v5diyLXr1/1mir7JysvtXQS8yejRixbMqKnv+19OdIGXTW6KbaEvhm04ckSnXd2ViqrfZ+VojnUAlOaTAjo9M7Gw9gJNTyYfWCwjfwygjKuRy2auaqdFbFDlTRRPQdRA==`,
+          // },
         };
       },
       providesTags: ['ProductFavourite'],

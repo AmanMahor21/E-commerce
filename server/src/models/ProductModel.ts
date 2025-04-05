@@ -27,6 +27,7 @@ import { ProductVideo } from './ProductVideo';
 import { ProductTranslation } from './ProductTranslation';
 import { ProductFavorites } from './ProductFavorites';
 import { VendorProductFavorites } from './VendorProductFavourite';
+import { ProductRating } from './ProductRating';
 
 @Entity('product')
 export class Product extends BaseModel {
@@ -243,6 +244,9 @@ export class Product extends BaseModel {
 
   @OneToMany((type) => ProductVideo, (productvideo) => productvideo.product)
   public productVideo: ProductVideo[];
+
+  @OneToMany((type) => ProductRating, (productRating) => productRating.product)
+  public productRating: ProductRating[];
 
   @OneToMany((type) => ProductFavorites, (productFavorites) => productFavorites.product)
   public productFavorites: ProductFavorites[];

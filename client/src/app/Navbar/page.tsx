@@ -230,7 +230,13 @@ export default function Page() {
             className="flex items-center cursor-pointer"
             onClick={() => router.push('/HomePage')}
           >
-            <Image src="/logo.png" alt="YumMate logo" width={50} height={50} />
+            <Image
+              src="/logo.png"
+              alt="YumMate logo"
+              width={50}
+              height={50}
+              className="w-8 h-8 lg:w-14 lg:h-14 inline-block"
+            />
           </div>
 
           {/* Address */}
@@ -243,14 +249,16 @@ export default function Page() {
               alt="Location logo"
               width={20}
               height={20}
-              className="mr-1"
+              className="mr-1 "
               style={{ filter: 'brightness(0) invert(1)' }}
             />
-            <p className="text-sm lg:text-base font-medium">Deliver to choose Location</p>
+            <p className="text-sm hidden lg:flex lg:text-base font-medium">
+              Deliver to choose Location
+            </p>
           </div>
 
           {/* Search Bar */}
-          <div className="w-full max-w-[700px] flex items-center bg-slate-700 rounded-lg p-2">
+          <div className=" w-[70%] max-w-[700px] flex items-center bg-slate-700 rounded-lg p-2">
             <input
               type="text"
               value={productName}
@@ -269,13 +277,19 @@ export default function Page() {
                 onClick={handleProductSearch}
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
-              <Image src="/Vertical_Line.svg" alt="Divider" width={20} height={20} />
+              <Image
+                src="/Vertical_Line.svg"
+                alt="Divider"
+                width={20}
+                height={20}
+                className="hidden lg:flex"
+              />
               <img
                 src={listening ? '/BlueMic.svg' : '/Mic.svg'}
                 alt="Mic"
                 width={23}
                 height={23}
-                className="cursor-pointer"
+                className="cursor-pointer hidden lg:flex"
                 onClick={handleSpeech}
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
@@ -283,13 +297,14 @@ export default function Page() {
           </div>
 
           {/* Orders & Cart */}
-          <div className="flex items-center gap-20">
+          <div className=" items-center gap-10 xl:gap-20 hidden xl:flex px-3">
             <div
               className="hidden md:flex items-center text-lg font-medium cursor-pointer text-gray-300 hover:text-white"
               onClick={() => router.push('/Profile/orders')}
             >
-              Orders{' '}
+              Orders
               <Image
+                // className="hidden xl:flex"
                 src="/Orders.svg"
                 alt="Orders"
                 width={30}
@@ -321,17 +336,18 @@ export default function Page() {
           </div>
 
           {/* SignUp/Login */}
-          {!internalState?.mail && (
+          {!internalState?.mail ? (
             <div className="hidden lg:flex">
               <div
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-md cursor-pointer transition-all duration-200"
+                className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-md cursor-pointer transition-all duration-200"
                 onClick={() => router.push('/login')}
               >
                 SignUp/Login
               </div>
             </div>
+          ) : (
+            <Dropdown />
           )}
-          <Dropdown />
         </div>
       </div>
       {isOpenAddress && <AddressPopup onClose={() => setIsOpenAddress(false)} />}

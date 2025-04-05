@@ -78,10 +78,12 @@ export default function Page() {
       </div>
 
       {/* Footer Line */}
-      <div className="w-10/12 border-t border-blue-400 my-5"></div>
+      <div className="w-10/12 border-t border-blue-400"></div>
 
       {/* Copyright Text */}
-      <p className="text-lg font-medium pb-6">© 2024 All rights reserved. YumMate Private Ltd.</p>
+      <p className="text-md md:text-lg font-medium py-6">
+        © 2024 All rights reserved. YumMate Private Ltd.
+      </p>
     </div>
   );
 }

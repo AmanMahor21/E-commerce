@@ -28,16 +28,16 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-800">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-800 px-3">
       {/* Logo */}
       <div className="mb-6">
         <Image src="/Logo.svg" alt="TastEzy logo" width={150} height={150} />
       </div>
 
       {/* OTP Container */}
-      <div className="flex flex-col md:flex-row items-center bg-slate-700/50 shadow-lg rounded-lg p-10 w-full max-w-4xl focus-within:ring-1 focus-within:ring-orange-500">
+      <div className="flex flex-col lg:flex-row items-center bg-slate-700/50 shadow-lg rounded-lg p-10 w-full max-w-4xl focus-within:ring-1 focus-within:ring-orange-500">
         {/* OTP Image (Hidden on Small Screens) */}
-        <div className="hidden md:block w-1/2">
+        <div className="hidden lg:block w-1/2">
           <Image src="/Otp.svg" alt="OTP Image" width={350} height={350} />
         </div>
 

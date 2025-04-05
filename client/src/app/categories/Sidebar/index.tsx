@@ -58,7 +58,9 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
   }, [!internalState?.isCategoryActive]);
 
   return (
-    <div className="pr-[18px] hidden lg:block">
+    // <div className="pr-[18px] pl-12 hidden lg:block fixed top-0 left-0 h-screen overflow-y-auto">
+    <div className="pr-[18px] pl-12 hidden lg:block fixed h-screen">
+      {/* <div className="w-[304px] flex flex-col"> */}
       <div className="w-[304px] h-[65px] flex flex-col">
         <ul>
           {categories?.data?.map((item) => (

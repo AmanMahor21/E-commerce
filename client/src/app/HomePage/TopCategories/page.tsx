@@ -27,7 +27,7 @@ export default function CategoryPage({ categories }: PageProps) {
 
   return (
     <>
-      <div className="h-80 w-[250px] bg-white rounded-xl p-6 drop-shadow-2xl border-[0.5px] border-slate-500">
+      <div className="h-80 w-[250px] bg-white rounded-xl p-6 drop-shadow-2xl border-[0.5px] border-slate-500 hidden lg:block">
         <h1 className="text-black text-[18px] font-[700] mb-6">Top Categories</h1>
         {categories.length > 0 ? (
           <ul className="list-none ml-0">

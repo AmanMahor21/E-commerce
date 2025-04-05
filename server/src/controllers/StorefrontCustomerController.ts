@@ -144,6 +144,7 @@ export class StorefrontController {
         status: 1,
         message: 'OTP sent successfully!',
         data: sendMail,
+        alreadyCustomer: customer ?? customer,
       });
     } else {
       return response.status(200).send({
@@ -788,6 +789,35 @@ export class StorefrontController {
       const errorResponse: any = {
         status: 0,
         message: 'Login Information provided is invalid',
+      };
+      return response.status(400).send(errorResponse);
+    }
+  }
+
+  @Post('/logout')
+  public async logout(
+    // @Body({ validate: true }) loginParam: UserLogin,
+    @Req() request: any,
+    @Res() response: any
+  ): Promise<any> {
+    const { _Tt, _Trt } = request.cookies;
+    console.log(_Tt, _Trt, 'kkkkkk');
+    if (!_Tt || !_Trt) {
+      return response.status(400).send({ error: 'Cookie not found' });
+    }
+    response.clearCookie('_Tt');
+    response.clearCookie('_Trt');
+    console.log('JWT_SECRET:', process.env.JWT_SECRET);
+    if (_Tt) {
+      const succesRes = {
+        status: 1,
+        message: ' User successfully logout',
+      };
+      return response.status(200).send(succesRes);
+    } else {
+      const errorResponse: any = {
+        status: 0,
+        message: 'User failed to logout',
       };
       return response.status(400).send(errorResponse);
     }

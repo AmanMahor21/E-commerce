@@ -74,7 +74,7 @@ export class StorefrontProductController {
 
   // Product List API
   @Get()
-  @Authorized('customer')
+  // @Authorized('customer')
   public async ProductList(
     @QueryParam('limit') limit: number,
     @QueryParam('offset') offset: number,
@@ -143,9 +143,10 @@ export class StorefrontProductController {
 
   // Get single product API
   @Get('/product-detail/:id')
-  @Authorized('customer')
+  // @Authorized('customer')
   public async getProduct(@Param('id') id: number, @Res() response: any, @Req() request: any): Promise<any> {
-    console.log(request.body.userId, 'kkkkkk');
+    // console.log(request.body.userId, 'kkkkkk');
+    console.log(id, 'idddkkkkkkasd');
     const userId = request.body.userId;
     const select = [
       'product.product_id AS productId',
@@ -208,8 +209,76 @@ export class StorefrontProductController {
       return response.status(400).send(errorResponse);
     }
   }
+  // Get rating for single product
+  @Get('/product-detail/rating/:id')
+  // @Authorized('customer')
+  public async getProductRating(
+    @Param('id') id: number,
+    @Res() response: any,
+    @Req() request: any
+  ): Promise<any> {
+    // console.log(request.body.userId, 'kkkkkk');
+    console.log(id, 'ratinggggggggggg');
+    const userId = request.body.userId;
+    // const select = [
+    //   'rating.product_id AS productId',
+    //   'rating.first_name AS firstName',
+    //   'rating',
+    //   'review',
+    //   'rating.last_name AS lastName',
+    //   'rating.is_active AS isActive',
+    //   // 'rating.price AS price',
+    // ];
+    const select = [
+      'rating.product_id AS productId',
+      'rating.first_name AS firstName',
+      'rating.last_name AS lastName',
+      'rating.is_active AS isActive',
+      'rating.review AS review',
+      'rating.rating AS rating',
+    ];
+
+    const filter = { product_id: id };
+
+    const whereConditions = [];
+    whereConditions.push({
+      name: 'rating.product_id',
+      op: 'where',
+      value: id,
+    });
+
+    // const relations = [
+    //   {
+    //     table: 'product.cart',
+    //     alias: 'CustomerCart',
+    //   },
+    // ];
+
+    const fetchedProducts: any = await this.productService.getRating(
+      select,
+      // popularity,
+      whereConditions,
+      // relations,
+      userId
+    );
+    if (fetchedProducts.length > 0) {
+      const successResponse: any = {
+        status: 1,
+        message: 'Successfully got all product list',
+        data: fetchedProducts,
+      };
+      return response.status(200).send(successResponse);
+    } else {
+      const errorResponse: any = {
+        status: 1,
+        message: 'Unable to get product List',
+      };
+      return response.status(400).send(errorResponse);
+    }
+  }
+
   @Get('/category')
-  @Authorized(['customer'])
+  // @Authorized(['customer'])
   public async getCategory(
     @Req() request: any,
     @Res() response: any,
@@ -217,9 +286,9 @@ export class StorefrontProductController {
     @QueryParam('offset') offset: number = 0
   ): Promise<any> {
     const userId = request.body.userId;
-    if (!userId) {
-      return response.status(400).send('user id or product id is missing');
-    }
+    // if (!userId) {
+    //   return response.status(400).send('user id or product id is missing');
+    // }
     const select = ['categoryId', 'name', 'parentInt', 'sortOrder', 'imagePath', 'image', 'categorySlug'];
 
     const relation = [];

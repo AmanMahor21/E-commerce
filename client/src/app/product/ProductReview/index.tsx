@@ -3,11 +3,17 @@
 import Image from 'next/image';
 import { useGetProductRatingQuery } from '@/services/api';
 import { ProductRating } from '@/services/types';
+import { useParams } from 'next/navigation';
 
 export default function ProductReview({ productId }: { productId: number }) {
   // Fetch product ratings using the RTK Query hook
-  const { data: productRatings, isLoading, error } = useGetProductRatingQuery({ productId });
+  const param = useParams();
+  const slugArray = param.slug ?? [];
+  const id = slugArray[slugArray.length - 1];
+  const { data: productRatings, isLoading, error } = useGetProductRatingQuery(productId);
 
+  console.log(id, 'idddddddddd');
+  console.log(productRatings, 'productRatings');
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -18,8 +24,8 @@ export default function ProductReview({ productId }: { productId: number }) {
 
   return (
     <div>
-      {productRatings.map((review: ProductRating) => (
-        <div key={review.ratingId} className="mb-6">
+      {productRatings.map((review: ProductRating, ind) => (
+        <div key={ind} className="mb-6">
           <div className="flex justify-between items-center mt-6">
             <div className="text-[20px] font-bold text-black">
               {`${review.firstName} ${review.lastName || ''}`}

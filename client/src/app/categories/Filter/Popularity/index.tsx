@@ -1,3 +1,47 @@
+// 'use client';
+// import { setProductFilter } from '@/reduxStore/productCategorizeSlice';
+// import React, { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { useLazyGetFilterProductsQuery } from '@/services/api';
+// import { useSelector } from 'react-redux';
+
+// const PopularityFilter = () => {
+//   const [isActive, setIsActive] = useState(false);
+//   const dispatch = useDispatch();
+//   const filters = useSelector((state: any) => state.product);
+//   const [fetchProducts, { data }] = useLazyGetFilterProductsQuery();
+
+//   const toggleActive = () => {
+//     setIsActive((prev) => !prev);
+//   };
+
+//   // Toggle the state on the basis of popularity btn
+//   useEffect(() => {
+//     dispatch(setProductFilter({ popularity: isActive }));
+//   }, [isActive]);
+
+//   const resetActive = (e: React.MouseEvent) => {
+//     e.stopPropagation();
+//     dispatch(setProductFilter({ ...filters, popularity: false }));
+//     setIsActive(false);
+//   };
+
+//   return (
+//     <div className="flex lg:pb-5 lg:pl-5 w-full justify-center">
+//       <div
+//         onClick={toggleActive}
+//         className={`relative lg:py-2 lg:border-[2px] lg:p-3 flex items-center rounded-[8px] text-lg lg:text-[26px] font-medium tracking-[0.02em] decoration-skip-ink-none decoration-from-font cursor-pointer ${
+//           isActive ? 'bg-[#FF7F32] text-white border-[#FF7F32]' : 'border-black'
+//         } w-auto min-w-[120px] max-w-[300px]`}
+//       >
+//         <span className="lg:mr-4 lg:ml-1 w-full flex justify-center">Popular</span>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PopularityFilter;
+
 'use client';
 import { setProductFilter } from '@/reduxStore/productCategorizeSlice';
 import React, { useEffect, useState } from 'react';
@@ -27,14 +71,14 @@ const PopularityFilter = () => {
   };
 
   return (
-    <div className="flex pb-5 pl-5">
+    <div className="flex lg:w-fit items-center w-full lg:h-fit justify-center">
       <div
         onClick={toggleActive}
-        className={`relative py-4 h-[44px] border-[2px] p-3 flex items-center rounded-[8px] text-[26px] font-medium tracking-[0.02em] decoration-skip-ink-none decoration-from-font cursor-pointer ${
-          isActive ? 'bg-[#FF7F32] text-white border-[#FF7F32]' : 'border-black'
+        className={`relative h-fit  lg:w-fit flex lg:pt-[2px]  items-center rounded-[8px] text-sm lg:text-sm font-medium tracking-[0.02em] decoration-skip-ink-none decoration-from-font cursor-pointer ${
+          isActive ? ' text-orange-400 underline lg:font-bold border-[#FF7F32]' : 'border-black'
         } w-auto min-w-[120px] max-w-[300px]`}
       >
-        <span className="mr-4 ml-1">Popular</span>
+        <span className=" lg:ml-1 w-full flex justify-center">Popularity</span>
       </div>
     </div>
   );
