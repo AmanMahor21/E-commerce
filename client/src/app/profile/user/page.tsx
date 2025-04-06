@@ -5,12 +5,15 @@ import { useCompleteProfileMutation, useLogoutMutation } from '@/services/authAp
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import internal from 'stream';
+import { setUser } from '@/reduxStore/internalSlice';
+import { useDispatch } from 'react-redux';
 
 export default function ProfilePage() {
   const [setProfile] = useCompleteProfileMutation();
   const router = useRouter();
   const customer = useSelector((state: any) => state.internal.customerInfo);
   const [logoutRes] = useLogoutMutation();
+  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
     fName: customer?.firstName || '',
@@ -29,6 +32,7 @@ export default function ProfilePage() {
     e.preventDefault();
     const savedUser = await setProfile({ ...userInfo });
     if (savedUser?.data?.data) {
+      dispatch(setUser(userInfo));
       setUserInfo({
         fName: '',
         lName: '',
@@ -39,6 +43,7 @@ export default function ProfilePage() {
     // Add API call to save the profile data
   };
   const handleLogout = () => {
+    dispatch(setUser(null));
     logoutRes();
   };
 

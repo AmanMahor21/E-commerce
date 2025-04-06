@@ -1,5 +1,5 @@
 'use client';
-import TopCategories from './TopCategories/page';
+import CategoryPage from './TopCategories/topCategories';
 import Festive from './Festive/page';
 import Starting from './Starting/page';
 import Carousel from './Carousel/page';
@@ -30,7 +30,7 @@ function Page() {
       {/* HERO SECTION */}
       <div className="w-full h-full p-10 flex bg-gradient-to-b from-[#FFCB00] to-[#FFFFFF]  justify-around  ">
         <div>
-          <TopCategories categories={categories?.data || []} />
+          <CategoryPage categories={categories?.data || []} />
           {/* <TopCategories categories={categoriesWithImages} /> */}
         </div>
         <div className="flex-col flex justify-around">

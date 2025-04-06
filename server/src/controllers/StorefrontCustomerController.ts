@@ -92,11 +92,10 @@ export class StorefrontController {
     @Res() response: any,
     @Req() request: any
   ): Promise<any> {
-    console.log(authInfo.emailId, 'mme');
-
     const customer = await this.customerService.findOne({
       where: { email: authInfo.emailId, deleteFlag: 0 },
     });
+    console.log(customer, 'mmmmmmm');
     if (!customer) {
       const newCustomer = new Customer();
       newCustomer.email = authInfo.emailId;
@@ -144,7 +143,6 @@ export class StorefrontController {
         status: 1,
         message: 'OTP sent successfully!',
         data: sendMail,
-        alreadyCustomer: customer ?? customer,
       });
     } else {
       return response.status(200).send({
@@ -208,6 +206,8 @@ export class StorefrontController {
         return response.status(200).send({
           status: 1,
           message: 'OTP is verified',
+          alreadyCustomer: !customer.firstName ? customer : '',
+          data: customer,
         });
       } else {
         return response.status(200).send({

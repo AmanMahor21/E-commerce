@@ -27,32 +27,32 @@ const routes = [
   {
     label: 'Orders',
     icon: CustomDocumentIcon,
-    href: '/Profile/orders',
+    href: '/profile/orders',
   },
   {
     label: 'Address',
     icon: MapPin,
-    href: '/Profile/adress',
+    href: '/profile/adress',
   },
   {
     label: 'Favorites',
     icon: Heart,
-    href: '/Profile/fav',
+    href: '/profile/fav',
   },
   {
     label: 'Saved Payments',
     icon: CreditCard,
-    href: '/Profile/payments',
+    href: '/profile/payments',
   },
   {
     label: 'Customer Care',
     icon: CustomBellIcon,
-    href: '/Profile/customercare',
+    href: '/profile/customercare',
   },
   {
     label: 'General Terms',
     icon: CustomMailIcon,
-    href: '/Profile/terms',
+    href: '/profile/terms',
   },
 ];
 

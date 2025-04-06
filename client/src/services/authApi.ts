@@ -19,6 +19,8 @@ export interface generalRes {
 export interface verifyOtpResponse {
   status: number;
   message: string;
+  alreadyCustomer: string;
+  data?: string;
 }
 export interface TokenRefreshResponse {
   status: number;

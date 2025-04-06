@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import { categoryList } from '@/services/types';
 import { useDispatch } from 'react-redux';

@@ -38,17 +38,4 @@ export default function Page() {
       </div>
     </>
   );
-  // return (
-  //   <div className="flex items-center justify-around w-3/4">
-  //     {products.map((product, index) => (
-  //       <ProductCard
-  //         key={index}
-  //         price={product.price}
-  //         name={product.name}
-  //         mainImage={product.mainImage}
-  //         bannerImage={product.bannerImage}
-  //       />
-  //     ))}
-  //   </div>
-  // );
 }

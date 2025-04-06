@@ -300,7 +300,7 @@ export default function Page() {
           <div className=" items-center gap-10 xl:gap-20 hidden xl:flex px-3">
             <div
               className="hidden md:flex items-center text-lg font-medium cursor-pointer text-gray-300 hover:text-white"
-              onClick={() => router.push('/Profile/orders')}
+              onClick={() => router.push('/profile/orders')}
             >
               Orders
               <Image
@@ -336,7 +336,7 @@ export default function Page() {
           </div>
 
           {/* SignUp/Login */}
-          {!internalState?.mail ? (
+          {!internalState?.customerInfo?.fName ? (
             <div className="hidden lg:flex">
               <div
                 className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-md cursor-pointer transition-all duration-200"

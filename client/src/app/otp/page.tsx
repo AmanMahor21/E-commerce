@@ -1,9 +1,11 @@
 'use client';
 
+import { setUser } from '@/reduxStore/internalSlice';
 import { useSendOtpMutation, useVerifyOtpMutation } from '@/services/authApi';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 export default function Page() {
@@ -12,6 +14,7 @@ export default function Page() {
   const [sendRandomOtp] = useSendOtpMutation();
   const [matchotp] = useVerifyOtpMutation();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   // Resend OTP
   const resendOtp = async () => {
@@ -22,9 +25,17 @@ export default function Page() {
   const verifyOtp = async () => {
     if (!email || !code) return;
     const verifyRes = await matchotp({ mail: email, otp: code }).unwrap();
-    if (verifyRes.status === 1) {
-      router.push('/Profile');
-    }
+    console.log(verifyRes, 'bbbbb');
+    const customer = {
+      fName: (verifyRes.data as any).firstName,
+      lName: (verifyRes.data as any).lastName,
+      mobile: (verifyRes.data as any).mobileNumber,
+      gender: (verifyRes.data as any).gender,
+    };
+    // console.log(customer, 'customercustomercustomer');
+    verifyRes.status == 1 ? dispatch(setUser(customer)) : '';
+
+    verifyRes.alreadyCustomer == '' ? router.push('/') : router.push('/profile');
   };
 
   return (

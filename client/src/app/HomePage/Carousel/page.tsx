@@ -30,8 +30,7 @@ export default function Page() {
   return (
     <div className="relative ">
       {/* Carousel Wrapper */}
-      {/* <div className="overflow-hidden w-[70vw] h-full"> */}
-      {/* <div className="overflow-hidden w-[75vw] h-full"> */}
+      {/* <div className="overflow-hidden w-[75vw] md:w-[80vw] h-full"> */}
       <div className="overflow-hidden w-[75vw] md:w-[80vw] h-full" ref={emblaRef}>
         <div className="flex">
           {/* Use Slide Components */}

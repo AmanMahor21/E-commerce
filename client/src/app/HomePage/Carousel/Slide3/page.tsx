@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <div className="md:min-w-[50%] lg:min-w-[33.33%] min-w-full p-4 flex justify-center items-center">
+    <div className=" lg:min-w-[33.33%] min-w-full p-4 flex justify-center items-center">
       <div className="flex flex-row flex-wrap justify-start items-start rounded-lg p-4 relative bg-gradient-to-b to-[#994C1E] from-[#FF7F32]">
         <div className="w-[220px] text-[20px] items-start  justify-start flex font-[800] text-black pb-2">
           Enjoy flat 20% OFF at Sitara Foods
@@ -16,8 +16,8 @@ export default function Page() {
           <Image
             src="/Offer3.svg"
             alt="Offer3 logo"
-            width={50}
-            height={50}
+            width={60}
+            height={60}
             // className="absolute bottom-2 right-4"
             className="  lg:block "
           />

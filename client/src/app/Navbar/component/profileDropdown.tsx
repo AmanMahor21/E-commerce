@@ -26,12 +26,12 @@ export const Dropdown = () => {
         <div className="fixed md:absolute -right-0 md:-left-28 top-[70px] md:top-9 w-[50%] md:w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden">
           <ul className="py-1">
             {[
-              { name: 'About me', path: '/Profile/user' },
-              { name: 'Address', path: '/Profile/adress' },
-              { name: 'Wishlist', path: '/Profile/fav' },
-              { name: 'Orders', path: '/Profile/orders' },
-              { name: 'Payment', path: '/Profile/payments' },
-              { name: 'Customer Care', path: '/Profile/customercare' },
+              { name: 'About me', path: '/profile/user' },
+              { name: 'Address', path: '/profile/adress' },
+              { name: 'Wishlist', path: '/profile/fav' },
+              { name: 'Orders', path: '/profile/orders' },
+              { name: 'Payment', path: '/profile/payments' },
+              { name: 'Customer Care', path: '/profile/customercare' },
             ].map((item) => (
               <li key={item.name}>
                 <button
