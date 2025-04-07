@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/HomePage/Carousel/Slide1"
+    "src/app/homepage/Carousel/Slide1"
   ],
   "exclude": ["node_modules"]
 }

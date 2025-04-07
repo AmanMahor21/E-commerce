@@ -1,11 +1,11 @@
 'use client';
 
-import Location from './Location/page';
-import Address from './Address/page';
+import Location from './Location/LocationPage';
+import Address from './Address/addressInput';
 import OrderSummary from './OrderSummary/page';
-import BillInvoice from './Bill_Invoice/page';
+import BillInvoice from './Bill_Invoice/BillPage';
 import AddressForm from './AddressForm/page';
-import ChangeLocation from './ChangeLocation/page';
+import ChangeLocation from './ChangeLocation/ChangeLocation';
 import { useEffect, useState } from 'react';
 import { useGetAddressListQuery, useGetCartProductsQuery } from '@/services/api';
 

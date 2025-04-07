@@ -1,8 +1,8 @@
 'use client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'regenerator-runtime/runtime';
-import HomePage from './HomePage/page';
-import Navbar from './Navbar/page';
+import HomePage from './homepage/page';
+import Navbar from './navbar/page';
 // import useAuth from '@/utils/useAuth';
 import { useLazyRefreshTokenQuery } from '@/services/authApi';
 

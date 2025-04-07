@@ -52,11 +52,11 @@ export default function Categories() {
   // };
 
   return (
-    <div className="py-[125px]  dark: bg-white text-black">
+    <div className="pb-[125px] pt-24  dark: bg-white text-black">
       <div className="flex">
         {/* Pass setActiveName as a prop */}
         <Sidebar setActiveName={setActiveName} />
-        <div className="w-full  ">
+        <div className="w-full  pt-4">
           <div className=" flex px-[54px] lg:w-full justify-around flex-wrap gap-2 pb-3">
             <div className="text-[24px] hidden font-semibold mb-4  items-center justify-center w-[20%]">
               {activeName}

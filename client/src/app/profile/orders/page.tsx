@@ -45,12 +45,11 @@ const orders: Order[] = [
 export default function OrdersPage() {
   const router = useRouter();
   return (
-    <div className="flex flex-col md:flex-row bg-gray-50 mt-24 ">
+    <div className="flex flex-col md:flex-row bg-gray-50 mt-24 min-h-screen">
       <Sidebar />
 
-      <main className="flex-1 p-4 md:p-6 flex flex-col relative">
-        {/* Orders Container with constrained height */}
-        <div className="w-full space-y-6 mb-20">
+      <main className="w-full flex flex-col justify-between">
+        <div className="w-full space-y-6 px-4 md:px-6">
           {orders.map((order) => (
             <div
               key={order.id}
@@ -77,7 +76,11 @@ export default function OrdersPage() {
                     {index === 0 && (
                       <div className="sm:text-right w-full sm:w-auto mt-2 sm:mt-0">
                         <p
-                          className={`font-medium ${order.delivery.includes('expected') ? 'text-yellow-600' : 'text-green-600'}`}
+                          className={`font-medium ${
+                            order.delivery.includes('expected')
+                              ? 'text-yellow-600'
+                              : 'text-green-600'
+                          }`}
                         >
                           {order.delivery}
                         </p>
@@ -95,12 +98,11 @@ export default function OrdersPage() {
           ))}
         </div>
 
-        {/* Fixed Position Button at bottom */}
-        <div className="relative bottom-0 right-0 bg-gray-50 py-4 px-4 md:px-6 border-t border-gray-200 md:relative md:border-t-0 md:bg-transparent">
+        <div className="w-full flex justify-end px-4 md:px-6 py-6 bg-gray-50 border-t border-gray-200">
           <button
             type="submit"
             onClick={() => router.push('/checkout')}
-            className="w-full md:w-48 py-3 absolute right-0 bg-orange-500 text-white rounded-lg text-base md:text-lg font-medium hover:bg-orange-600 transition-colors duration-300 shadow-md"
+            className="w-full md:w-48 py-3 bg-orange-500 text-white rounded-lg text-base md:text-lg font-medium hover:bg-orange-600 transition-colors duration-300 shadow-md"
           >
             Checkout
           </button>

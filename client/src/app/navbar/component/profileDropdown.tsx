@@ -28,7 +28,7 @@ export const Dropdown = () => {
             {[
               { name: 'About me', path: '/profile/user' },
               { name: 'Address', path: '/profile/adress' },
-              { name: 'Wishlist', path: '/profile/fav' },
+              { name: 'Wishlist', path: '/profile/whislist' },
               { name: 'Orders', path: '/profile/orders' },
               { name: 'Payment', path: '/profile/payments' },
               { name: 'Customer Care', path: '/profile/customercare' },

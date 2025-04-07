@@ -1,66 +1,3 @@
-// 'use client';
-// import React, { useEffect, useState } from 'react';
-// import ProductCard from '../ProductCard';
-// import Sidebar from '../Sidebar';
-// import DealsFilter from '../Filter/Deals';
-// import DeliveryFilter from '../Filter/FreeDelivery';
-// import PopularityFilter from '../Filter/Popularity';
-// import PriceFilter from '../Filter/Price';
-// import RatingFilter from '../Filter/Rating';
-// // import { Product } from './ProductCard';
-// import { useSelector } from 'react-redux';
-// import {
-//   useGetCartProductsQuery,
-//   useGetFavProductsQuery,
-//   useLazyGetFilterProductsQuery,
-// } from '@/services/api';
-// import { setFavProducts } from '@/reduxStore/internalSlice';
-// import { useDispatch } from 'react-redux';
-
-// export default function Categories() {
-//   const [activeName, setActiveName] = useState('Hello!'); // State for active item's name
-//   const products = useSelector((state: any) => state.internal);
-//   const dispatch = useDispatch();
-//   const state = useSelector((state: any) => state.internal);
-//   console.log(state, 'zzzzzzzz');
-//   const { data } = useGetFavProductsQuery(undefined, { skip: !state.mail });
-
-//   useEffect(() => {
-//     if (data?.data) {
-//       dispatch(setFavProducts(data?.data));
-//     }
-//   }, [data]);
-
-//   return (
-//     <div className="py-[125px] px-[54px] dark: bg-white text-black">
-//       <div className="flex">
-//         {/* Pass setActiveName as a prop */}
-//         <Sidebar setActiveName={setActiveName} />
-//         <div className="w-full">
-//           <div className="flex justify-between">
-//             <div className="text-[24px] font-semibold mb-4 flex items-center justify-center">
-//               {activeName}
-//             </div>
-//             {/* Active item's name */}
-//             <div className="flex">
-//               <RatingFilter />
-//               <PriceFilter />
-//               {/* <DealsFilter /> */}
-//               <PopularityFilter />
-//               <DeliveryFilter />
-//             </div>
-//           </div>
-//           <div className="flex flex-col">
-//             {products?.products?.map((product: any, ind: number) => (
-//               // {mockProducts.map((product) => (
-//               <ProductCard key={ind} product={product} />
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 'use client';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard';
@@ -91,11 +28,11 @@ export default function Categories() {
   }, [data]);
 
   return (
-    <div className="py-[125px]  dark: bg-white text-black">
+    <div className="pb-[125px] pt-24   dark: bg-white text-black">
       <div className="flex">
         {/* Pass setActiveName as a prop */}
         <Sidebar setActiveName={setActiveName} />
-        <div className="w-full  ">
+        <div className="w-full pt-4 ">
           <div className=" flex px-[54px] lg:w-full justify-around flex-wrap gap-2 pb-3">
             <div className="text-[24px] hidden font-semibold mb-4  items-center justify-center w-[20%]">
               {activeName}

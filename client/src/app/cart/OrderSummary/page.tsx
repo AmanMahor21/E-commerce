@@ -1,6 +1,5 @@
 'use client';
 
-import Card from '../Card/page';
 import { useEffect } from 'react';
 import { MdCurrencyRupee } from 'react-icons/md';
 import { useGetCartProductsQuery, useUpdateCartQuantityMutation } from '@/services/api';
@@ -34,7 +33,7 @@ export default function OrderSummary() {
   }, [data?.data]);
 
   return (
-    <Card className="mt-10 p-6">
+    <div className="mt-10 p-6">
       <table className="w-full border-collapse">
         <thead className="bg-gray-200 text-gray-700">
           <tr>
@@ -106,7 +105,7 @@ export default function OrderSummary() {
           })}
         </tbody>
       </table>
-    </Card>
+    </div>
   );
 }
 
