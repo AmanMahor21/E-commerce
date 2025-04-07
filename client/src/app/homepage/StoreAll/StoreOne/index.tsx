@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { VendorList } from '@/state/types'; // Adjust path to where VendorList is defined
+import { VendorList } from '@/services/types'; // Adjust path to where VendorList is defined
 
 interface OneStoreProps {
   vendor: VendorList;
@@ -23,30 +23,16 @@ export default function OneStore({ vendor }: OneStoreProps) {
         </div>
         <div className=" h-auto p-4 flex flex-col justify-between  w-full items-stretch">
           <div className="flex justify-between items-start">
-            <div className="text-black text-[18px] font-[600]">
-              {companyName}
-            </div>
+            <div className="text-black text-[18px] font-[600]">{companyName}</div>
             <div className="bg-[#494949] w-[60px] rounded-2xl h-auto flex justify-evenly items-center p-1">
-              <Image
-                src="/RatingStarYello.svg"
-                alt=" Rating Star logo"
-                width={15}
-                height={15}
-              />
+              <Image src="/RatingStarYello.svg" alt=" Rating Star logo" width={15} height={15} />
               <h1>4.9</h1>
             </div>
           </div>
           <div className="flex justify-between items-center w-2/3 mt-3">
             <div className="flex gap-2 ">
-              <Image
-                src="/StorePrice.svg"
-                alt=" staring price logo"
-                width={15}
-                height={15}
-              />
-              <h1 className="text-[#808080] text-[12px] font-[500]">
-                starts from ${startingFrom}
-              </h1>
+              <Image src="/StorePrice.svg" alt=" staring price logo" width={15} height={15} />
+              <h1 className="text-[#808080] text-[12px] font-[500]">starts from ${startingFrom}</h1>
             </div>
             <div className="flex gap-2">
               <Image
@@ -55,9 +41,7 @@ export default function OneStore({ vendor }: OneStoreProps) {
                 width={15}
                 height={15}
               />
-              <h1 className="text-[#808080] text-[12px] font-[500]">
-                starts from $299
-              </h1>
+              <h1 className="text-[#808080] text-[12px] font-[500]">starts from $299</h1>
             </div>
           </div>
         </div>
