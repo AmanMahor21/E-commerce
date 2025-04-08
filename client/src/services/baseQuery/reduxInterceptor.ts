@@ -8,7 +8,8 @@ import {
 // import { RootState } from "../store"; // Redux store type
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000/api/',
+  baseUrl: 'https://e-commerce-backend-n6zh.onrender.com',
+  // baseUrl: 'http://localhost:8000/api/',
   credentials: 'include', // ✅ Important for cookies!
 });
 
