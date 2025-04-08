@@ -4,17 +4,19 @@ import * as entit from '../common/entities-index';
 import * as migrations from '../common/migrations-index';
 import { useContainer } from 'typeorm';
 import Container from 'typedi';
+import * as dotenv from 'dotenv';
 import * as path from 'path';
-
+dotenv.config();
 // useContainer(Container);
 
+console.log(process.env.TYPEORM_CONNECTION, 'nnnnnnnn');
 export const AppDataSource = new DataSource({
-  type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'spurtuser',
-  password: 'SpurtUser@123456',
-  database: 'spurt_commerce',
+  type: process.env.TYPEORM_CONNECTION as any, // or as 'mysql' if you know it's mysql
+  host: process.env.TYPEORM_HOST,
+  port: parseInt(process.env.TYPEORM_PORT || '3306'),
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
+  database: process.env.TYPEORM_DATABASE,
   synchronize: false,
   logging: false,
   subscribers: [],

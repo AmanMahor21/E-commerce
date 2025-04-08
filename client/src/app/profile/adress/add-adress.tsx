@@ -1,8 +1,5 @@
 'use client';
 
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { MapPin } from 'lucide-react';
 import { MdGpsFixed } from 'react-icons/md';
 import { useCreateAddressMutation } from '@/services/api';
 import { useState } from 'react';

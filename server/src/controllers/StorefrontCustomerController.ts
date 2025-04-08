@@ -839,7 +839,7 @@ export class StorefrontController {
         code: body.code,
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
-        redirect_uri: process.env.TASTEZY_FRONTEND_URL,
+        redirect_uri: process.env.FRONTEND_URL,
         grant_type: 'authorization_code',
       }),
       {

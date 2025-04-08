@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "target": "ES6",
     "lib": ["ES2017", "DOM"],
     "types": ["node"],
-    "module": "CommonJS"
-  }
+    "module": "CommonJS",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
