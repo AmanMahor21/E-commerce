@@ -7,7 +7,8 @@
     "dev": "nodemon --ext ts --exec ts-node src/app.ts",
     "pro": "NODE_ENV=production nodemon --ext ts --exec ts-node src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "env": "NODE_ENV=production node dist/app.js"
   },
   "keywords": [],
   "author": "",
