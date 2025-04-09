@@ -21,7 +21,7 @@ console.log(__dirname, '__dirname __dirname');
 
 const PORT = process.env.PORT || 8000;
 const fileExtension = process.env.NODE_ENV === 'production' ? 'js' : 'ts';
-
+console.log(fileExtension, 'bbbbb');
 connectMysql()
   .then(() => {
     const app = express();
@@ -31,7 +31,8 @@ connectMysql()
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
     useExpressServer(app, {
       // controllers: Object.values(controllers),
-      controllers: [path.join(__dirname, `/controllers/**/*.${fileExtension}`)],
+      controllers: [path.join(__dirname, `/controllers/**/*.js`)],
+      // controllers: [path.join(__dirname, `/controllers/**/*.${fileExtension}`)],
 
       routePrefix: '/api',
       cors: {
