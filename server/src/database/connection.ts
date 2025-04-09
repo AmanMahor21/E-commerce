@@ -11,9 +11,9 @@ import * as path from 'path';
 const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
 dotenv.config({ path: envFile });
 
-console.log(process.env.TYPEORM_CONNECTION, 'nnnnnnnn');
+console.log(process.env.TYPEORM_PORT, 'nconnection nnnnnnn');
 export const AppDataSource = new DataSource({
-  type: process.env.TYPEORM_CONNECTION as any, // or as 'mysql' if you know it's mysql
+  type: 'mysql', // or as 'mysql' if you know it's mysql
   host: process.env.TYPEORM_HOST,
   port: parseInt(process.env.TYPEORM_PORT || '3306'),
   username: process.env.TYPEORM_USERNAME,
@@ -22,11 +22,18 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
   subscribers: [],
+  driver: require('mysql2'), // Add this line
   entities: [path.join(__dirname, '/../models/*.ts')],
   migrations: Object.values(migrations),
-  extra: {
-    connectTimeout: 30000, // 30 seconds
-  },
+  // extra: {
+  //   connectTimeout: 30000, // 30 seconds
+  //   ssl:
+  //     process.env.NODE_ENV === 'production'
+  //       ? {
+  //           rejectUnauthorized: false, // Required for Railway
+  //         }
+  //       : false,
+  // },
 
   // entities: Object.values(entit) as Function[], // Ensure entities are correctly loaded
 });
