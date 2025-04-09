@@ -7,3 +7,9 @@ export const extractCategory = (keyword: string) => {
   return { getCategory, getproductName };
 };
 
+export const SortBy = [
+  { popularity: 'popularity' },
+  { lowToHigh: 'Price--Low to High' },
+  { highToLow: 'Price--High to Low' },
+];
+// export const  filters = [ 'Popularity', 'Price--Low to High', 'Price--High to Low']

@@ -19,9 +19,22 @@ import { setFavProducts } from '@/reduxStore/internalSlice';
 import { useDispatch } from 'react-redux';
 import { Dropdown } from 'react-bootstrap';
 import { Product } from '@/services/types';
-
+import { SortBy } from '@/utils/helpers';
+import SortCondition from './Filter/SortBy/SortComponent';
+import { setProductFilter } from '@/reduxStore/productCategorizeSlice';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+// import {
+//   ArchiveBoxXMarkIcon,
+//   ChevronDownIcon,
+//   PencilIcon,
+//   Square2StackIcon,
+//   TrashIcon,
+// } from '@heroicons/react/16/solid';
 export default function Categories() {
   const [activeName, setActiveName] = useState('Hello!'); // State for active item's name
+  const [selectedSort, setSelectedSort] = useState('');
+  const productState = useSelector((state: any) => state.product); // get all filters
+
   const internalState = useSelector((state: any) => state.internal);
   const dispatch = useDispatch();
 
@@ -52,25 +65,40 @@ export default function Categories() {
   // };
 
   return (
-    <div className="pb-[125px] pt-24  dark: bg-white text-black">
+    <div className="pb-[125px] pt-24  px-3 lg:px-0 dark: bg-white text-black">
       <div className="flex">
         {/* Pass setActiveName as a prop */}
         <Sidebar setActiveName={setActiveName} />
+
         <div className="w-full  pt-4">
-          <div className=" flex px-[54px] lg:w-full justify-around flex-wrap gap-2 pb-3">
+          <div className=" flex lg:w-full justify-around flex-wrap gap-2 pb-3">
+            {/* <div className=" flex px-[54px] lg:w-full justify-around flex-wrap gap-2 pb-3"> */}
             <div className="text-[24px] hidden font-semibold mb-4  items-center justify-center w-[20%]">
               {activeName}
             </div>
-            <div className="w-full hidden lg:flex justify-around pb-4">
+            <div className="w-full hidden lg:flex justify-center lg:justify-around pb-4">
               <div className="flex">
-                <p className="font-bold">Filter By :</p>
+                <p className="font-bold whitespace-nowrap">Filter By :</p>
                 <RatingFilter />
                 <DeliveryFilter />
               </div>
               <div className="flex">
-                <p className="font-bold">Sort By :</p>
-                <PopularityFilter />
-                <PriceFilter />
+                <p className="font-bold whitespace-nowrap">Sort By :</p>
+                {SortBy.map((ele, ind) => {
+                  const [key, value] = Object.entries(ele)[0]; // grabs the only key-value pair from each object
+                  return (
+                    <SortCondition
+                      key={ind}
+                      filterKey={key}
+                      label={value}
+                      isActive={key == productState.sortBy}
+                      onclick={() => dispatch(setProductFilter({ sortBy: key }))}
+                      // onclick={() => setSelectedSort(key)}
+                    />
+                  );
+                })}
+                {/* <PopularityFilter /> */}
+                {/* <PriceFilter /> */}
               </div>
             </div>
             <Dropdown className=" lg:hidden !w-[30%] grow">

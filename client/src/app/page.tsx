@@ -1,5 +1,5 @@
 'use client';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import 'regenerator-runtime/runtime';
 import HomePage from './homepage/page';
 import Navbar from './navbar/page';

@@ -60,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
   return (
     <aside className="min-w-[280px] hidden lg:block sticky top-6 h-screen bg-slate-900 border-r shadow-md">
       <div className="w-full mt-6 px-4">
-        <ul className="flex flex-col space-y-2 fixed top-30">
+        <ul className="flex flex-col space-y-2 fixed top-30 w-60">
           {categories?.data?.map((item, ind) => {
             const Icon = MockCategoryIcons[ind]; // 👈 Icon component
 

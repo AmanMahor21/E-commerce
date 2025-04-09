@@ -83,7 +83,9 @@ export class StorefrontProductController {
     @QueryParam('rating') rating: number,
     @QueryParam('bestDeal') bestDeal: number,
     @QueryParam('status') status: string,
+    @QueryParam('sortBy') sortBy: string,
     @QueryParam('lowestPrice') lowestPrice: string,
+    @QueryParam('highestPrice') highestPrice: string,
     @QueryParam('freeDelivery') freeDelivery: string,
     @QueryParam('count') count: number | boolean,
 
@@ -123,7 +125,9 @@ export class StorefrontProductController {
       popularity,
       bestDeal,
       lowestPrice,
-      freeDelivery
+      highestPrice,
+      freeDelivery,
+      sortBy
     );
     if (fetchedProducts.length > 0) {
       const successResponse: any = {

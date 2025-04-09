@@ -7,8 +7,10 @@ const initialState = {
   popularity: '',
   rating: 0,
   bestDeal: 0,
-  lowestPrice: '',
+  // lowestPrice: '',
+  // highestPrice: '',
   freeDelivery: '',
+  sortBy: '',
   count: 0,
 };
 
@@ -17,6 +19,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     setProductFilter: (state, action) => {
+      console.log(action, 'actionnn');
       return { ...state, ...action.payload };
     },
 

@@ -28,7 +28,7 @@ function Page() {
   return (
     <div className="w-full h-full bg-white mt-[96px] overflow-hidden">
       {/* HERO SECTION */}
-      <div className="w-full h-full p-10 flex bg-gradient-to-b from-[#ffc75f] to-[#2b6d79]  justify-around  ">
+      <div className="w-full h-full p-10 flex bg-gradient-to-b from-[#1387ced1] to-[#ecfcff]  justify-around  ">
         {/* <div className="w-full h-full p-10 flex bg-gradient-to-b from-[#FFCB00] to-[#FFFFFF]  justify-around  "> */}
         <div>
           <CategoryPage categories={categories?.data || []} />

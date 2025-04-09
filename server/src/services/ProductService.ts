@@ -29,7 +29,9 @@ export class ProductService {
     popularity: string,
     bestDeal: number,
     lowestPrice: string,
-    freeDelivery: string
+    highestPrice: string,
+    freeDelivery: string,
+    sortBy: string
   ): Promise<any> {
     // const queryBuilder = this.productRepository.createQueryBuilder('product');
     // const queryBuilder: any = await getConnection().getRepository(Product).createQueryBuilder('product');
@@ -38,13 +40,14 @@ export class ProductService {
     if (select && select.length > 0) {
       queryBuilder.select(select.map((field: string) => field));
     }
+    console.log(sortBy, 'bbbbbbb');
     queryBuilder
       .leftJoin('product.vendorProducts', 'vendorProduct')
       .leftJoin('vendorProduct.vendor', 'vendor')
       .addSelect('ANY_VALUE(vendor.companyName)', 'companyName');
 
     // Join and aggregate for popularity
-    if (popularity === 'true') {
+    if (sortBy == 'popularity') {
       queryBuilder
         .leftJoin('product.orderProduct', 'OrderProduct')
         .addSelect('COUNT(OrderProduct.product_id)', 'orderCount')
@@ -64,7 +67,17 @@ export class ProductService {
       });
     }
 
+    const sortOptions = {
+      lowToHigh: { name: 'product.price', order: 'ASC' },
+      highToLow: { name: 'product.price', order: 'DESC' },
+      popularity: { name: 'orderCount', order: 'DESC' },
+    };
+
+    const sortCondition = sortOptions[sortBy];
     // Filter by rating
+    if (sortCondition !== undefined || null) {
+      queryBuilder.addOrderBy(sortCondition.name, sortCondition.order);
+    }
     if (rating && rating > 0) {
       queryBuilder.andWhere('product.rating >= :rating', { rating });
     }
@@ -82,6 +95,10 @@ export class ProductService {
       console.log(lowestPrice, 'lowes asd asd s');
       queryBuilder.addOrderBy(`product.price`, 'ASC');
     }
+    if (highestPrice === 'true') {
+      console.log(lowestPrice, 'lowes asd asd s');
+      queryBuilder.addOrderBy(`product.price`, 'DESC');
+    }
     // filter by popularity
     if (popularity === 'true') {
       queryBuilder.addOrderBy('orderCount', 'DESC');
@@ -90,6 +107,7 @@ export class ProductService {
     queryBuilder.skip(offset);
     queryBuilder.limit(limit);
 
+    console.log(queryBuilder.getQuery());
     const products = await queryBuilder.getRawMany();
     return products;
   }
