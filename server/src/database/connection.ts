@@ -23,7 +23,8 @@ export const AppDataSource = new DataSource({
   logging: false,
   subscribers: [],
   driver: require('mysql2'), // Add this line
-  entities: [path.join(__dirname, '/../models/*.ts')],
+  entities: [path.join(__dirname, '/../models/*.js')],
+  // entities: [path.join(__dirname, '/../models/*.ts')],
   migrations: Object.values(migrations),
   // extra: {
   //   connectTimeout: 30000, // 30 seconds
