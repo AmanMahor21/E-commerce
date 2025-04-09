@@ -12,10 +12,11 @@ import { authorizationChecker } from './auth/authorizationChecker';
 import path from 'path';
 import { CustomErrorHandler } from './auth/errorHandler';
 useContainer(Container);
-dotenv.config();
-// require('dotenv').config({
-//   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
-// });
+// dotenv.config();
+// const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+// dotenv.config({ path: envFile });
+// console.log(process.env.TYPEORM_HOST, 'bbbbbbbbbbbb');
+// console.log(process.env.NODE_ENV, 'bbbbbbbbbbasdbb');
 
 const PORT = process.env.PORT || 8000;
 
@@ -26,8 +27,6 @@ connectMysql()
     app.use(bodyParser.json());
     app.use(cookieParser()); // ✅ Use cookie-parser
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
-    console.log(Object.values(controllers), 'kk');
-
     useExpressServer(app, {
       // controllers: Object.values(controllers),
       controllers: [path.join(__dirname, '/controllers/**/*.ts')],

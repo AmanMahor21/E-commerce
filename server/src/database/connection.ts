@@ -6,8 +6,10 @@ import { useContainer } from 'typeorm';
 import Container from 'typedi';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-dotenv.config();
+// dotenv.config();
 // useContainer(Container);
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+dotenv.config({ path: envFile });
 
 console.log(process.env.TYPEORM_CONNECTION, 'nnnnnnnn');
 export const AppDataSource = new DataSource({
@@ -22,6 +24,9 @@ export const AppDataSource = new DataSource({
   subscribers: [],
   entities: [path.join(__dirname, '/../models/*.ts')],
   migrations: Object.values(migrations),
+  extra: {
+    connectTimeout: 30000, // 30 seconds
+  },
 
   // entities: Object.values(entit) as Function[], // Ensure entities are correctly loaded
 });
