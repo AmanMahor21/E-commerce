@@ -18,24 +18,6 @@ const SortCondition: React.FC<SortProps> = ({ filterKey, label, isActive, onclic
   const filters = useSelector((state: any) => state.product);
   const [fetchProducts, { data }] = useLazyGetFilterProductsQuery();
 
-  console.log(filterKey, 'nnnnnnn');
-  // const toggleActive = () => {
-  //   setIsActive((prev) => !prev);
-  // };
-
-  // Toggle the state on the basis of lowest Price btn
-  // useEffect(() => {
-  //   console.log(label, 'vvvvvvvv');
-  //   // dispatch(setProductFilter({ [filterKey]: isActive }));
-  //   dispatch(setProductFilter({ sortBy: filterKey }));
-  // }, [isActive]);
-
-  // const resetActive = (e: React.MouseEvent) => {
-  //   e.stopPropagation(); // Prevent parent click from triggering
-  //   dispatch(setProductFilter({ lowestPrice: false }));
-  //   setIsActive(false);
-  // };
-
   return (
     <div className="flex lg:w-min items-center w-full lg:h-fit justify-center">
       <div

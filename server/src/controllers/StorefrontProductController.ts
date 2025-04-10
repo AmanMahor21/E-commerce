@@ -111,7 +111,8 @@ export class StorefrontProductController {
     const search = [];
     if (keyword && keyword !== 'null' && keyword.trim() !== '') {
       search.push({
-        name: ['product.name', 'product.description', 'product.keywords'],
+        name: ['product.name', 'product.description'],
+        // name: ['product.name', 'product.description', 'product.keywords'],
         value: keyword,
       });
     }

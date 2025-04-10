@@ -85,15 +85,18 @@ export default function Categories() {
               <div className="flex">
                 <p className="font-bold whitespace-nowrap">Sort By :</p>
                 {SortBy.map((ele, ind) => {
-                  const [key, value] = Object.entries(ele)[0]; // grabs the only key-value pair from each object
+                  const [key, value] = Object.entries(ele)[0];
                   return (
                     <SortCondition
                       key={ind}
                       filterKey={key}
                       label={value}
                       isActive={key == productState.sortBy}
-                      onclick={() => dispatch(setProductFilter({ sortBy: key }))}
-                      // onclick={() => setSelectedSort(key)}
+                      onclick={() =>
+                        dispatch(
+                          setProductFilter({ sortBy: key == productState.sortBy ? '' : key }), // toggle logic
+                        )
+                      }
                     />
                   );
                 })}
