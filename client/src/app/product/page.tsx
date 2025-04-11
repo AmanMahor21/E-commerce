@@ -23,13 +23,10 @@ const slides = [
 export default function Home() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  console.log(searchParams.get('query'), ' i m man page');
   const id = Number(searchParams.get('query'));
-  console.log(isNaN(id), 'id pathname');
 
   const { data: product, isLoading, isError } = useGetProductByIdQuery(id);
 
-  console.log(product, 'ssssssssss aasdss ssd asd');
   if (isLoading) {
     return <div>Loading...</div>;
   }

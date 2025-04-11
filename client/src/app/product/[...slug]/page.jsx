@@ -106,9 +106,6 @@ export default function Home() {
   const id = slugArray[slugArray.length - 1];
   const { data: product, isLoading, isError } = useGetProductByIdQuery(id);
 
-  console.log(id, 'slugArray slugArray');
-  console.log(product, 'product');
-  console.log(pathname, 'pathname pathname');
   if (isLoading) {
     return <div>Loading...</div>;
   }

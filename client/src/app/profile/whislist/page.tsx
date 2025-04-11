@@ -39,7 +39,6 @@ const storeData: Store[] = [
 ];
 export default function ProductPage() {
   const state = useSelector((state: any) => state.internal);
-  console.log(state.mail, 'mmm');
   const { data } = useGetFavProductsQuery(undefined, { skip: !state.mail });
   const productsList: Product[] = data?.data ?? [];
 

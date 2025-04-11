@@ -39,6 +39,7 @@ export default function Categories() {
   const dispatch = useDispatch();
 
   const { data, isLoading } = useGetFavProductsQuery();
+  const filters = useSelector((state: any) => state.product);
 
   useEffect(() => {
     if (data?.data) {
@@ -65,7 +66,7 @@ export default function Categories() {
   // };
 
   return (
-    <div className="pb-[125px] pt-24  px-3 lg:px-0 dark: bg-white text-black">
+    <div className="pt-24  px-3 lg:px-0 dark: bg-white text-black">
       <div className="flex">
         {/* Pass setActiveName as a prop */}
         <Sidebar setActiveName={setActiveName} />
@@ -94,7 +95,10 @@ export default function Categories() {
                       isActive={key == productState.sortBy}
                       onclick={() =>
                         dispatch(
-                          setProductFilter({ sortBy: key == productState.sortBy ? '' : key }), // toggle logic
+                          setProductFilter({
+                            ...filters,
+                            sortBy: key == productState.sortBy ? '' : key,
+                          }), // toggle logic
                         )
                       }
                     />

@@ -12,7 +12,6 @@ export default function Home() {
   // const { data } = useRefreshTokenQuery();
   const [refreshToken] = useLazyRefreshTokenQuery();
   const pathname = usePathname();
-  console.log(pathname, 'nameeeeeeasd');
   return (
     <>
       {/* {pathname !== '/login' && <Navbar />} */}

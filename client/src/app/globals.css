@@ -19,6 +19,9 @@ body {
   appearance: textfield;
 }
 
+.landingPage {
+  background-image: '../../public/landing-page.jpg';
+}
 .removeOnFocus:focus {
   outline: none;
 }

@@ -95,7 +95,6 @@ export class StorefrontController {
     const customer = await this.customerService.findOne({
       where: { email: authInfo.emailId, deleteFlag: 0 },
     });
-    console.log(customer, 'mmmmmmm');
     if (!customer) {
       const newCustomer = new Customer();
       newCustomer.email = authInfo.emailId;

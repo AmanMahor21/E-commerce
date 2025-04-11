@@ -27,7 +27,6 @@ export default function ProfilePage() {
     setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  console.log(customer, 'nnnn');
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const savedUser = await setProfile({ ...userInfo });

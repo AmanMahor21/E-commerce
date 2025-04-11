@@ -19,7 +19,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     setProductFilter: (state, action) => {
-      console.log(action, 'actionnn');
+      console.log(action, 'state actionnn');
       return { ...state, ...action.payload };
     },
 

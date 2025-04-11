@@ -34,14 +34,12 @@ export class StorefrontPaymentController {
     @Res() response: any,
     @Req() request: any
   ): Promise<any> {
-    console.log(process.env.CASHFREE_CLIENT_ID as string, process.env.CASHFREE_CLIENT_SECRET as string);
     const customerId = request.body.userId;
     const orderId = `CF${Date.now()}`;
     const amount = paymentData.amount;
     const upiID = paymentData.upiID;
     const expiryTime = new Date(Date.now() + 30 * 60 * 1000).toISOString();
 
-    console.log(amount, upiID);
     const requestData = {
       order_amount: amount,
       order_currency: 'INR',

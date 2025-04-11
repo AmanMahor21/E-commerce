@@ -11,9 +11,6 @@ export default function ProductReview({ productId }: { productId: number }) {
   const slugArray = param.slug ?? [];
   const id = slugArray[slugArray.length - 1];
   const { data: productRatings, isLoading, error } = useGetProductRatingQuery(productId);
-
-  console.log(id, 'idddddddddd');
-  console.log(productRatings, 'productRatings');
   if (isLoading) {
     return <div>Loading...</div>;
   }

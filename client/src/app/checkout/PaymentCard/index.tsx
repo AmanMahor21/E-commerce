@@ -54,7 +54,6 @@ const PaymentCard = () => {
       }
       // console.log(response.data.data, 'res');
       setPaymentMessageVisible(true);
-      console.log(amount, 'amount');
       dispatch(setPaymentMethod('upi'));
       dispatch(setCeateOrderResponse(response));
       setIsUpiDisabled(true); // Disable Upi, Pay button, and Disclaimer

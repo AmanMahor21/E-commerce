@@ -174,19 +174,9 @@ export const api = createApi({
       query: () => {
         return {
           url: `/favorites/list`,
-          // headers: {
-          //   Authorization: `Bearer U2FsdGVkX1/QOBzMqbixfhT58ra6pSS+A+JAz7Umbhrm8xcKwXcvYBTup7enUiMc5D8xvzJltuodk1eeke4gE3v5diyLXr1/1mir7JysvtXQS8yejRixbMqKnv+19OdIGXTW6KbaEvhm04ckSnXd2ViqrfZ+VojnUAlOaTAjo9M7Gw9gJNTyYfWCwjfwygjKuRy2auaqdFbFDlTRRPQdRA==`,
-          // },
         };
       },
       providesTags: ['ProductFavourite'],
-      // providesTags: (result) =>
-      //   result?.data
-      //     ? result.data.map(({ productFavId }) => ({
-      //         type: 'ProductFavourite' as const,
-      //         id: productFavId ?? undefined,
-      //       }))
-      //     : [{ type: 'ProductFavourite', id: 'LIST' }],
     }),
     removeFavProduct: build.mutation<ProductList, Record<string, any>>({
       query: (favProductId) => ({
@@ -198,15 +188,23 @@ export const api = createApi({
 
         body: favProductId,
       }),
-      // invalidatesTags: (result, error, { productFavId }) => [
-      //   { type: 'ProductFavourite', id: productFavId },
-      //   { type: 'ProductFavourite', id: 'LIST' },
-      // ],
+
       invalidatesTags: ['ProductFavourite'],
     }),
-    getCategories: build.query<GetCategoryResponse, void>({
-      query: () => ({
-        url: '/storefront-product/category',
+    getCategories: build.query<GetCategoryResponse, Record<string, any>>({
+      query: (query = {}) => ({
+        url: `/storefront-product/category/`,
+        params: { limit: query.limit },
+        headers: {
+          Authorization: `Bearer U2FsdGVkX1/TxFp/IH6onxCZDUVfjHNwkcI9B7rzXU6/bEoue2XDnTYsIaIyehsUxbRX/z49LJz0G540Nlhi3zE3NmAE2LrdjbfItAmwvGeoseqNmuh8OLGZ08/1a09x3dAdtTAJejumia8K+RFxO4F/1bbYRtYGqm9zGfuJ9cgqs+UhYt+ZVVbgB+13sKJYhuReVSomjFTYTN4J6qUxKA==`,
+        },
+      }),
+
+      providesTags: ['category'],
+    }),
+    getSubCategories: build.query<GetCategoryResponse, string>({
+      query: (id) => ({
+        url: `/storefront-product/sub-category/${id}`,
         headers: {
           Authorization: `Bearer U2FsdGVkX1/TxFp/IH6onxCZDUVfjHNwkcI9B7rzXU6/bEoue2XDnTYsIaIyehsUxbRX/z49LJz0G540Nlhi3zE3NmAE2LrdjbfItAmwvGeoseqNmuh8OLGZ08/1a09x3dAdtTAJejumia8K+RFxO4F/1bbYRtYGqm9zGfuJ9cgqs+UhYt+ZVVbgB+13sKJYhuReVSomjFTYTN4J6qUxKA==`,
         },
@@ -261,6 +259,7 @@ export const {
   useGetFavProductsQuery,
   useRemoveFavProductMutation,
   useGetCategoriesQuery,
+  useGetSubCategoriesQuery,
   useAddToCartMutation,
   useGetCartProductsQuery,
   useUpdateCartQuantityMutation,

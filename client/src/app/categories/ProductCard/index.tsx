@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AddToCart, Product } from '@/services/types';
 import { setCartItemId } from '@/reduxStore/internalSlice';
 import { usePathname, useRouter } from 'next/navigation';
-
+import { fetchImages } from '@/utils/hooks';
 interface ProductCardProps {
   product: Product;
   // handleSaveBtn: (e: React.MouseEvent, product: Product) => void;
@@ -21,6 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // const ProductCard: React.FC<ProductCardProps> = ({ product, handleSaveBtn }) => {
   const BASE_URL = process.env.BASE_URL;
   const cartItem = useSelector((state: any) => state.internal.cartItemId);
+  const [imageUrl, setImageUrl] = useState('/Offer2.svg');
 
   const pathname = usePathname();
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { data: cartProducts } = useGetCartProductsQuery();
 
   const internalState = useSelector((state: any) => state.internal);
+  const productState = useSelector((state: any) => state.product);
   const isFavorite = internalState?.FavProducts?.some(
     (fav: any) => fav.productId === Number(product?.productId),
   );
@@ -95,7 +97,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     dispatch(setCartItemId(cartProducts?.data));
   };
 
-  console.log(cartProducts, 'kkkk');
   // Checking product already added in cart
   const isAlreadyAdded = cartProducts?.data?.some(
     (ele: any) => ele.productId === product.productId,
@@ -103,14 +104,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const originalPrice = Number(product?.price) || 0;
   const discountedPrice = Number(product?.productDiscount) || 0;
 
-  const imageUrl =
-    product?.imagePath && product?.image
-      ? `${BASE_URL}?path=${product.imagePath}/&name=${encodeURIComponent(product.image)}`
-      : '/Offer2.svg';
+  useEffect(() => {
+    const loadImage = async () => {
+      if (product?.name) {
+        const url = await fetchImages(productState?.keyword);
+        if (url) setImageUrl(url);
+      }
+    };
+
+    loadImage();
+  }, [product?.name]);
 
   const handleProductDetail = () => {
     router.push(`/product/${product.productSlug}/${encodeURIComponent(product?.productId)}`);
-    // router.push(`/product?query=${encodeURIComponent(product.productId)}`);
   };
 
   const discountAmount = Math.min(75, originalPrice); // Max discount = 175 or original price
@@ -129,8 +135,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             src={imageUrl}
             alt={product?.name || 'Product image'}
-            className="w-full max-w-xs md:max-w-sm h-auto max-h-[300px] rounded-lg object-cover
-                     hover:scale-105 transition-transform duration-300 overflow-hidden"
+            onError={(e) => {
+              e.currentTarget.src = '/product-fallback.png'; // fallback image path
+            }}
+            className="w-full max-w-xs md:max-w-sm h-auto max-h-[300px] rounded-lg object-cover hover:scale-105 transition-transform duration-300 overflow-hidden"
           />
         </div>
 

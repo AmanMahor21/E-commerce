@@ -17,7 +17,6 @@ const RatingFilter = () => {
 
   // Toggle the state on the basis of rating btn
   useEffect(() => {
-    console.log(isActive, 'bbbbbbbb');
     if (isActive) {
       dispatch(setProductFilter({ rating: 4 }));
     } else {

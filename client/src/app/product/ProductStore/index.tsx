@@ -48,7 +48,6 @@ export default function ProductStore({ product }: ProductStoreProps) {
     dispatch(setCartItemId(cartProducts?.data));
   };
   const handleQuantityChange = async (item: any, change: number) => {
-    console.log(item, change, 'nnnnnn');
     const newQuantity = item.cartQuantity + change;
 
     await updateQuantity({

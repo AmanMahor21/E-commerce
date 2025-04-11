@@ -42,7 +42,7 @@ const persistConfig = {
   key: 'root',
   storage,
   // whitelist: ['global', 'payment'],
-  whitelist: ['global', 'payment', 'internal'],
+  whitelist: ['global', 'payment', 'internal', 'product'],
 };
 // const rootReducer = combineReducers({
 //   global: rootReducer,

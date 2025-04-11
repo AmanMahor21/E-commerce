@@ -109,10 +109,11 @@ export class StorefrontProductController {
       'product.price AS price',
     ];
     const search = [];
+    console.log(keyword, 'key');
     if (keyword && keyword !== 'null' && keyword.trim() !== '') {
       search.push({
-        name: ['product.name', 'product.description'],
-        // name: ['product.name', 'product.description', 'product.keywords'],
+        // name: ['product.name', 'product.description'],
+        name: ['product.keywords'],
         value: keyword,
       });
     }
@@ -287,19 +288,32 @@ export class StorefrontProductController {
   public async getCategory(
     @Req() request: any,
     @Res() response: any,
-    @QueryParam('limit') limit: number = 12,
+    @QueryParam('limit') limit: number,
     @QueryParam('offset') offset: number = 0
   ): Promise<any> {
     const userId = request.body.userId;
     // if (!userId) {
     //   return response.status(400).send('user id or product id is missing');
     // }
-    const select = ['categoryId', 'name', 'parentInt', 'sortOrder', 'imagePath', 'image', 'categorySlug'];
+    const select = [
+      'category.categoryId AS categoryId',
+      'category.name AS name',
+      'category.parentInt AS parentInt',
+      'category.sortOrder AS sortOrder',
+      'category.imagePath AS imagePath',
+      'category.image AS image   ',
+      'category.categorySlug AS categorySlug',
+    ];
 
     const relation = [];
     const whereConditions = [];
     whereConditions.push({
-      name: 'isActive',
+      name: 'category.parentInt',
+      op: 'where',
+      value: 0,
+    });
+    whereConditions.push({
+      name: 'category.isActive',
       op: 'where',
       value: 1,
     });
@@ -327,6 +341,71 @@ export class StorefrontProductController {
     const successResponse: any = {
       status: 1,
       message: 'Successfully got all active category list',
+      data: favouriteProductList,
+    };
+
+    return response.status(200).send(successResponse);
+  }
+
+  @Get('/sub-category/:id')
+  // @Authorized(['customer'])
+  public async getSubCategory(
+    @Req() request: any,
+    @Res() response: any,
+    @Param('id') id: number,
+    @QueryParam('limit') limit: number = 20,
+    @QueryParam('offset') offset: number = 0
+  ): Promise<any> {
+    const userId = request.body.userId;
+    // if (!userId) {
+    //   return response.status(400).send('user id or product id is missing');
+    // }
+    console.log(id, 'nnnnnnnasdd');
+    const select = [
+      'category.categoryId AS categoryId',
+      'category.name AS name',
+      'category.parentInt AS parentInt',
+      'category.sortOrder AS sortOrder',
+      'category.imagePath AS imagePath',
+      'category.image AS image   ',
+      'category.categorySlug AS categorySlug',
+    ];
+    const relation = [];
+    const whereConditions = [];
+    whereConditions.push({
+      name: 'category.parentInt',
+      op: 'where',
+      value: id,
+    });
+    // whereConditions.push({
+    //   name: 'isActive',
+    //   op: 'where',
+    //   value: 1,
+    // });
+    const sortOrder = 1;
+    const search = [];
+    const count = 0;
+    const favouriteProductList: any = await this.categoryService.list(
+      limit,
+      offset,
+      select,
+      search,
+      whereConditions,
+      relation,
+      sortOrder,
+      count
+    );
+    if (!favouriteProductList) {
+      const successResponses: any = {
+        status: 0,
+        message: 'Failed to get all category list',
+      };
+      return response.status(200).send(successResponses);
+    }
+
+    const successResponse: any = {
+      status: 1,
+      message: 'Successfully got all active sub-category list',
       data: favouriteProductList,
     };
 

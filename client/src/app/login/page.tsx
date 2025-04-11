@@ -33,9 +33,7 @@ export default function Page() {
   });
 
   const sendotp = async () => {
-    console.log(email, '1stmail');
     const otpRes = await sendRandomOtp(email);
-    console.log(otpRes?.data, 'mail');
     if (otpRes?.data?.data) {
       dispatch(setMail(email));
       router.push('/otp');

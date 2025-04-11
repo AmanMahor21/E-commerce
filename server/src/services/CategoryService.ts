@@ -24,7 +24,7 @@ export class CategoryService {
     return;
   }
   // categoryList
-  public list(
+  public async list(
     limit: any,
     offset: any,
     select: any = [],
@@ -34,45 +34,111 @@ export class CategoryService {
     sortOrder: number,
     count: number | boolean
   ): Promise<any> {
-    const condition: any = {};
+    const queryBuilder = AppDataSource.getRepository(Category).createQueryBuilder('category');
 
-    if (select && select.length > 0) {
-      condition.select = select;
+    // SELECT columns
+    if (select.length > 0) {
+      queryBuilder.select(select);
     }
-    condition.where = {};
+
+    // JOIN relations
+    // relation.forEach((rel) => {
+    //   qb.leftJoinAndSelect(`${alias}.${rel}`, rel);
+    // });
+
+    // WHERE conditions
     if (whereConditions && whereConditions.length > 0) {
-      whereConditions.forEach((item: any) => {
-        condition.where[item.name] = item.value;
+      whereConditions.forEach((ele: any) => {
+        if (ele.op === 'where' && ele.sign === undefined) {
+          queryBuilder.where(`${ele.name} = ${ele.value}`);
+        } else if (ele.op === 'and' && ele.sign === undefined) {
+          queryBuilder.andWhere(`${ele.name} = ${ele.value}`);
+        } else if (ele.op === 'and' && ele.sign !== undefined) {
+          queryBuilder.andWhere(`${ele.name} ${ele.sign} ${ele.value}`);
+        }
       });
     }
-
-    if (relation?.length) {
-      condition.relations = [...relation];
-    }
-
+    // SEARCH conditions
     if (search && search.length > 0) {
-      search.forEach((table: any) => {
-        const operator: string = table.op;
-        if (operator === 'where' && table.value !== undefined) {
-          condition.where[table.name] = table.value;
-        } else if (operator === 'like' && table.value !== undefined) {
-          condition.where[table.name] = Like('%' + table.value + '%');
+      search.forEach((condition: any) => {
+        console.log(condition, 'bbbvv');
+        if (Array.isArray(condition.name) && condition.value && condition.value !== null) {
+          const columnCondition = condition.name.map((col: any) => `${col} LIKE :keyword`).join(' OR ');
+          queryBuilder.andWhere(`(${columnCondition})`, {
+            keyword: `%${condition.value}%`,
+          });
         }
       });
     }
 
+    // SORTING
+    // qb.orderBy(`${alias}.sortOrder`, sortOrder === 2 ? 'DESC' : 'ASC').addOrderBy(
+    //   `${alias}.createdDate`,
+    //   'DESC'
+    // );
+
+    // PAGINATION
     if (limit && limit > 0) {
-      condition.take = limit;
-      condition.skip = offset;
+      queryBuilder.take(limit);
+      queryBuilder.skip(offset);
     }
 
-    condition.order = { sortOrder: sortOrder === 2 ? 'DESC' : 'ASC', createdDate: 'DESC' };
-
+    // COUNT or FETCH
+    console.log(queryBuilder.getQuery(), 'bbbbb');
     if (count) {
-      return this.categoryRepository.count(condition);
+      return queryBuilder.getCount();
+    } else {
+      return await queryBuilder.getRawMany();
     }
-    return this.categoryRepository.find(condition);
   }
+  // public list(
+  //   limit: any,
+  //   offset: any,
+  //   select: any = [],
+  //   search: any = [],
+  //   whereConditions: any = [],
+  //   relation: any[] = [],
+  //   sortOrder: number,
+  //   count: number | boolean
+  // ): Promise<any> {
+  //   const condition: any = {};
+
+  //   if (select && select.length > 0) {
+  //     condition.select = select;
+  //   }
+  //   condition.where = {};
+  //   if (whereConditions && whereConditions.length > 0) {
+  //     whereConditions.forEach((item: any) => {
+  //       condition.where[item.name] = item.value;
+  //     });
+  //   }
+
+  //   if (relation?.length) {
+  //     condition.relations = [...relation];
+  //   }
+
+  //   if (search && search.length > 0) {
+  //     search.forEach((table: any) => {
+  //       const operator: string = table.op;
+  //       if (operator === 'where' && table.value !== undefined) {
+  //         condition.where[table.name] = table.value;
+  //       } else if (operator === 'like' && table.value !== undefined) {
+  //         condition.where[table.name] = Like('%' + table.value + '%');
+  //       }
+  //     });
+  //   }
+
+  //   if (limit && limit > 0) {
+  //     condition.take = limit;
+  //     condition.skip = offset;
+  //   }
+
+  //   condition.order = { sortOrder: sortOrder === 2 ? 'DESC' : 'ASC', createdDate: 'DESC' };
+  //   if (count) {
+  //     return this.categoryRepository.count(condition);
+  //   }
+  //   return this.categoryRepository.find(condition);
+  // }
   // find category
   public find(category: any): Promise<any> {
     return this.categoryRepository.find(category);

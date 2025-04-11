@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { MockCategoryIcons } from '@/utils/MockImages';
+// import { MockCategoryIcons } from '@/utils/MockImages';//
 interface SidebarItem {
   id: number;
   name: string;
@@ -18,7 +18,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
-  const { data: categories } = useGetCategoriesQuery();
+  const { data: categories } = useGetCategoriesQuery({ limit: 14 });
   const [fetchProducts, { data }] = useLazyGetFilterProductsQuery();
   const dispatch = useDispatch();
   const pathname = usePathname();
@@ -43,7 +43,10 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
   const handleItemClick = (id: number, name: string, slug: string) => {
     setActiveItem(id);
     setActiveName(name);
+    console.log(name, 'vvvvvv');
+    console.log(filters, 'fil   vvvvvv');
     dispatch(setProductFilter({ ...filters, keyword: name }));
+    // dispatch(setProductFilter({ ...filters, keyword: name }));
     if (id) dispatch(resetProductInput(true));
     if (pathname !== `/categories/${slug}`) {
       router.push(`/categories/${slug}`);
@@ -62,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
       <div className="w-full mt-6 px-4">
         <ul className="flex flex-col space-y-2 fixed top-30 w-60">
           {categories?.data?.map((item, ind) => {
-            const Icon = MockCategoryIcons[ind]; // 👈 Icon component
+            // const Icon = MockCategoryIcons[ind]; // 👈 Icon component
 
             const isActive = activeItem === item.categoryId;
 
@@ -81,7 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] h-5 bg-[#FF7F32] rounded-r-md" />
                 )}
 
-                {Icon && <Icon className="h-6 w-6 flex-shrink-0" />}
+                {/* {Icon && <Icon className="h-6 w-6 flex-shrink-0" />} */}
                 <span className="text-sm">{item.name}</span>
               </li>
             );

@@ -31,7 +31,6 @@ const OTPForm: React.FC<otpProps> = ({ setOtpInfo, otpInfo }) => {
       newOtp[index] = value;
       return newOtp;
     });
-    console.log(otp, 'otp');
 
     // Move focus to the next input
     if (value && index < otp.length - 1) {
@@ -55,7 +54,6 @@ const OTPForm: React.FC<otpProps> = ({ setOtpInfo, otpInfo }) => {
   };
 
   const handleSendOtpBtn = async () => {
-    console.log(otpInfo?.cfPaymentId, 'otp otp otp otp');
     await sendOTP({
       paymentId: otpInfo?.cfPaymentId,
       action: 'SUBMIT_OTP',
