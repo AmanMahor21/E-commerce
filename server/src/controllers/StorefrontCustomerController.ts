@@ -191,14 +191,14 @@ export class StorefrontController {
         console.log('i m m running', encryptedAccessToken);
         response.cookie('_Tt', encryptedAccessToken, {
           httpOnly: true,
-          secure: false,
-          sameSite: 'lax',
+          secure: process.env.NODE_ENV == 'production',
+          sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
           maxAge: 60 * 24 * 60 * 60 * 1000,
         });
         response.cookie('_Trt', encryptedRefershToken, {
           httpOnly: true,
-          secure: false,
-          sameSite: 'lax',
+          secure: process.env.NODE_ENV == 'production',
+          sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
           maxAge: 180 * 24 * 60 * 60 * 1000,
         });
         await this.registrationOtpService.delete(otp.id);
