@@ -8,6 +8,7 @@ export function middleware(request: NextRequest) {
   if (currentPath.startsWith('/_next') || currentPath.includes('.')) {
     return NextResponse.next();
   }
+  console.log('Visible cookies:', request.cookies.getAll());
 
   const AccessToken = request.cookies.get('_Tt');
   const RefreshToken = request.cookies.get('_Trt');
