@@ -45,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
     setActiveName(name);
     console.log(name, 'vvvvvv');
     console.log(filters, 'fil   vvvvvv');
-    dispatch(setProductFilter({ ...filters, keyword: name }));
+    dispatch(setProductFilter({ keyword: name }));
     // dispatch(setProductFilter({ ...filters, keyword: name }));
     if (id) dispatch(resetProductInput(true));
     if (pathname !== `/categories/${slug}`) {

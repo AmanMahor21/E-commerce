@@ -112,8 +112,8 @@ export class StorefrontProductController {
     console.log(keyword, 'key');
     if (keyword && keyword !== 'null' && keyword.trim() !== '') {
       search.push({
-        // name: ['product.name', 'product.description'],
-        name: ['product.keywords'],
+        name: ['product.name', 'product.description', 'product.keywords'],
+        // name: ['product.keywords'],
         value: keyword,
       });
     }

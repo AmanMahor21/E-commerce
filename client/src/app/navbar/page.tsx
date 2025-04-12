@@ -28,7 +28,6 @@ export default function Page() {
     if (!filters.keyword) return;
     const handleFetchProducts = async () => {
       const response = await fetchProducts(filters);
-      console.log(filters, 'filters m yha honnnnn');
       if (response?.data?.data) {
         dispatch(setFethedProducts(response.data.data));
       }

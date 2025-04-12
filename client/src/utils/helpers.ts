@@ -11,3 +11,12 @@ export const SortBy = [
   { highToLow: 'Price--High to Low' },
 ];
 // export const  filters = [ 'Popularity', 'Price--Low to High', 'Price--High to Low']
+
+export const getReadableNameFromPath = (pathname: string) => {
+  const parts = pathname.split('/');
+  const last = parts[parts.length - 1];
+  return last
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};

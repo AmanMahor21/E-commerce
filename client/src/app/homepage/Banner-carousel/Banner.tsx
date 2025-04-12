@@ -37,7 +37,7 @@ const ImageCarousel = () => {
   };
 
   return (
-    <div className="relative mx-7 mt-8  px-4">
+    <div className="relative mx-7 lg:mt-16 ">
       {/* <div className="relative max-w-4xl mx-auto px-4"> */}
       <Slider ref={sliderRef} {...settings}>
         {images.map((img, index) => (

@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Page() {
-  const { data: categories } = useGetCategoriesQuery({});
+  const { data: categories } = useGetCategoriesQuery({ limit: 5 });
   const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();

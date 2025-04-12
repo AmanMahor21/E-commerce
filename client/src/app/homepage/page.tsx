@@ -85,7 +85,8 @@ import Store from './StoreAll/page';
 import Product from './Products/page';
 import Footer from '../footer/Page';
 import { useGetCategoriesQuery } from '@/services/api';
-import CategoryList from './NestedCategories/SubCategory';
+import MegaCategory from './Components/MegaCategoory';
+import ShopByCategory from './Components/ShopByCategory';
 function Page() {
   const categoriesWithImages = [
     { name: 'Veg Pickles', image: '/VegPickle.svg' },
@@ -109,7 +110,8 @@ function Page() {
       {/* <div className="absolute w-full top-40  h-full bg-no-repeat rotate-180 bg-[url('/shape-circle-2.png')] "></div> */}
       {/* <div className="w-full landingPage bg-black bg bg-cover bg-center  h-[calc(100vh-96px)] p-10 flex  justify-around  "> */}
       <div className="w-full landingPage bg-[url('/header-bg.jpeg')] bg bg-cover bg-center  h-[calc(100vh-96px)] p-10 flex  justify-around  ">
-        <CategoryList />
+        {/* <CategoryList /> */}
+        <MegaCategory />
         {/* <div>
           <CategoryPage categories={categories?.data || []} />
           <TopCategories categories={categoriesWithImages} />
@@ -123,10 +125,15 @@ function Page() {
 
       {/* <div> */}
       <ShoppingPolicy />
-      <BannerCarousel />
-      {/* </div> */}
-      {/* CAROUSEL SECTION */}
-      <div className=" bg-white h-full flex items-center justify-center overflow-hidden">
+      <div className="mx-7 mt-8 lg:px-10 space-y-14">
+        <ShopByCategory keyword={'luggage'} label={'Travel and luggage'} />
+        <ShopByCategory keyword={'jewelry'} label={'Jewelry and accessories'} />
+      </div>
+      <div className="px-11">
+        <BannerCarousel />
+      </div>
+
+      <div className=" bg-white h-full flex items-center justify-center overflow-hidden mt-8">
         <Carousel />
       </div>
 

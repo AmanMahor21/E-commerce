@@ -33,7 +33,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 export default function Categories() {
   const [activeName, setActiveName] = useState('Hello!'); // State for active item's name
   const [selectedSort, setSelectedSort] = useState('');
-  const productState = useSelector((state: any) => state.product); // get all filters
+  // const productState = useSelector((state: any) => state.product); // get all filters
 
   const internalState = useSelector((state: any) => state.internal);
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export default function Categories() {
   //     const response = await saveFavProduct({ productId: product?.productId });
   //   }
   // };
-
+  console.log(filters, 'catqryyyy qryyy');
   return (
     <div className="pt-24  px-3 lg:px-0 dark: bg-white text-black">
       <div className="flex">
@@ -92,12 +92,12 @@ export default function Categories() {
                       key={ind}
                       filterKey={key}
                       label={value}
-                      isActive={key == productState.sortBy}
+                      isActive={key == filters.sortBy}
                       onclick={() =>
                         dispatch(
                           setProductFilter({
                             ...filters,
-                            sortBy: key == productState.sortBy ? '' : key,
+                            sortBy: key == filters.sortBy ? '' : key,
                           }), // toggle logic
                         )
                       }

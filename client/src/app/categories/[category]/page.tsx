@@ -16,23 +16,26 @@ import { Dropdown } from 'react-bootstrap';
 import { SortBy } from '@/utils/helpers';
 import SortCondition from '../Filter/SortBy/SortComponent';
 import { setProductFilter } from '@/reduxStore/productCategorizeSlice';
-
+import { usePathname } from 'next/navigation';
+import { getReadableNameFromPath } from '@/utils/helpers';
 export default function Categories() {
   const [activeName, setActiveName] = useState('Hello!'); // State for active item's name
-  const [selectedSort, setSelectedSort] = useState('');
   const internalState = useSelector((state: any) => state.internal);
-  const productState = useSelector((state: any) => state.product); // get all filters
+  const productState = useSelector((state: any) => state.product);
 
   const dispatch = useDispatch();
+  const pathname = usePathname();
+  const name = getReadableNameFromPath(pathname);
 
   const { data, isLoading } = useGetFavProductsQuery();
-  const filters = ['Popularity', 'Price--Low to High', 'Price--High to Low'];
 
   useEffect(() => {
     if (data?.data) {
       dispatch(setFavProducts(data?.data));
     }
   }, [data]);
+  console.log(productState, 'catqryyyy');
+  console.log(name, 'name name catqryyyy');
 
   return (
     <div className="pt-24   dark: bg-white text-black">
@@ -64,7 +67,10 @@ export default function Categories() {
                       isActive={key == productState.sortBy}
                       onclick={() =>
                         dispatch(
-                          setProductFilter({ sortBy: key == productState.sortBy ? '' : key }),
+                          setProductFilter({
+                            keyword: name,
+                            sortBy: key == productState.sortBy ? '' : key,
+                          }),
                         )
                       }
                     />
