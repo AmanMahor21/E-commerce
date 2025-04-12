@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Handle product Favourite btn
   const handleSaveBtn = async (e: any) => {
     e.stopPropagation();
-
+    console.log(internalState?.FavProducts, 'internalState?.FavProducts');
     const alreadyFavourite = internalState?.FavProducts?.find(
       (fav: any) => fav.productId === Number(product?.productId),
     );
@@ -56,30 +56,30 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Handle Add to cart btn
   const handleAddTocart = async (e: any) => {
     e.stopPropagation();
-    Swal.fire({
-      position: 'top',
-      icon: 'warning',
-      showClass: {
-        popup: `
-          animate__animated
-          animate__fadeInUp
-          animate__faster
-        `,
-      },
-      hideClass: {
-        popup: `
-          animate__animated
-          animate__fadeOutDown
-          animate__faster
-        `,
-      },
-      customClass: {
-        popup: 'custom-swal-style', // Apply styles only to this alert
-      },
-      title: 'Please login',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   position: 'top',
+    //   icon: 'warning',
+    //   showClass: {
+    //     popup: `
+    //       animate__animated
+    //       animate__fadeInUp
+    //       animate__faster
+    //     `,
+    //   },
+    //   hideClass: {
+    //     popup: `
+    //       animate__animated
+    //       animate__fadeOutDown
+    //       animate__faster
+    //     `,
+    //   },
+    //   customClass: {
+    //     popup: 'custom-swal-style', // Apply styles only to this alert
+    //   },
+    //   title: 'Please login',
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
 
     const discountedPrice =
       product?.productDiscount && product.productDiscount > 0
@@ -173,6 +173,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         text-base md:text-lg rounded-lg transition-all duration-200
                         ${isAlreadyAdded ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-black hover:bg-gray-800'}`}
             onClick={isAlreadyAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)}
+            // onclick={(e) => handleAddTocart }
           >
             {isAlreadyAdded ? 'Go to Cart' : 'Add to Cart'}
           </button>

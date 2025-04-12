@@ -67,7 +67,6 @@ export class VendorProductFavoriteService {
       query.limit(limit);
       query.offset(offset);
     }
-    console.log(query.getQuery(), 'query');
 
     return await query.getRawMany();
   }

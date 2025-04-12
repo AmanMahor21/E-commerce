@@ -40,7 +40,6 @@ export class ProductService {
     if (select && select.length > 0) {
       queryBuilder.select(select.map((field: string) => field));
     }
-    console.log(sortBy, 'bbbbbbb');
     queryBuilder
       .leftJoin('product.vendorProducts', 'vendorProduct')
       .leftJoin('vendorProduct.vendor', 'vendor')
@@ -58,7 +57,6 @@ export class ProductService {
     // Handle search conditions
     if (search && search.length > 0) {
       search.forEach((condition: any) => {
-        console.log(condition, 'bbbvv');
         if (Array.isArray(condition.name) && condition.value && condition.value !== null) {
           const columnCondition = condition.name.map((col: any) => `${col} LIKE :keyword`).join(' OR ');
           queryBuilder.andWhere(`(${columnCondition})`, {
@@ -93,11 +91,9 @@ export class ProductService {
     }
     // filter by price
     if (lowestPrice === 'true') {
-      console.log(lowestPrice, 'lowes asd asd s');
       queryBuilder.addOrderBy(`product.price`, 'ASC');
     }
     if (highestPrice === 'true') {
-      console.log(lowestPrice, 'lowes asd asd s');
       queryBuilder.addOrderBy(`product.price`, 'DESC');
     }
     // filter by popularity
@@ -108,7 +104,6 @@ export class ProductService {
     queryBuilder.skip(offset);
     queryBuilder.limit(limit);
 
-    console.log(queryBuilder.getQuery());
     const products = await queryBuilder.getRawMany();
     return products;
   }
@@ -132,7 +127,6 @@ export class ProductService {
     // .addSelect('MAX(CustomerCart.id)', 'cartQuantity');
 
     if (userId) {
-      console.log('on eproducttt ');
       queryBuilder
         .leftJoin('product.cart', 'CustomerCart', `CustomerCart.customerId = ${userId}`)
         .addSelect('MIN(CustomerCart.quantity)', 'cartQuantity');
@@ -163,7 +157,6 @@ export class ProductService {
         }
       });
     }
-    console.log(queryBuilder.getQuery());
     const products = await queryBuilder.getRawMany();
     return products;
   }
@@ -193,8 +186,6 @@ export class ProductService {
         }
       });
     }
-    console.log(select, 'mmm');
-    console.log(queryBuilder.getQuery());
     const products = await queryBuilder.getRawMany();
     return products;
   }

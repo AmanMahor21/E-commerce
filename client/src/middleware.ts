@@ -11,10 +11,14 @@ export function middleware(request: NextRequest) {
 
   const AccessToken = request.cookies.get('_Tt');
   const RefreshToken = request.cookies.get('_Trt');
+  console.log(AccessToken, 'AccessToken tokekn');
+  console.log(RefreshToken, 'RefreshToken tokekn');
 
   // console.log(AccessToken, RefreshToken, 'vvvvvvv');
   const noToken = !AccessToken || !RefreshToken;
+  console.log(noToken, 'noToken no tokekn');
   if (noToken && currentPath !== '/login' && currentPath !== '/otp') {
+    console.log('noToken && currentPath !== && currentPath !==');
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
@@ -46,7 +50,8 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/cart/:path*', '/login/:path*', '/otp'],
+  matcher: ['/profile/:path*', '/login/:path*', '/otp'],
+  // matcher: ['/profile/:path*', '/cart/:path*', '/login/:path*', '/otp'],
 };
 
 // import { NextResponse } from 'next/server';

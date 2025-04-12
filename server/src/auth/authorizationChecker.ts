@@ -29,7 +29,6 @@ export function authorizationChecker(): (action: Action, roles: string[]) => Pro
     if (roles[0] === 'customer') {
       // const cookieToken = action.request.cookies?._Trt;
       const cookieToken = action.request.cookies?._Tt;
-      console.log(cookieToken, 'vv');
       if (!cookieToken) {
         // log.warn('No credentials given for customer');
         // throw new UnauthorizedError('No authentication token provided.'); // 🔥 Throws 401 error

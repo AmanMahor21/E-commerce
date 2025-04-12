@@ -160,7 +160,6 @@ export class StorefrontController {
     const customer = await this.customerService.findOne({
       where: { email: authInfo.mail, deleteFlag: 0 },
     });
-    console.log(customer, 'cutoreeee');
     if (!customer) {
       return response.status(400).send({
         status: 0,
@@ -188,7 +187,6 @@ export class StorefrontController {
         const encryptedAccessToken = Crypto.AES.encrypt(accessToken, process.env.CRYPTO_SECRET).toString();
         const encryptedRefershToken = Crypto.AES.encrypt(refreshToken, process.env.CRYPTO_SECRET).toString();
         // const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
-        console.log('i m m running', encryptedAccessToken);
         response.cookie('_Tt', encryptedAccessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV == 'production',
@@ -724,7 +722,6 @@ export class StorefrontController {
         username: request.body.username,
       },
     });
-    console.log('JWT_SECRET:', process.env.JWT_SECRET);
     if (customer) {
       if (await Customer.comparePassword(customer, loginParam.password)) {
         // create a token
@@ -800,13 +797,11 @@ export class StorefrontController {
     @Res() response: any
   ): Promise<any> {
     const { _Tt, _Trt } = request.cookies;
-    console.log(_Tt, _Trt, 'kkkkkk');
     if (!_Tt || !_Trt) {
       return response.status(400).send({ error: 'Cookie not found' });
     }
     response.clearCookie('_Tt');
     response.clearCookie('_Trt');
-    console.log('JWT_SECRET:', process.env.JWT_SECRET);
     if (_Tt) {
       const succesRes = {
         status: 1,
@@ -897,7 +892,6 @@ export class StorefrontController {
       const encryptedAccessToken = Crypto.AES.encrypt(accessToken, process.env.CRYPTO_SECRET).toString();
       const encryptedRefershToken = Crypto.AES.encrypt(refreshToken, process.env.CRYPTO_SECRET).toString();
       // const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
-      console.log('i m m running', encryptedAccessToken);
       response.cookie('_Tt', encryptedAccessToken, {
         httpOnly: true,
         secure: false,
@@ -978,7 +972,6 @@ export class StorefrontController {
       const newAccessToken = jwt.sign({ id: customerId, role: 'customer' }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_ACCESS_TOKEN_TIME,
       });
-      console.log(newAccessToken, 'mmmmm');
       const encryptedAccessToken = Crypto.AES.encrypt(newAccessToken, process.env.CRYPTO_SECRET).toString();
 
       response.cookie('_Tt', encryptedAccessToken, {

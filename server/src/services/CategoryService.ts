@@ -61,7 +61,6 @@ export class CategoryService {
     // SEARCH conditions
     if (search && search.length > 0) {
       search.forEach((condition: any) => {
-        console.log(condition, 'bbbvv');
         if (Array.isArray(condition.name) && condition.value && condition.value !== null) {
           const columnCondition = condition.name.map((col: any) => `${col} LIKE :keyword`).join(' OR ');
           queryBuilder.andWhere(`(${columnCondition})`, {
@@ -84,7 +83,6 @@ export class CategoryService {
     }
 
     // COUNT or FETCH
-    console.log(queryBuilder.getQuery(), 'bbbbb');
     if (count) {
       return queryBuilder.getCount();
     } else {

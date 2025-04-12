@@ -16,16 +16,12 @@ useContainer(Container);
 // const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
 // dotenv.config({ path: envFile });
 // console.log(process.env.TYPEORM_HOST, 'bbbbbbbbbbbb');
-console.log(process.env.NODE_ENV, 'FRONTEND_URL bbbbbbbbbbasdbb');
-console.log(__dirname, '__dirname __dirname');
 
 const PORT = process.env.PORT || 8000;
 const fileExtension = process.env.NODE_ENV === 'production' ? 'js' : 'ts';
-console.log(fileExtension, 'bbbbb');
 connectMysql()
   .then(() => {
     const app = express();
-    console.log('✅ DB Connected Successfully');
     app.use(bodyParser.json());
     app.use(cookieParser()); // ✅ Use cookie-parser
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
@@ -38,7 +34,9 @@ connectMysql()
       cors: {
         origin: process.env.FRONTEND_URL,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        // allowedHeaders: ['Content-Type', 'Authorization'],
+        allowedHeaders: '*',
+
         credentials: true,
       },
       middlewares: [CustomErrorHandler],
