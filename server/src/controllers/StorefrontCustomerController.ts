@@ -191,12 +191,15 @@ export class StorefrontController {
           httpOnly: true,
           secure: process.env.NODE_ENV == 'production',
           sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+          domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
           maxAge: 60 * 24 * 60 * 60 * 1000,
         });
         response.cookie('_Trt', encryptedRefershToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV == 'production',
           sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+          domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+
           maxAge: 180 * 24 * 60 * 60 * 1000,
         });
         await this.registrationOtpService.delete(otp.id);
