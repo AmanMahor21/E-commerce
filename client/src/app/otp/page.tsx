@@ -26,6 +26,7 @@ export default function Page() {
     if (!email || !code) return;
     const verifyRes = await matchotp({ mail: email, otp: code }).unwrap();
     console.log(verifyRes, 'bbbbb');
+    console.log('Document cookies:', document.cookie);
     const customer = {
       fName: (verifyRes.data as any).firstName,
       lName: (verifyRes.data as any).lastName,

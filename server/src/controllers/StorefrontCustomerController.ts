@@ -190,24 +190,44 @@ export class StorefrontController {
         const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
         response.cookie('_Tt', encryptedAccessToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV == 'production',
-          sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+          secure: true,
+          sameSite: 'none',
           path: '/',
-          domain: '.render.com', // Or your specific domain
+          domain: '.onrender.com', // ✅ allows frontend on another Render subdomain to access
 
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
           maxAge: 60 * 24 * 60 * 60 * 1000,
         });
         response.cookie('_Trt', encryptedRefershToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV == 'production',
-          sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+          secure: true,
+          sameSite: 'none',
           path: '/',
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-          domain: '.render.com', // Or your specific domain
+          domain: '.onrender.com', // ✅ allows frontend on another Render subdomain to access
 
           maxAge: 180 * 24 * 60 * 60 * 1000,
         });
+        // response.cookie('_Tt', encryptedAccessToken, {
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV == 'production',
+        //   sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+        //   path: '/',
+        //   domain: '.render.com', // Or your specific domain
+
+        //   // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+        //   maxAge: 60 * 24 * 60 * 60 * 1000,
+        // });
+        // response.cookie('_Trt', encryptedRefershToken, {
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV == 'production',
+        //   sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+        //   path: '/',
+        //   // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+        //   domain: '.render.com', // Or your specific domain
+
+        //   maxAge: 180 * 24 * 60 * 60 * 1000,
+        // });
         await this.registrationOtpService.delete(otp.id);
         return response.status(200).send({
           status: 1,
