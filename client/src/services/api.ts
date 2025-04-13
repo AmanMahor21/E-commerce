@@ -223,9 +223,10 @@ export const api = createApi({
       }),
       invalidatesTags: ['cart'],
     }),
+
     getCartProducts: build.query<GetCartProductsResponse, void>({
       query: () => ({
-        url: '/proxy/storefront-cart',
+        url: '/storefront-cart',
         // headers: {
         //   Authorization: `Bearer U2FsdGVkX1/TxFp/IH6onxCZDUVfjHNwkcI9B7rzXU6/bEoue2XDnTYsIaIyehsUxbRX/z49LJz0G540Nlhi3zE3NmAE2LrdjbfItAmwvGeoseqNmuh8OLGZ08/1a09x3dAdtTAJejumia8K+RFxO4F/1bbYRtYGqm9zGfuJ9cgqs+UhYt+ZVVbgB+13sKJYhuReVSomjFTYTN4J6qUxKA==`,
         // },
@@ -233,16 +234,6 @@ export const api = createApi({
 
       providesTags: ['cart'],
     }),
-    // getCartProducts: build.query<GetCartProductsResponse, void>({
-    //   query: () => ({
-    //     url: '/storefront-cart',
-    //     // headers: {
-    //     //   Authorization: `Bearer U2FsdGVkX1/TxFp/IH6onxCZDUVfjHNwkcI9B7rzXU6/bEoue2XDnTYsIaIyehsUxbRX/z49LJz0G540Nlhi3zE3NmAE2LrdjbfItAmwvGeoseqNmuh8OLGZ08/1a09x3dAdtTAJejumia8K+RFxO4F/1bbYRtYGqm9zGfuJ9cgqs+UhYt+ZVVbgB+13sKJYhuReVSomjFTYTN4J6qUxKA==`,
-    //     // },
-    //   }),
-
-    //   providesTags: ['cart'],
-    // }),
     updateCartQuantity: build.mutation<AddToCartResponse, Partial<AddToCart>>({
       query: (AddToCart) => ({
         url: `/storefront-cart`,
