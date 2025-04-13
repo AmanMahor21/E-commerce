@@ -193,6 +193,8 @@ export class StorefrontController {
           secure: process.env.NODE_ENV == 'production',
           sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
           path: '/',
+          domain: '.render.com', // Or your specific domain
+
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
           maxAge: 60 * 24 * 60 * 60 * 1000,
         });
@@ -202,6 +204,7 @@ export class StorefrontController {
           sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
           path: '/',
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+          domain: '.render.com', // Or your specific domain
 
           maxAge: 180 * 24 * 60 * 60 * 1000,
         });
