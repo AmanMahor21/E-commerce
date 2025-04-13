@@ -10,6 +10,7 @@ import { Container } from 'typedi';
 import { connectMysql, AppDataSource } from './database/connection';
 import { authorizationChecker } from './auth/authorizationChecker';
 import path from 'path';
+import cors from 'cors'; // ✅ Import cors
 import { CustomErrorHandler } from './auth/errorHandler';
 useContainer(Container);
 // dotenv.config();
@@ -22,19 +23,14 @@ const fileExtension = process.env.NODE_ENV === 'production' ? 'js' : 'ts';
 connectMysql()
   .then(() => {
     const app = express();
+    app.use(
+      cors({
+        origin: process.env.FRONTEND_URL, // e.g., 'https://your-frontend-url.vercel.app'
+        credentials: true,
+      })
+    );
     app.use(bodyParser.json());
-    app.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL || '*');
-      res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      res.header('Access-Control-Allow-Credentials', 'true');
 
-      if (req.method === 'OPTIONS') {
-        return res.sendStatus(200); // ✅ Important for preflight
-      }
-
-      next();
-    });
     app.use(cookieParser()); // ✅ Use cookie-parser
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
     useExpressServer(app, {
