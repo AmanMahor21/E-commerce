@@ -8,10 +8,18 @@ export function middleware(request: NextRequest) {
   if (currentPath.startsWith('/_next') || currentPath.includes('.')) {
     return NextResponse.next();
   }
+  console.log('Request URL:', request.url);
+  console.log('Request URL my :', request);
+  console.log('Request headers:', Object.fromEntries(request.headers.entries()));
+  console.log('Cookies present:', {
+    _Tt: request.cookies.get('_Tt')?.value,
+    _Trt: request.cookies.get('_Trt')?.value,
+  });
   console.log('Visible cookies:', request.cookies.getAll());
 
   const AccessToken = request.cookies.get('_Tt');
   const RefreshToken = request.cookies.get('_Trt');
+
   console.log(AccessToken, 'AccessToken tokekn');
   console.log(RefreshToken, 'RefreshToken tokekn');
 
