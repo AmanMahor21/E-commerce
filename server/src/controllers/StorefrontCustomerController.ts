@@ -189,7 +189,7 @@ export class StorefrontController {
         const encryptedRefershToken = Crypto.AES.encrypt(refreshToken, process.env.CRYPTO_SECRET).toString();
         const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
         response.cookie('_Tt', encryptedAccessToken, {
-          httpOnly: false,
+          httpOnly: true,
           secure: process.env.NODE_ENV == 'production',
           sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
           path: '/',
@@ -197,7 +197,7 @@ export class StorefrontController {
           maxAge: 60 * 24 * 60 * 60 * 1000,
         });
         response.cookie('_Trt', encryptedRefershToken, {
-          httpOnly: false,
+          httpOnly: true,
           secure: process.env.NODE_ENV == 'production',
           sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
           path: '/',
