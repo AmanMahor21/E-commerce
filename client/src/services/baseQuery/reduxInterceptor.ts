@@ -8,7 +8,8 @@ import {
 // import { RootState } from "../store"; // Redux store type
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://e-commerce-backend-n6zh.onrender.com/api',
+  // baseUrl: 'https://e-commerce-backend-n6zh.onrender.com/api',
+  baseUrl: 'https://e-commerce-ruddy-pi.vercel.app/api/',
   // baseUrl: 'http://localhost:8000/api/',
   credentials: 'include', // ✅ Important for cookies!
 });
@@ -21,7 +22,6 @@ export const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  console.log(result, 'mmmmmmmmmmmmmm');
   if (result.error?.status === 401) {
     console.warn('🔄 Token expired, attempting refresh...');
 
