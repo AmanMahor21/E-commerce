@@ -191,7 +191,7 @@ export class StorefrontController {
         response.cookie('_Tt', encryptedAccessToken, {
           httpOnly: true,
           secure: true,
-          sameSite: 'none',
+          sameSite: 'lax',
           path: '/',
           // domain: '.onrender.com', // ✅ allows frontend on another Render subdomain to access
 
@@ -201,7 +201,7 @@ export class StorefrontController {
         response.cookie('_Trt', encryptedRefershToken, {
           httpOnly: true,
           secure: true,
-          sameSite: 'none',
+          sameSite: 'lax',
           path: '/',
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
           // domain: '.onrender.com', // ✅ allows frontend on another Render subdomain to access
