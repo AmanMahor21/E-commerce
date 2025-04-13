@@ -13,6 +13,9 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      fontFamily: {
+        cherry: ['var(--font-cherry-bomb)'],
+      },
     },
   },
   plugins: [],

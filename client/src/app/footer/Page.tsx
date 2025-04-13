@@ -23,7 +23,7 @@ export default function Page() {
       <div className="w-full flex flex-col md:flex-row justify-center items-center px-6 py-10 md:py-20">
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-start md:w-2/5 text-center md:text-left">
-          <h1 className="text-4xl font-bold mb-6">YumMate</h1>
+          <h1 className="text-4xl font-bold mb-6">Trendify</h1>
 
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
           <div className="flex gap-2 items-center mb-3">

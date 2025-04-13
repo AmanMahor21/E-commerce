@@ -62,15 +62,21 @@ export default function Page() {
       <div className="w-full fixed top-0 z-[100] bg-slate-800 shadow-xl grid place-items-center px-2 md:px-4 xl:px-10">
         <div className="w-full h-[70px] lg:h-[96px] gap-1 md:gap-2 flex items-center justify-between  ">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
-            <Image
+          <div
+            className="flex items-center  gap-0 cursor-pointer text-orange-500 font-extrabold text-xl sm:text-2xl lg:text-3xl tracking-wide"
+            onClick={() => router.push('/')}
+          >
+            <span className="text-gray-400 font-cherry">Trend</span>
+            <span className="text-orange-500">ify</span>
+          </div>
+
+          {/* <Image
               src="/logo.png"
               alt="YumMate logo"
               width={50}
               height={50}
               className="w-8 h-8 lg:w-14 lg:h-14 inline-block"
-            />
-          </div>
+            /> */}
 
           {/* Address */}
           <div
