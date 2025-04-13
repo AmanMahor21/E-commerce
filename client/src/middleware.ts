@@ -51,7 +51,8 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/login/:path*', '/otp'],
+  matcher: ['/profile/:path*', '/login/:path*'],
+  // matcher: ['/profile/:path*', '/login/:path*', '/otp'],
   // matcher: ['/profile/:path*', '/cart/:path*', '/login/:path*', '/otp'],
 };
 

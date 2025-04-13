@@ -21,6 +21,8 @@ export interface verifyOtpResponse {
   message: string;
   alreadyCustomer: string;
   data?: string;
+  accessToken: string;
+  refreshToken: string;
 }
 export interface TokenRefreshResponse {
   status: number;
@@ -44,7 +46,9 @@ export const authApi = api.injectEndpoints({
     }),
     verifyOtp: build.mutation<verifyOtpResponse, { mail: string; otp: string }>({
       query: ({ mail, otp }) => ({
-        url: '/storefront-customer/verify-otp',
+        url: 'https://e-commerce-ruddy-pi.vercel.app/api/verify-otp',
+        // url: 'http://localhost:3000/api/verify-otp',
+        // url: '/storefront-customer/verify-otp',
         method: 'POST',
         body: { mail, otp },
       }),

@@ -8,7 +8,8 @@ import { useGetAddressListQuery, useUpdateAddressMutation } from '@/services/api
 import { GetAddress } from '@/services/types';
 import { AddressModal } from '../components/AddressModal';
 import { useDispatch } from 'react-redux';
-
+// import Auth from '@/app/auth/page';
+// import auth from '@/utils/page';
 type Address = {
   id: number;
   name: string;
@@ -54,6 +55,7 @@ function AddressCard({
   address: GetAddress;
   setDefaultAddress: (address: GetAddress) => void;
 }) {
+  // Auth();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<GetAddress>();
   const [updateAddress, { data }] = useUpdateAddressMutation();

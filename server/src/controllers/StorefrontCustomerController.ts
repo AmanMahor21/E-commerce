@@ -160,6 +160,7 @@ export class StorefrontController {
     const customer = await this.customerService.findOne({
       where: { email: authInfo.mail, deleteFlag: 0 },
     });
+    console.log(authInfo, 'body regis');
     if (!customer) {
       return response.status(400).send({
         status: 0,
@@ -169,7 +170,7 @@ export class StorefrontController {
     const otp = await this.registrationOtpService.findOne({
       where: { emailId: authInfo.mail, userType: 2 },
     });
-
+    console.log(otp, 'regis');
     if (otp) {
       if (otp.otp == authInfo.otp) {
         const accessToken = jwt.sign({ id: customer.id, role: 'customer' }, process.env.JWT_SECRET, {
@@ -187,29 +188,31 @@ export class StorefrontController {
         const encryptedAccessToken = Crypto.AES.encrypt(accessToken, process.env.CRYPTO_SECRET).toString();
         const encryptedRefershToken = Crypto.AES.encrypt(refreshToken, process.env.CRYPTO_SECRET).toString();
         // const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
-        response.cookie('_Tt', encryptedAccessToken, {
-          httpOnly: false,
-          secure: process.env.NODE_ENV == 'production',
-          sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
-          path: '/',
-          // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-          maxAge: 60 * 24 * 60 * 60 * 1000,
-        });
-        response.cookie('_Trt', encryptedRefershToken, {
-          httpOnly: false,
-          secure: process.env.NODE_ENV == 'production',
-          sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
-          path: '/',
-          // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+        // response.cookie('_Tt', encryptedAccessToken, {
+        //   httpOnly: false,
+        //   secure: process.env.NODE_ENV == 'production',
+        //   sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+        //   path: '/',
+        //   // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+        //   maxAge: 60 * 24 * 60 * 60 * 1000,
+        // });
+        // response.cookie('_Trt', encryptedRefershToken, {
+        //   httpOnly: false,
+        //   secure: process.env.NODE_ENV == 'production',
+        //   sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+        //   path: '/',
+        //   // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
 
-          maxAge: 180 * 24 * 60 * 60 * 1000,
-        });
+        //   maxAge: 180 * 24 * 60 * 60 * 1000,
+        // });
         await this.registrationOtpService.delete(otp.id);
         return response.status(200).send({
           status: 1,
           message: 'OTP is verified',
           alreadyCustomer: !customer.firstName ? customer : '',
           data: customer,
+          accessToken: encryptedAccessToken,
+          refreshToken: encryptedRefershToken,
         });
       } else {
         return response.status(200).send({
@@ -219,6 +222,74 @@ export class StorefrontController {
       }
     }
   }
+  // @Post('/verify-otp')
+  // public async verifyOtp(
+  //   @Body({ validate: true }) authInfo: { mail: string; otp: number },
+  //   @Res() response: any,
+  //   @Req() request: any
+  // ): Promise<any> {
+  //   const customer = await this.customerService.findOne({
+  //     where: { email: authInfo.mail, deleteFlag: 0 },
+  //   });
+  //   if (!customer) {
+  //     return response.status(400).send({
+  //       status: 0,
+  //       message: 'Customer email not found',
+  //     });
+  //   }
+  //   const otp = await this.registrationOtpService.findOne({
+  //     where: { emailId: authInfo.mail, userType: 2 },
+  //   });
+
+  //   if (otp) {
+  //     if (otp.otp == authInfo.otp) {
+  //       const accessToken = jwt.sign({ id: customer.id, role: 'customer' }, process.env.JWT_SECRET, {
+  //         expiresIn: process.env.JWT_ACCESS_TOKEN_TIME,
+  //       });
+  //       const refreshToken = jwt.sign({ id: customer.id, role: 'customer' }, process.env.JWT_SECRET, {
+  //         expiresIn: process.env.JWT_REFRESH_TOKEN_TIME,
+  //       });
+  //       const newToken = new AccessToken();
+  //       newToken.userId = customer.id;
+  //       newToken.token = refreshToken;
+  //       newToken.userType = 'customer';
+  //       await this.accessTokenService.create(newToken);
+  //       const Crypto = require('crypto-js');
+  //       const encryptedAccessToken = Crypto.AES.encrypt(accessToken, process.env.CRYPTO_SECRET).toString();
+  //       const encryptedRefershToken = Crypto.AES.encrypt(refreshToken, process.env.CRYPTO_SECRET).toString();
+  //       // const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
+  //       response.cookie('_Tt', encryptedAccessToken, {
+  //         httpOnly: false,
+  //         secure: process.env.NODE_ENV == 'production',
+  //         sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+  //         path: '/',
+  //         // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+  //         maxAge: 60 * 24 * 60 * 60 * 1000,
+  //       });
+  //       response.cookie('_Trt', encryptedRefershToken, {
+  //         httpOnly: false,
+  //         secure: process.env.NODE_ENV == 'production',
+  //         sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+  //         path: '/',
+  //         // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
+
+  //         maxAge: 180 * 24 * 60 * 60 * 1000,
+  //       });
+  //       await this.registrationOtpService.delete(otp.id);
+  //       return response.status(200).send({
+  //         status: 1,
+  //         message: 'OTP is verified',
+  //         alreadyCustomer: !customer.firstName ? customer : '',
+  //         data: customer,
+  //       });
+  //     } else {
+  //       return response.status(200).send({
+  //         status: 0,
+  //         message: 'Failed to verify OTP',
+  //       });
+  //     }
+  //   }
+  // }
 
   @Put('/complete-profile')
   @Authorized(['customer'])
