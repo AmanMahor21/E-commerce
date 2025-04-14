@@ -42,8 +42,9 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-800 px-3">
       {/* Logo */}
-      <div className="mb-6">
-        <Image src="/Logo.svg" alt="TastEzy logo" width={150} height={150} />
+      <div className="flex items-center pb-10 h-full  gap-0 cursor-pointer text-orange-500 font-extrabold text-xl sm:text-2xl lg:text-3xl tracking-wide">
+        <span className="text-gray-400 text-[54px] font-cherry">Trend</span>
+        <span className="text-orange-500 text-[54px]">ify</span>
       </div>
 
       {/* OTP Container */}

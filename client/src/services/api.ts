@@ -178,15 +178,15 @@ export const api = createApi({
       },
       providesTags: ['ProductFavourite'],
     }),
-    removeFavProduct: build.mutation<ProductList, Record<string, any>>({
-      query: (favProductId) => ({
-        url: `/favorites/${favProductId.favProductId}`,
+    removeFavProduct: build.mutation<ProductList, number>({
+      query: (id) => ({
+        url: `/favorites/${id}`,
         method: 'DELETE',
         headers: {
           Authorization: `Bearer U2FsdGVkX1/TxFp/IH6onxCZDUVfjHNwkcI9B7rzXU6/bEoue2XDnTYsIaIyehsUxbRX/z49LJz0G540Nlhi3zE3NmAE2LrdjbfItAmwvGeoseqNmuh8OLGZ08/1a09x3dAdtTAJejumia8K+RFxO4F/1bbYRtYGqm9zGfuJ9cgqs+UhYt+ZVVbgB+13sKJYhuReVSomjFTYTN4J6qUxKA==`,
         },
 
-        body: favProductId,
+        body: id,
       }),
 
       invalidatesTags: ['ProductFavourite'],

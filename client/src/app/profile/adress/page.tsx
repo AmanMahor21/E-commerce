@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { MapPin, PenSquare } from 'lucide-react';
+import { HousePlus, MapPin, PenSquare } from 'lucide-react';
 import Sidebar from '../Sidebar/page';
 import { AddAddressForm } from './add-adress';
 import { useGetAddressListQuery, useUpdateAddressMutation } from '@/services/api';
@@ -76,7 +76,7 @@ function AddressCard({
       <div className="flex items-start gap-3">
         <div
           onClick={handleDefaultAddress}
-          className={`w-6 h-6 rounded-full border-2 flex-shrink-0 mt-1 ${address.isDefault === 1 ? 'bg-stone-600' : 'border-gray-300'}`}
+          className={`w-6 h-6 rounded-full border-2 flex-shrink-0 mt-1 ${address.isDefault === 1 ? 'bg-orange-500' : 'border-gray-300'}`}
         ></div>
         <div className="flex-1">
           <div className="flex items-start justify-between gap-4">
@@ -87,15 +87,14 @@ function AddressCard({
                 <span className="text-gray-400">|</span>
                 <span className="font-medium">{address.mobileNumber}</span>
               </div>
-              <p className="text-gray-600">{address.villageArea}</p>
               {address.city && address.pincode && (
                 <p className="text-gray-600">
-                  {address.city}, {address.pincode}
+                  {address.houseNumber}, {address.villageArea}, {address.landmark}, {address.city}
                 </p>
               )}
             </div>
             <button
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 font-bold text-gray-600 hover:text-orange-400"
               onClick={handleEdit}
             >
               <span>edit</span>
@@ -140,23 +139,29 @@ export default function Page() {
 
   // Removing the previous default address and setting a new one as the default.
   const setDefaultAddress = async (address: GetAddress) => {
-    const isAlreadyDefault = addressList?.find((ele: any) => {
-      return ele.isDefault === 1;
-    });
-    if (isAlreadyDefault?.addressId !== address?.addressId) {
-      const response = await updateAddress({ ...isAlreadyDefault, isDefault: 0 });
-      if (response?.data?.status === 1) {
-        const response = await updateAddress({ ...address, isDefault: 1 });
-      }
+    const currentDefault = addressList.find((a) => Number(a.isDefault) === 1);
+    if (!currentDefault) {
+      await updateAddress({ ...address, isDefault: 1 });
+      return;
+    }
+    if (currentDefault.addressId === address.addressId) {
+      console.log('Address is already default');
+      return;
+    }
+    try {
+      await updateAddress({ ...currentDefault, isDefault: 0 });
+      await updateAddress({ ...address, isDefault: 1 });
+    } catch (err) {
+      console.error('Failed to update default address', err);
     }
   };
 
   return (
     <div className="flex min-h-screen bg-gray-50 mt-[96px]">
       <Sidebar />
-      <main className="flex-1 p-6 w-full">
-        <div className="bg-green-600 text-white p-4 rounded-lg mb-6 flex items-center gap-3">
-          <MapPin className="w-6 h-6" />
+      <main className=" p-6 w-full lg:w-2/3 mx-auto">
+        <div className="bg-slate-900 text-slate-100 p-4 rounded-lg mb-6 flex items-center gap-3">
+          <HousePlus className="w-6 h-6" />
           <h1 className="text-xl font-semibold">Saved addresses</h1>
         </div>
 
@@ -170,10 +175,10 @@ export default function Page() {
           ))}
 
           <button
-            className={`w-full rounded-lg p-4 text-gray-600 flex items-center gap-3 transition-colors border ${showAddForm ? 'bg-green-600 text-white' : 'bg-white hover:bg-gray-50'}`}
+            className={`w-full rounded-lg p-4 text-gray-800 flex items-center gap-3 transition-colors border ${showAddForm ? 'bg-slate-900 text-white' : 'bg-white hover:bg-gray-50'}`}
             onClick={() => setShowAddForm(!showAddForm)}
           >
-            <div className="w-6 h-6 rounded-full border-2 border-gray-300" />
+            <MapPin className="w-6 h-6" />
             Add new delivery Address
           </button>
 

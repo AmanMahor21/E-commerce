@@ -42,10 +42,10 @@ export function AddAddressForm({ onSubmit }: AddAddressFormProps) {
   return (
     <div className="p-4">
       {/* Use Current Address Button */}
-      <div className="bg-blue-500 cursor-pointer flex items-center space-x-4 text-white p-3 w-full max-w-md mx-auto md:mx-0 md:w-72 rounded-md">
+      {/* <div className="bg-slate-500 cursor-pointer flex items-center space-x-4 text-white p-3 w-full max-w-md mx-auto md:mx-0 md:w-72 rounded-md">
         <MdGpsFixed className="text-white text-2xl" />
         <p className="font-bold">Use my current address</p>
-      </div>
+      </div> */}
 
       {/* Form */}
       <div className="text-center my-8">
@@ -152,7 +152,7 @@ export function AddAddressForm({ onSubmit }: AddAddressFormProps) {
 
           {/* Submit Button */}
           <div className="w-full md:w-1/3 mx-auto">
-            <button className="w-full px-4 py-2 bg-green-700 hover:bg-green-600 font-bold text-white rounded-md">
+            <button className="w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 font-bold text-white rounded-md">
               Save
             </button>
           </div>

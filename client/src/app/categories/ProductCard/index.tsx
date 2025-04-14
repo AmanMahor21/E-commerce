@@ -42,7 +42,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Handle product Favourite btn
   const handleSaveBtn = async (e: any) => {
     e.stopPropagation();
-    console.log(internalState?.FavProducts, 'internalState?.FavProducts');
     const alreadyFavourite = internalState?.FavProducts?.find(
       (fav: any) => fav.productId === Number(product?.productId),
     );
@@ -131,7 +130,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         onClick={handleProductDetail}
       >
         {/* Product Image - Now using items-stretch to fill height */}
-        <div className="w-full lg:w-1/3 xl:w-1/4 flex justify-center items-center">
+        <div className="w-full lg:w-1/3 xl:w-1/4 flex justify-center items-center  cursor-pointer">
           <img
             src={imageUrl}
             alt={product?.name || 'Product image'}
@@ -143,7 +142,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Product Details - Flex column that grows to fill space */}
-        <div className="flex-0 flex flex-col justify-between w-full lg:w-[60%] space-y-2 lg:space-y-3">
+        <div className="flex-0 flex flex-col justify-between w-full lg:w-[60%] space-y-2 lg:space-y-3  cursor-pointer">
           <div>
             <div className="text-sm md:text-base lg:text-lg font-medium text-gray-600">
               {product?.companyName}
@@ -187,12 +186,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
 
           <div
-            className={`w-8 h-8 cursor-pointer ${isAlreadyAdded ? 'scale-110' : ''}`}
+            className={`w-8 h-8 cursor-pointer ${isFavorite ? 'scale-110' : ''}`}
             // onClick={(e) => handleSaveBtn(e, product)}
             onClick={handleSaveBtn}
           >
             <img
-              src={isAlreadyAdded ? '/iconoir_heart.svg' : '/Heart.svg'}
+              src={isFavorite ? '/iconoir_heart.svg' : '/Heart.svg'}
               alt="wishlist"
               className="w-full h-full"
             />

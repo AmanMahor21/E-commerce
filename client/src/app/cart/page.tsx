@@ -5,9 +5,9 @@ import Address from './Address/addressInput';
 import OrderSummary from './OrderSummary/page';
 import BillInvoice from './Bill_Invoice/BillPage';
 import AddressForm from './AddressForm/page';
-import ChangeLocation from './ChangeLocation/ChangeLocation';
 import { useEffect, useState } from 'react';
 import { useGetAddressListQuery, useGetCartProductsQuery } from '@/services/api';
+import AddressListModal from './components/AddressListModal';
 
 export default function Cart() {
   const [changeLocation, setChangeLocation] = useState<boolean>(false);
@@ -32,7 +32,7 @@ export default function Cart() {
           <p className="text-xl md:text-3xl font-bold">Shopping Cart</p>
         </div>
         <Location onChangeLocation={ChangeLocationFunc} primaryAddress={primaryAddress} />
-        {changeLocation && <ChangeLocation />}
+        <AddressListModal isOpen={changeLocation} onClose={() => setChangeLocation(false)} />
         <Address setIsFormOpen={setIsFormOpen} />
         {isFormOpen && <AddressForm />}
         <OrderSummary />

@@ -10,6 +10,8 @@ import {
   useUpdateCartQuantityMutation,
 } from '@/services/api';
 import { AddToCart, Product } from '@/services/types';
+import { decodeDescription } from '@/utils/helpers';
+import { fetchOneImage } from '@/utils/hooks';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -47,6 +49,10 @@ export default function ProductStore({ product }: ProductStoreProps) {
     const response = await addProdToCart(cartItem);
     dispatch(setCartItemId(cartProducts?.data));
   };
+
+  // Decoded description fo product
+  const decodedDescription = decodeDescription(product.description as string);
+
   const handleQuantityChange = async (item: any, change: number) => {
     const newQuantity = item.cartQuantity + change;
 
@@ -59,6 +65,12 @@ export default function ProductStore({ product }: ProductStoreProps) {
       //   : newQuantity * item.productPrice,
     });
   };
+
+  const isAlreadyAdded = cartProducts?.data?.find(
+    (ele: any) => ele.productId === product.productId,
+  );
+
+  const image = fetchOneImage(product?.name as string);
   const productQuantity = Array.from({ length: 3 }).map((_, i) => i * 2);
   // const isAlreadyAdded = product?.some((ele: any) => ele.productId === product.productId);
   return (
@@ -68,9 +80,12 @@ export default function ProductStore({ product }: ProductStoreProps) {
           <div className="text-black font-[500] text-[32px] mb-4">{product?.companyName}</div>
           <div className="mb-5">
             <div className="text-black font-[800] text-2xl lg:text-[32px] ">{product.name}</div>
-            <div className="text-black font-[500] text-[18px]">
-              {product.description}
-              {/* dangerouslySetInnerHTML={{ __html: String(he.decode(product.description || '')) }} */}
+            <div className="py-5">
+              <ul className="list-disc ml-5 text-black text-[16px] leading-relaxed space-y-1">
+                {decodedDescription.map((feature, idx) => (
+                  <li key={idx}>{feature}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -117,6 +132,7 @@ export default function ProductStore({ product }: ProductStoreProps) {
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="!bg-stone-200 !border !border-stone-500 !w-44">
+            ssssssss
             {Array.from({ length: 3 }).map((_, i: number) => (
               <Dropdown.Item
                 key={i + 1}
@@ -131,10 +147,10 @@ export default function ProductStore({ product }: ProductStoreProps) {
 
         <div className="flex gap-4 mt-4 justify-center">
           <div
-            className={`w-[300px] rounded-sm text-white h-[40px] font-[600] text-[22px] flex justify-center items-center ${isAdded || Number(product.cartQuantity) ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-black hover:bg-gray-800'}`}
-            onClick={isAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)}
+            className={`w-[300px] rounded-sm text-white h-[40px] font-[600] text-[22px] flex justify-center items-center ${isAlreadyAdded || Number(product.cartQuantity) ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-black hover:bg-gray-800'}`}
+            onClick={isAlreadyAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)}
           >
-            {isAdded || Number(product.cartQuantity) > 0 ? 'Go to Cart' : 'Add to Cart'}
+            {isAlreadyAdded || Number(product.cartQuantity) > 0 ? 'Go to Cart' : 'Add to Cart'}
           </div>
           <div
             className="w-[300px] bg-[#D32F2F] rounded-sm text-white h-[40px] font-[600] text-[22px] flex justify-center items-center"

@@ -307,14 +307,16 @@ export class ProductFavoriteController {
     return response.status(200).send(successResponse);
   }
   // Delete a specific favorite product
-  @Delete('/:productFavoriteId')
+  @Delete('/:id')
   @Authorized(['customer'])
   public async deleteProductFavoriteIdForUser(
-    @Param('productFavoriteId') id: number,
+    @Param('id') id: number,
     @Req() request: any,
     @Res() response: any
   ): Promise<any> {
     const customerId = request.body.userId;
+    console.log(customerId, 'xxx');
+    console.log(id, 'id  xxx');
     if (!customerId || !id) {
       response.status(400).send('user id or product id is missing');
     }

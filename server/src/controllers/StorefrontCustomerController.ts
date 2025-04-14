@@ -144,7 +144,7 @@ export class StorefrontController {
         data: sendMail,
       });
     } else {
-      return response.status(200).send({
+      return response.status(400).send({
         status: 0,
         message: 'Failed to sent OTP!',
       });

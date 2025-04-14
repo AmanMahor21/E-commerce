@@ -10,3 +10,12 @@ export const fetchImages = async (query: string) => {
 
   return null;
 };
+
+export const fetchOneImage = async (query: string) => {
+  const response = await fetch(
+    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_KEY}`,
+  );
+  const data = await response.json();
+
+  return null;
+};
