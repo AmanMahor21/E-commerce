@@ -20,6 +20,8 @@ const productSlice = createSlice({
   reducers: {
     setProductFilter: (state, action) => {
       console.log(action, 'state actionnn');
+      // console.trace(); // 👈 this will show a call stack
+
       return { ...state, ...action.payload };
     },
 

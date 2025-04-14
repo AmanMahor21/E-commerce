@@ -25,8 +25,10 @@ export default function Categories() {
 
   const dispatch = useDispatch();
   const pathname = usePathname();
+  console.log(pathname, 'mm');
   const name = getReadableNameFromPath(pathname);
-
+  // console.log(productState, 'xxxxxxxxxx');
+  console.log(name, 'ssmm');
   const { data, isLoading } = useGetFavProductsQuery();
 
   useEffect(() => {
@@ -68,7 +70,7 @@ export default function Categories() {
                       onclick={() =>
                         dispatch(
                           setProductFilter({
-                            keyword: name,
+                            keyword: decodeURIComponent(name),
                             sortBy: key == productState.sortBy ? '' : key,
                           }),
                         )

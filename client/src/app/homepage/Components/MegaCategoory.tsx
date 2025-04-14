@@ -34,7 +34,7 @@ const MegaCategory = () => {
   const handleSubCategory = (sub: any) => {
     dispatch(setProductFilter({ ...filters, keyword: sub?.name }));
 
-    router.push(`/categories/${sub?.categorySlug}`);
+    router.push(`/categories/${sub?.name}`);
     // setExpanded(expanded == parent?.categoryId ? null : parent?.categoryId);
   };
 
@@ -59,9 +59,9 @@ const MegaCategory = () => {
   }, []);
 
   return (
-    <div className="w-full h-fit justify-center flex flex-wrap gap-4 p-4 bg-white/30 shadow dropdown-wrapper">
+    <div className="w-full h-fit justify-center absolute top-0 flex flex-wrap gap-4 p-4 bg-white shadow dropdown-wrapper">
       {data?.data.map((parent: any, ind: number) => (
-        <div key={ind} className="relative">
+        <div key={ind} className={`relative ${ind > 3 ? 'hidden lg:block' : ''}`}>
           <button
             onClick={() => handleToggle(parent)}
             className="flex items-center gap-1 text-sm font-medium text-gray-800 py-2 px-4 hover:bg-gray-100 rounded transition"
@@ -73,7 +73,6 @@ const MegaCategory = () => {
               <ChevronDown size={16} className="transition-transform" />
             )}
           </button>
-
           {expanded === parent.categoryId && (
             <ul className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-10">
               {isSubFetching ? (

@@ -48,8 +48,8 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveName }) => {
     dispatch(setProductFilter({ keyword: name }));
     // dispatch(setProductFilter({ ...filters, keyword: name }));
     if (id) dispatch(resetProductInput(true));
-    if (pathname !== `/categories/${slug}`) {
-      router.push(`/categories/${slug}`);
+    if (pathname !== `/categories/${name}`) {
+      router.push(`/categories/${name}`);
     }
   };
 

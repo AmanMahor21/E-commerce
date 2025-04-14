@@ -300,7 +300,7 @@ const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
           <div
             key={index}
             className={`w-64 border rounded-md shadow-md overflow-hidden group flex flex-col relative bg-white ${
-              index > 2 ? 'hidden md:block' : ''
+              index > 2 ? 'hidden md:block' : 'flex '
             }`}
           >
             <div className="relative w-full h-52 bg-white flex items-center justify-center">
