@@ -80,7 +80,7 @@ function ProductCard({ product }: { product: Product }) {
   const { refetch } = useGetFavProductsQuery(undefined, { skip: !state.mail });
 
   const handleDeleteBtn = async () => {
-    const response = await removeFavProduct({ favProductId: product.productFavId });
+    const response = await removeFavProduct(Number(product.productFavId) as number);
     if (response?.data?.status == 1) {
       const updatedData = await refetch();
       if (updatedData?.data?.data) {
