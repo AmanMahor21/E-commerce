@@ -201,7 +201,7 @@ export class CartProductController {
   public async getCartProducts(
     @Req() request: any,
     @Res() response: any,
-    @QueryParam('limit') limit: number = 12,
+    @QueryParam('limit') limit: number,
     @QueryParam('offset') offset: number = 0
   ): Promise<any> {
     // const userId = 373;

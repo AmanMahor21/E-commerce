@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AddToCart, Product } from '@/services/types';
 import { setCartItemId } from '@/reduxStore/internalSlice';
 import { usePathname, useRouter } from 'next/navigation';
-import { fetchImages } from '@/utils/hooks';
+import { fetchImages, useProductActions } from '@/utils/hooks';
 interface ProductCardProps {
   product: Product;
   // handleSaveBtn: (e: React.MouseEvent, product: Product) => void;
@@ -22,6 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const BASE_URL = process.env.BASE_URL;
   const cartItem = useSelector((state: any) => state.internal.cartItemId);
   const [imageUrl, setImageUrl] = useState('/Offer2.svg');
+  // const { handleSave, handleAddToCart } = useProductActions();
 
   const pathname = usePathname();
   const dispatch = useDispatch();
@@ -171,7 +172,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`mt-4 w-full sm:w-64 lg:w-72 h-12 lg:h-14 text-white font-semibold
                         text-base md:text-lg rounded-lg transition-all duration-200
                         ${isAlreadyAdded ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-black hover:bg-gray-800'}`}
-            onClick={isAlreadyAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)}
+            onClick={
+              isAlreadyAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)
+              // : (e) => handleAddToCart(product, e, cartProducts)
+            }
             // onclick={(e) => handleAddTocart }
           >
             {isAlreadyAdded ? 'Go to Cart' : 'Add to Cart'}

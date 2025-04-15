@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchImages } from '@/utils/hooks';
 import { useRouter } from 'next/navigation';
+import { FaExchangeAlt, FaEye, FaHeart, FaShoppingCart } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { setProductFilter } from '@/reduxStore/productCategorizeSlice';
 
 type Props = {
   keyword: string;
@@ -11,7 +14,7 @@ type Props = {
 const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
   const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const router = useRouter();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const loadImages = async () => {
       const urls: Record<string, string> = {};
@@ -28,7 +31,11 @@ const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
   }, [products]);
 
   const handleSubCategory = (sub: any) => {
-    router.push(`/categories/${sub?.categorySlug}`);
+    dispatch(setProductFilter({ keyword: sub?.name }));
+    router.push(`/categories/${sub?.name}`);
+  };
+  const handleProductDetail = (sub: any) => {
+    router.push(`/product/${sub.productSlug}/${encodeURIComponent(sub?.productId)}`);
   };
 
   return (
@@ -52,9 +59,10 @@ const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
           // >
           <div
             key={index}
-            className={`w-64 border rounded-md shadow-md overflow-hidden group flex flex-col relative bg-white ${
+            className={`w-full  md:w-80 xl:w-64 cursor-pointer                                                                                                                                                              border rounded-md shadow-md overflow-hidden group flex flex-col relative bg-white ${
               index > 2 ? 'hidden md:block' : 'flex '
             }`}
+            onClick={() => handleProductDetail(ele)}
           >
             <div className="relative w-full h-52 bg-white flex items-center justify-center">
               <img
@@ -63,10 +71,18 @@ const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-2 left-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-100">🛒</button>
-                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-100">❤️</button>
-                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-100">🔁</button>
-                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-100">👁️</button>
+                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
+                  <FaShoppingCart className="text-gray-800 w-5 h-5" />
+                </button>
+                <button className="bg-white p-2 rounded-md shadow">
+                  <FaHeart className=" hover:text-red-500 w-5 h-5" />
+                </button>
+                {/* <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
+                  <FaExchangeAlt className="text-gray-800 w-5 h-5" />
+                </button> */}
+                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
+                  <FaEye className="text-gray-800 w-5 h-5" />
+                </button>
               </div>
             </div>
             <div className="p-4 text-center">

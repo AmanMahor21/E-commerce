@@ -16,9 +16,9 @@ function Page() {
       </div>
 
       <ShoppingPolicy />
-      <div className="mx-7 my-8 lg:px-10 space-y-14">
-        <ShopByCategorySection />
-      </div>
+      {/* <div className="mx-7 my-8 lg:px-10 space-y-14"> */}
+      <ShopByCategorySection />
+      {/* </div> */}
       <div className="px-11">
         <BannerCarousel />
       </div>
