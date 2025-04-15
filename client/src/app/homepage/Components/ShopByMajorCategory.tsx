@@ -57,14 +57,18 @@ const ShopByCategorySection = () => {
 
   return (
     <div className="mx-7 mt-8 lg:px-10 space-y-14">
-      {shopByCategories.map(({ keyword, label }) => (
-        <ShopByCategory
-          key={keyword}
-          keyword={keyword}
-          label={label}
-          products={categoryData[keyword] || []}
-        />
-      ))}
+      {loading ? (
+        <div></div>
+      ) : (
+        shopByCategories.map(({ keyword, label }) => (
+          <ShopByCategory
+            key={keyword}
+            keyword={keyword}
+            label={label}
+            products={categoryData[keyword] || []}
+          />
+        ))
+      )}
     </div>
   );
 };
