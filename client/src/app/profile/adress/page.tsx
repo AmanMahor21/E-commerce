@@ -76,7 +76,7 @@ function AddressCard({
       <div className="flex items-start gap-3">
         <div
           onClick={handleDefaultAddress}
-          className={`w-6 h-6 rounded-full border-2 flex-shrink-0 mt-1 ${address.isDefault === 1 ? 'bg-orange-500' : 'border-gray-300'}`}
+          className={`w-6 h-6 rounded-full border-2 flex-shrink-0 mt-1 ${Number(address.isDefault) === 1 ? 'bg-orange-500' : 'border-gray-300'}`}
         ></div>
         <div className="flex-1">
           <div className="flex items-start justify-between gap-4">
@@ -160,7 +160,7 @@ export default function Page() {
     <div className="flex min-h-screen bg-gray-50 mt-[96px]">
       <Sidebar />
       <main className=" p-6 w-full lg:w-2/3 mx-auto">
-        <div className="bg-slate-900 text-slate-100 p-4 rounded-lg mb-6 flex items-center gap-3">
+        <div className="bg-zinc-600 text-slate-100 p-4 rounded-lg mb-6 flex items-center gap-3">
           <HousePlus className="w-6 h-6" />
           <h1 className="text-xl font-semibold">Saved addresses</h1>
         </div>
@@ -175,7 +175,7 @@ export default function Page() {
           ))}
 
           <button
-            className={`w-full rounded-lg p-4 text-gray-800 flex items-center gap-3 transition-colors border ${showAddForm ? 'bg-slate-900 text-white' : 'bg-white hover:bg-gray-50'}`}
+            className={`w-full rounded-lg p-4 text-gray-800 flex items-center gap-3 transition-colors border ${showAddForm ? 'bg-zinc-600 text-white' : 'bg-white hover:bg-gray-50'}`}
             onClick={() => setShowAddForm(!showAddForm)}
           >
             <MapPin className="w-6 h-6" />

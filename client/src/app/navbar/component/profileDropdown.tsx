@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { RiMenuFill } from 'react-icons/ri';
+import { HiX } from 'react-icons/hi';
 
 export const Dropdown = () => {
   const router = useRouter();
@@ -14,12 +16,18 @@ export const Dropdown = () => {
         aria-expanded={isOpen}
         aria-label="Menu"
       >
-        <img
-          src={isOpen ? '/cancel.png' : '/hamburger.svg'}
+        {isOpen ? (
+          <HiX className=" text-gray-200 w-8 h-8 hover:text-orange-500" />
+        ) : (
+          <RiMenuFill className=" text-gray-200 w-8 h-8 hover:text-orange-500" />
+        )}
+
+        {/* <img
+          src={isOpen ? '/cancel.png' : <FaHamburger />}
           alt="Menu"
           className="w-6 h-6"
           style={{ filter: 'brightness(0) invert(1)' }}
-        />
+        /> */}
       </button>
 
       {isOpen && (

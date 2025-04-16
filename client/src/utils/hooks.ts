@@ -25,7 +25,7 @@ export const useProductActions = () => {
     }
   };
 
-  const handleAddToCart = async (product: any, e: any, cartProducts: any) => {
+  const handleAddToCart = async (product: any, e: any) => {
     e.stopPropagation();
     const cartItem = {
       productId: product?.productId,
@@ -35,7 +35,6 @@ export const useProductActions = () => {
       productPrice: Math.max(Number(product.price) - 75, 0),
     };
     await addToCart(cartItem);
-    dispatch(setCartItemId(cartProducts?.data));
   };
 
   return {

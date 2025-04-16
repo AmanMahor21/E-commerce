@@ -9,6 +9,7 @@ import { useGetFavProductsQuery, useRemoveFavProductMutation } from '@/services/
 import { useDispatch } from 'react-redux';
 import { setFavProducts } from '@/reduxStore/internalSlice';
 // import ProductCard from '../../categories/ProductCard/index';
+import { ProductCardSkeleton } from '../components/ProductCardSkelton';
 
 type Store = {
   id: number;
@@ -39,9 +40,8 @@ const storeData: Store[] = [
 ];
 export default function ProductPage() {
   const state = useSelector((state: any) => state.internal);
-  const { data } = useGetFavProductsQuery(undefined, { skip: !state.mail });
+  const { data, isLoading } = useGetFavProductsQuery(undefined, { skip: !state.mail });
   const productsList: Product[] = data?.data ?? [];
-
   return (
     <div className="flex min-h-screen justify-end bg-[#F5F5F5] mt-[96px]">
       <Sidebar />
@@ -49,10 +49,11 @@ export default function ProductPage() {
       <div className=" p-8  lg:w-[calc(100%-280px)]">
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-6">Favorite Products</h2>
-          {productsList &&
-            productsList?.map((product) => (
-              <ProductCard key={product?.productId} product={product} />
-            ))}
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, i) => <ProductCardSkeleton key={i} />)
+            : productsList?.map((product) => (
+                <ProductCard key={product?.productId} product={product} />
+              ))}
         </section>
 
         <section>
@@ -155,6 +156,7 @@ function StoreCard({ store }: { store: Store }) {
     <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
       <div className="relative w-full pt-[55%]">
         <Image src={store.image} alt={`${store.name}`} fill className="object-cover" />
+        sssssss
       </div>
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">

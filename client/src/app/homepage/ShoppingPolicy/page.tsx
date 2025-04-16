@@ -30,8 +30,8 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="bg-white shadow-sm border rounded-md p-4  mx-7 mt-8">
-      <div className="flex flex-wrap md:flex-nowrap divide-y md:divide-y-0 md:divide-x">
+    <div className="bg-white shadow-sm  rounded-md  flex justify-center mx-7 mt-8">
+      <div className="flex flex-wrap p-4  md:flex-nowrap border w-[90%] divide-y md:divide-y-0 md:divide-x">
         {features.map((feature, idx) => (
           <div
             key={idx}

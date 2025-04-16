@@ -193,7 +193,7 @@ export class StorefrontController {
           secure: true,
           sameSite: 'none',
           path: '/',
-          domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
+          // domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
 
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
           maxAge: 60 * 24 * 60 * 60 * 1000,
@@ -204,7 +204,7 @@ export class StorefrontController {
           sameSite: 'none',
           path: '/',
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-          domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
+          // domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
 
           maxAge: 180 * 24 * 60 * 60 * 1000,
         });

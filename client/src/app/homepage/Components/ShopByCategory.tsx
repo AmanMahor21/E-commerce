@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchImages } from '@/utils/hooks';
+import { fetchImages, useProductActions } from '@/utils/hooks';
 import { useRouter } from 'next/navigation';
 import { FaExchangeAlt, FaEye, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ type Props = {
 
 const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
   const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
+  const { handleAddToCart, handleSave } = useProductActions();
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,46 +53,66 @@ const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
 
       {/* FLEX WRAP GRID STYLE */}
       <div className="flex flex-wrap justify-center lg:justify-between space-y-11 gap-3 md:space-y-0">
-        {products.map((ele, index) => (
+        {products.map((ele, index) => {
+          const originalPrice = Number(ele?.price) || 0;
+          const discountAmount = Math.min(75, originalPrice); // Max discount = 175 or original price
+          const discountPercentage = Math.round((discountAmount / originalPrice) * 100);
+
           // <div
           //   key={index}
           //   className="w-64  border rounded-md shadow-md overflow-hidden group flex flex-col relative bg-white"
           // >
-          <div
-            key={index}
-            className={`w-full  md:w-80 xl:w-64 cursor-pointer                                                                                                                                                              border rounded-md shadow-md overflow-hidden group flex flex-col relative bg-white ${
-              index > 2 ? 'hidden md:block' : 'flex '
-            }`}
-            onClick={() => handleProductDetail(ele)}
-          >
-            <div className="relative w-full h-52 bg-white flex items-center justify-center">
-              <img
-                src={imageUrls[ele.name] || '/product-fallback.png'}
-                alt={ele.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-2 left-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
-                  <FaShoppingCart className="text-gray-800 w-5 h-5" />
-                </button>
-                <button className="bg-white p-2 rounded-md shadow">
-                  <FaHeart className=" hover:text-red-500 w-5 h-5" />
-                </button>
-                {/* <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
+          return (
+            <div
+              key={index}
+              className={`w-full  md:w-80 xl:w-64 cursor-pointer group                                                                                                                                                              border rounded-md shadow-md overflow-hidden group flex flex-col relative bg-white ${
+                index > 2 ? 'hidden md:block' : 'flex '
+              }`}
+              onClick={() => handleProductDetail(ele)}
+            >
+              <div className="relative w-full h-52 bg-white flex items-center justify-center">
+                <p className="absolute top-2 right-2 w-10 h-10 flex items-center justify-center rounded-full bg-red-100 text-red-600 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {`-${discountPercentage}%`}
+                </p>
+                <img
+                  src={imageUrls[ele.name] || '/product-fallback.png'}
+                  alt={ele.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="bg-white p-2 rounded-md shadow ">
+                    <FaShoppingCart
+                      className=" hover:text-yellow-500 w-5 h-5"
+                      onClick={(e) => handleAddToCart(ele, e)}
+                    />
+                  </button>
+                  <button className="bg-white p-2 rounded-md shadow">
+                    <FaHeart
+                      className=" hover:text-red-500 w-5 h-5"
+                      onClick={(e) => handleSave(ele, e)}
+                    />
+                  </button>
+                  {/* <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
                   <FaExchangeAlt className="text-gray-800 w-5 h-5" />
                 </button> */}
-                <button className="bg-white p-2 rounded-md shadow hover:bg-gray-500">
-                  <FaEye className="text-gray-800 w-5 h-5" />
-                </button>
+                  <button className="bg-white p-2 rounded-md shadow ">
+                    <FaEye className=" hover:text-blue-500 w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <p className="text-lg font-medium text-gray-800">{ele.name}</p>
+                <div className="text-gray-400 text-sm mb-1">★★★★★</div>
+                <div className="flex justify-center items-end gap-2">
+                  <p className="text-xl font-semibold text-gray-900">
+                    ₹ ₹{Math.max(originalPrice - 75, 0)}
+                  </p>
+                  <p className=" text-gray-400 line-through">₹{ele.price}</p>
+                </div>
               </div>
             </div>
-            <div className="p-4 text-center">
-              <p className="text-lg font-medium text-gray-800">{ele.name}</p>
-              <div className="text-gray-400 text-sm mb-1">★★★★★</div>
-              <p className="text-xl font-semibold text-gray-900">₹{ele.price}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const BASE_URL = process.env.BASE_URL;
   const cartItem = useSelector((state: any) => state.internal.cartItemId);
   const [imageUrl, setImageUrl] = useState('/Offer2.svg');
-  // const { handleSave, handleAddToCart } = useProductActions();
+  const { handleSave, handleAddToCart } = useProductActions();
 
   const pathname = usePathname();
   const dispatch = useDispatch();
@@ -53,55 +53,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     }
   };
 
-  // Handle Add to cart btn
-  const handleAddTocart = async (e: any) => {
-    e.stopPropagation();
-    // Swal.fire({
-    //   position: 'top',
-    //   icon: 'warning',
-    //   showClass: {
-    //     popup: `
-    //       animate__animated
-    //       animate__fadeInUp
-    //       animate__faster
-    //     `,
-    //   },
-    //   hideClass: {
-    //     popup: `
-    //       animate__animated
-    //       animate__fadeOutDown
-    //       animate__faster
-    //     `,
-    //   },
-    //   customClass: {
-    //     popup: 'custom-swal-style', // Apply styles only to this alert
-    //   },
-    //   title: 'Please login',
-    //   showConfirmButton: false,
-    //   timer: 1500,
-    // });
-
-    const discountedPrice =
-      product?.productDiscount && product.productDiscount > 0
-        ? Number(product.productDiscount)
-        : Number(product?.price);
-
-    const cartItem: AddToCart = {
-      productId: product?.productId,
-      name: product?.name,
-      total: Math.max(Number(product.price) - 75, 0),
-      quantity: '1',
-      productPrice: Math.max(Number(product.price) - 75, 0),
-    };
-    const response = await addProdToCart(cartItem);
-    dispatch(setCartItemId(cartProducts?.data));
-  };
-
   // Checking product already added in cart
   const isAlreadyAdded = cartProducts?.data?.some(
     (ele: any) => ele.productId === product.productId,
   );
   const originalPrice = Number(product?.price) || 0;
+  const discountAmount = Math.min(75, originalPrice); // Max discount = 175 or original price
+  const discountPercentage = Math.round((discountAmount / originalPrice) * 100);
   const discountedPrice = Number(product?.productDiscount) || 0;
 
   useEffect(() => {
@@ -118,9 +76,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleProductDetail = () => {
     router.push(`/product/${product.productSlug}/${encodeURIComponent(product?.productId)}`);
   };
-
-  const discountAmount = Math.min(75, originalPrice); // Max discount = 175 or original price
-  const discountPercentage = Math.round((discountAmount / originalPrice) * 100);
 
   return (
     <div className="pb-7 w-full">
@@ -173,8 +128,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         text-base md:text-lg rounded-lg transition-all duration-200
                         ${isAlreadyAdded ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-black hover:bg-gray-800'}`}
             onClick={
-              isAlreadyAdded ? () => router.push('/cart') : (e) => handleAddTocart(e)
-              // : (e) => handleAddToCart(product, e, cartProducts)
+              isAlreadyAdded
+                ? () => router.push('/cart')
+                : //  (e) => handleAddTocart(e)
+                  (e) => handleAddToCart(product, e)
             }
             // onclick={(e) => handleAddTocart }
           >

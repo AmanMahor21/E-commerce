@@ -23,7 +23,7 @@ const BigSlides = () => {
   };
 
   return (
-    <div className="relative top-[120px] md:top-[70px] h-[60%] ">
+    <div className="relative top-[120px] md:top-[69px] h-[60%] ">
       <Slider ref={sliderRef} {...settings}>
         {images.map((img, index) => (
           <div key={index} className="">
