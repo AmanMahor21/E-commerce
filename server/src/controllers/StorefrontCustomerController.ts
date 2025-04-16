@@ -193,7 +193,7 @@ export class StorefrontController {
           secure: true,
           sameSite: 'none',
           path: '/',
-          // domain: '.onrender.com', // ✅ allows frontend on another Render subdomain to access
+          domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
 
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
           maxAge: 60 * 24 * 60 * 60 * 1000,
@@ -204,7 +204,7 @@ export class StorefrontController {
           sameSite: 'none',
           path: '/',
           // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-          // domain: '.onrender.com', // ✅ allows frontend on another Render subdomain to access
+          domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
 
           maxAge: 180 * 24 * 60 * 60 * 1000,
         });
