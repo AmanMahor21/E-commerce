@@ -56,7 +56,8 @@ const ShopByCategorySection = () => {
   }
 
   return (
-    <div className="mx-7 mt-8 lg:px-10 space-y-14">
+    <div className=" lg:my-9">
+      {/* <div className="mx-7 mt-8 lg:px-10 space-y-14"> */}
       {loading ? (
         <div></div>
       ) : (

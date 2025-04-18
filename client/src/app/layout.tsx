@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import { Cherry_Bomb_One } from 'next/font/google';
 import './globals.css';
 import ShowCaseNavbar from './ShowCaseNavbar/page';

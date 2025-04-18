@@ -40,7 +40,7 @@ const ShopByCategory: React.FC<Props> = ({ keyword, label, products }) => {
   };
 
   return (
-    <div className="w-full mx-auto px-4">
+    <div className="w-full mx-auto px-4 md:px-16 my-9">
       <div className="flex justify-between items-center pb-4">
         <h3 className="text-xl font-bold">{label}</h3>
         <p className="text-sm border border-gray-300 hidden lg:block px-4 py-2 rounded-md hover:bg-orange-500 hover:text-white cursor-pointer transition duration-300 ease-in-out">

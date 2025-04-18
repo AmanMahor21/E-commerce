@@ -9,14 +9,11 @@ import ShopByCategorySection from './Components/ShopByMajorCategory';
 import BigSlides from './Components/BIgSlides';
 function Page() {
   return (
-    <div className="w-full h-full bg-white mt-[70px] lg:mt-[96px] overflow-hidden relative">
+    <div className="w-full h-full bg-white mt-[70px] lg:mt-[96px] ">
+      <MegaCategory />
       <BigSlides />
-      <div className="w-full flex  justify-around h-24 md:h-10 lg:h-12 ">
-        <MegaCategory />
-      </div>
 
       <ShoppingPolicy />
-      {/* <div className="mx-7 my-8 lg:px-10 space-y-14"> */}
       <ShopByCategorySection />
       {/* </div> */}
       <div className="px-11">
