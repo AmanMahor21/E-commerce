@@ -5,6 +5,7 @@ import { useSendOtpMutation, useVerifyOtpMutation } from '@/services/authApi';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -12,7 +13,7 @@ export default function Page() {
   const [code, setOtp] = useState<string>('');
   const email = useSelector((state: any) => state.internal.mail);
   const [sendRandomOtp] = useSendOtpMutation();
-  const [matchotp] = useVerifyOtpMutation();
+  const [matchotp, { isLoading }] = useVerifyOtpMutation();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -91,10 +92,15 @@ export default function Page() {
             {/* Verify Button */}
             <button
               type="button"
+              disabled={isLoading}
               onClick={verifyOtp}
               className="mt-6 w-full max-w-md py-2 bg-orange-500 text-white rounded-lg text-lg font-semibold hover:bg-orange-600 transition duration-200"
             >
               Verify
+              <div className="flex items-center justify-center gap-2">
+                Send OTP
+                {isLoading && <Spinner animation="border" variant="info" size="sm" />}
+              </div>
             </button>
           </form>
         </div>

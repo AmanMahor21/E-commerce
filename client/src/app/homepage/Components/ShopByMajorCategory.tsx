@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import ShopByCategory from './ShopByCategory';
 import { useLazyGetFilterProductsQuery } from '@/services/api';
 import { Product } from '@/services/types';
+import SpecificCategorySkelton from './SpecificCategorySkelton';
 
 type ResultMap = {
   [key: string]: Product[];
@@ -51,25 +52,20 @@ const ShopByCategorySection = () => {
     fetchAllCategories();
   }, []);
 
-  if (loading) {
-    return <div>Loading categories...</div>;
-  }
-
+  // if (loading) {
+  //   return <div>Loading categories...</div>;
+  // }
   return (
-    <div className=" lg:my-9">
-      {/* <div className="mx-7 mt-8 lg:px-10 space-y-14"> */}
-      {loading ? (
-        <div></div>
-      ) : (
-        shopByCategories.map(({ keyword, label }) => (
-          <ShopByCategory
-            key={keyword}
-            keyword={keyword}
-            label={label}
-            products={categoryData[keyword] || []}
-          />
-        ))
-      )}
+    <div className="lg:my-9">
+      {shopByCategories.map(({ keyword, label }) => (
+        <ShopByCategory
+          key={keyword}
+          keyword={keyword}
+          label={label}
+          products={categoryData[keyword] || []}
+          loading={loading}
+        />
+      ))}
     </div>
   );
 };
