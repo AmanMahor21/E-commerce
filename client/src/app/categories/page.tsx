@@ -51,19 +51,6 @@ export default function Categories() {
   const [removeFavProduct, { data: response, isLoading: loading, error: err }] =
     useRemoveFavProductMutation();
 
-  // const handleSaveBtn = async (e: any, product: Product) => {
-  //   console.log(e, product, 'jjjjjjjjjjjjj');
-  //   e.stopPropagation();
-
-  //   const alreadyFavourite = internalState?.FavProducts?.find(
-  //     (fav: any) => fav.productId === Number(product?.productId),
-  //   );
-  //   if (alreadyFavourite) {
-  //     removeFavProduct(alreadyFavourite?.productFavId);
-  //   } else {
-  //     const response = await saveFavProduct({ productId: product?.productId });
-  //   }
-  // };
   console.log(filters, 'catqryyyy qryyy');
   return (
     <div className="pt-24  px-3 lg:px-0 dark: bg-white text-black">
@@ -71,7 +58,7 @@ export default function Categories() {
         {/* Pass setActiveName as a prop */}
         <Sidebar setActiveName={setActiveName} />
 
-        <div className="w-full  pt-4">
+        <div className="w-full  pt-4 lg:ml-64 ">
           <div className=" flex lg:w-full justify-around flex-wrap gap-2 pb-3">
             {/* <div className=" flex px-[54px] lg:w-full justify-around flex-wrap gap-2 pb-3"> */}
             <div className="text-[24px] hidden font-semibold mb-4  items-center justify-center w-[20%]">
@@ -114,12 +101,8 @@ export default function Categories() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="!bg-stone-200 !border-none !border-stone-500 !w-[100%]">
-                <Dropdown.Item>
-                  <RatingFilter />
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <DeliveryFilter />
-                </Dropdown.Item>
+                <RatingFilter />
+                <DeliveryFilter />
               </Dropdown.Menu>
             </Dropdown>
 
@@ -129,12 +112,27 @@ export default function Categories() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="!bg-stone-200 !border-none !border-stone-500 !w-[100%]">
-                <Dropdown.Item>
-                  <PopularityFilter />
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <PriceFilter />
-                </Dropdown.Item>
+                {SortBy.map((ele, ind) => {
+                  const [key, value] = Object.entries(ele)[0];
+                  return (
+                    <Dropdown.Item key={key}>
+                      <SortCondition
+                        key={ind}
+                        filterKey={key}
+                        label={value}
+                        isActive={key == filters.sortBy}
+                        onclick={() =>
+                          dispatch(
+                            setProductFilter({
+                              ...filters,
+                              sortBy: key == filters.sortBy ? '' : key,
+                            }), // toggle logic
+                          )
+                        }
+                      />
+                    </Dropdown.Item>
+                  );
+                })}
               </Dropdown.Menu>
             </Dropdown>
           </div>

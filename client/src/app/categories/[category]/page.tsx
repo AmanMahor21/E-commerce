@@ -40,11 +40,11 @@ export default function Categories() {
   console.log(name, 'name name catqryyyy');
 
   return (
-    <div className="pt-24   dark: bg-white text-black">
+    <div className="pt-24 dark: bg-white text-black">
       <div className="flex">
         {/* Pass setActiveName as a prop */}
         <Sidebar setActiveName={setActiveName} />
-        <div className="w-full pt-4 ">
+        <div className="w-full pt-4 lg:ml-64 ">
           <div className=" flex px-[54px] lg:w-full justify-around flex-wrap gap-2 pb-3">
             <div className="text-[24px] hidden font-semibold mb-4  items-center justify-center w-[20%]">
               {activeName}

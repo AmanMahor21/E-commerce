@@ -14,7 +14,7 @@ body {
   overflow: visible !important;
   overflow-x: hidden !important;
   padding: 0 !important;
-  background: rgb(202, 202, 245) !important;
+  /* background: rgb(202, 202, 245) !important; */
 }
 /* Standard */
 .no-spinner {
