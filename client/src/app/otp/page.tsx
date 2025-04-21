@@ -94,12 +94,11 @@ export default function Page() {
               type="button"
               disabled={isLoading}
               onClick={verifyOtp}
-              className="mt-6 w-full max-w-md py-2 bg-orange-500 text-white rounded-lg text-lg font-semibold hover:bg-orange-600 transition duration-200"
+              className="mt-6 w-full max-w-md py-2 flex justify-center items-center gap-2 bg-orange-500 text-white rounded-lg text-lg font-semibold hover:bg-orange-600 transition duration-200"
             >
               Verify
-              <div className="flex items-center justify-center gap-2">
-                Send OTP
-                {isLoading && <Spinner animation="border" variant="info" size="sm" />}
+              <div className="">
+                {!isLoading && <Spinner animation="border" variant="info" size="sm" />}
               </div>
             </button>
           </form>

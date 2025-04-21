@@ -32,7 +32,7 @@ export const CategoryTree = ({
   return (
     <>
       {data?.map((parent: any, ind: number) => (
-        <div key={ind} className="relative  flex ">
+        <div key={ind} className="relative lg:flex ">
           <button
             onClick={(e) => {
               e.stopPropagation();
