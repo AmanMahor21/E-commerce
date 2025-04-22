@@ -188,46 +188,6 @@ export class StorefrontController {
         const encryptedAccessToken = Crypto.AES.encrypt(accessToken, process.env.CRYPTO_SECRET).toString();
         const encryptedRefershToken = Crypto.AES.encrypt(refreshToken, process.env.CRYPTO_SECRET).toString();
         const uniqueCookieName = '_x' + Math.random().toString(36).substring(2, 5);
-        response.cookie('_Tt', encryptedAccessToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'none',
-          path: '/',
-          // domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
-
-          // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-          maxAge: 60 * 24 * 60 * 60 * 1000,
-        });
-        response.cookie('_Trt', encryptedRefershToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'none',
-          path: '/',
-          // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-          // domain: 'e-commerce-ruddy-pi.vercel.app', // ✅ or leave it unset if hosted only here
-
-          maxAge: 180 * 24 * 60 * 60 * 1000,
-        });
-        // response.cookie('_Tt', encryptedAccessToken, {
-        //   httpOnly: true,
-        //   secure: process.env.NODE_ENV == 'production',
-        //   sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
-        //   path: '/',
-        //   domain: '.render.com', // Or your specific domain
-
-        //   // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-        //   maxAge: 60 * 24 * 60 * 60 * 1000,
-        // });
-        // response.cookie('_Trt', encryptedRefershToken, {
-        //   httpOnly: true,
-        //   secure: process.env.NODE_ENV == 'production',
-        //   sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
-        //   path: '/',
-        //   // domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined, // Fixed!
-        //   domain: '.render.com', // Or your specific domain
-
-        //   maxAge: 180 * 24 * 60 * 60 * 1000,
-        // });
         await this.registrationOtpService.delete(otp.id);
         return response.status(200).send({
           status: 1,

@@ -36,13 +36,13 @@ export const decodeDescription = (text: string) => {
 };
 export const setCookies = (verifyRes: any) => {
   Cookies.set('_Tt', verifyRes.accessToken, {
-    expires: 7, // Days until it expires
+    expires: 60, // Days until it expires
     path: '/', // Accessible throughout the site
     secure: true, // Required if your site is HTTPS
     sameSite: 'Lax', // Good default for most cases
   });
   Cookies.set('_Trt', verifyRes.refreshToken, {
-    expires: 7, // Days until it expires
+    expires: 180, // Days until it expires
     path: '/', // Accessible throughout the site
     secure: true, // Required if your site is HTTPS
     sameSite: 'Lax', // Good default for most cases

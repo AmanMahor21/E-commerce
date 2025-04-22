@@ -100,7 +100,7 @@ export default function Page() {
             >
               Verify
               <div className="">
-                {!isLoading && <Spinner animation="border" variant="info" size="sm" />}
+                {isLoading && <Spinner animation="border" variant="info" size="sm" />}
               </div>
             </button>
           </form>
