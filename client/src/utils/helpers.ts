@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 export const extractCategory = (keyword: string) => {
   const getCategory = keyword.split(',').pop();
   const getproductName = keyword.split(',')[1].slice(1, -1);
@@ -31,4 +33,18 @@ export const decodeDescription = (text: string) => {
     .filter((item) => item.length > 0);
 
   return featureList;
+};
+export const setCookies = (verifyRes: any) => {
+  Cookies.set('_Tt', verifyRes.accessToken, {
+    expires: 7, // Days until it expires
+    path: '/', // Accessible throughout the site
+    secure: true, // Required if your site is HTTPS
+    sameSite: 'Lax', // Good default for most cases
+  });
+  Cookies.set('_Trt', verifyRes.refreshToken, {
+    expires: 7, // Days until it expires
+    path: '/', // Accessible throughout the site
+    secure: true, // Required if your site is HTTPS
+    sameSite: 'Lax', // Good default for most cases
+  });
 };

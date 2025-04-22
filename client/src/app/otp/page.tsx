@@ -2,6 +2,7 @@
 
 import { setUser } from '@/reduxStore/internalSlice';
 import { useSendOtpMutation, useVerifyOtpMutation } from '@/services/authApi';
+import { setCookies } from '@/utils/helpers';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -28,6 +29,7 @@ export default function Page() {
     const verifyRes = await matchotp({ mail: email, otp: code }).unwrap();
     console.log(verifyRes, 'bbbbb');
     console.log('Document cookies:', document.cookie);
+    setCookies(verifyRes);
     const customer = {
       fName: (verifyRes.data as any).firstName,
       lName: (verifyRes.data as any).lastName,
