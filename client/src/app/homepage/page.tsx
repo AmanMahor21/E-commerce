@@ -7,7 +7,19 @@ import Footer from '../footer/Page';
 import MegaCategory from './Components/MegaCategoory';
 import ShopByCategorySection from './Components/ShopByMajorCategory';
 import BigSlides from './Components/BIgSlides';
+import Cookies from 'js-cookie';
+
+import { useEffect } from 'react';
 function Page() {
+  useEffect(() => {
+    console.log('cossssss');
+    Cookies.set('checkinggggg', 'abc123', {
+      expires: 7, // Days until it expires
+      path: '/', // Accessible throughout the site
+      secure: true, // Required if your site is HTTPS
+      sameSite: 'Lax', // Good default for most cases
+    });
+  });
   return (
     <div className="w-full h-full bg-white mt-[70px] lg:mt-[96px] ">
       <MegaCategory />
