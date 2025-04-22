@@ -62,6 +62,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // matcher: ['/login/:path*'],
-  matcher: ['/profile/:path*', '/login/:path*'],
+  matcher: ['/login/:path*'],
+  // matcher: ['/profile/:path*', '/login/:path*'],
 };
