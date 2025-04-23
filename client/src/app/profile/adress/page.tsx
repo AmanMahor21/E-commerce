@@ -62,6 +62,7 @@ function AddressCard({
 
   // Selecting the address to edit
   const handleEdit = (updatedAddress: any) => {
+    // console.log(updateAddress, 'qq');
     updateAddress(updatedAddress);
     setIsOpen(true);
     if (address) setSelectedAddress(address);
@@ -81,7 +82,7 @@ function AddressCard({
         <div className="flex-1">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-gray-600 mb-1">
+              <div className="flex items-center gap-2 flex-wrap text-gray-600 mb-1">
                 <span>Delivering to -</span>
                 <span className="font-medium">{address?.pincode}</span>
                 <span className="text-gray-400">|</span>
@@ -95,7 +96,7 @@ function AddressCard({
             </div>
             <button
               className="flex items-center gap-2 font-bold text-gray-600 hover:text-orange-400"
-              onClick={handleEdit}
+              onClick={(e) => handleEdit}
             >
               <span>edit</span>
               <PenSquare className="w-5 h-5" />

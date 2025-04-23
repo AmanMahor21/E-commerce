@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RiMenuFill } from 'react-icons/ri';
 import { HiX } from 'react-icons/hi';
@@ -7,6 +7,18 @@ import { HiX } from 'react-icons/hi';
 export const Dropdown = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Auto close when click outsie of dropdown
+  useEffect(() => {
+    const close = (e: any) => {
+      if (!e.target.closest('.dropdown-wrapper')) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [isOpen]);
 
   return (
     <div className="relative inline-block">
@@ -21,17 +33,10 @@ export const Dropdown = () => {
         ) : (
           <RiMenuFill className=" text-gray-200 w-8 h-8 hover:text-orange-500" />
         )}
-
-        {/* <img
-          src={isOpen ? '/cancel.png' : <FaHamburger />}
-          alt="Menu"
-          className="w-6 h-6"
-          style={{ filter: 'brightness(0) invert(1)' }}
-        /> */}
       </button>
 
       {isOpen && (
-        <div className="fixed md:absolute -right-0 md:-left-28 top-[70px] md:top-9 w-[50%] md:w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden">
+        <div className="fixed md:absolute right-2 lg:right-0 dropdown-wrapper top-[60px] w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden">
           <ul className="py-1">
             {[
               { name: 'About me', path: '/profile/user' },

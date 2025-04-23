@@ -15,10 +15,11 @@ export default function ProfilePage() {
   const [logoutRes] = useLogoutMutation();
   const dispatch = useDispatch();
 
+  console.log(customer, 'zzz');
   const [userInfo, setUserInfo] = useState({
-    fName: customer?.firstName || '',
-    lName: customer?.lastName || '',
-    mobile: customer?.mobileNumber || '',
+    fName: customer?.fName || '',
+    lName: customer?.lName || '',
+    mobile: customer?.mobile || '',
     gender: customer?.gender || '',
   });
 
@@ -30,15 +31,15 @@ export default function ProfilePage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const savedUser = await setProfile({ ...userInfo });
-    if (savedUser?.data?.data) {
-      dispatch(setUser(userInfo));
-      setUserInfo({
-        fName: '',
-        lName: '',
-        mobile: '',
-        gender: '',
-      });
-    }
+    // if (savedUser?.data?.data) {
+    //   dispatch(setUser(userInfo));
+    //   setUserInfo({
+    //     fName: '',
+    //     lName: '',
+    //     mobile: '',
+    //     gender: '',
+    //   });
+    // }
     // Add API call to save the profile data
   };
   const handleLogout = () => {
@@ -145,88 +146,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-// pages / profile.tsx;
-// import { useState } from 'react';
-// import { useCompleteProfileMutation, useLogoutMutation } from '@/services/authApi';
-// import { useRouter } from 'next/navigation';
-// import { useSelector } from 'react-redux';
-// import { setUser } from '@/reduxStore/internalSlice';
-// import { useDispatch } from 'react-redux';
-
-// export async function getServerSideProps(context: any) {
-//   const { req, res } = context;
-//   const token = req.cookies['auth-token']; // Or get token from headers
-
-//   if (!token) {
-//     return {
-//       redirect: {
-//         destination: '/login', // redirect if not authenticated
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   // Optionally, you can verify the token with your backend here (e.g., JWT verification)
-//   // Or fetch additional user data based on the token.
-
-//   return { props: {} }; // Allow the page to render if authenticated
-// }
-
-// export default function ProfilePage() {
-//   const [setProfile] = useCompleteProfileMutation();
-//   const router = useRouter();
-//   const customer = useSelector((state: any) => state.internal.customerInfo);
-//   const [logoutRes] = useLogoutMutation();
-//   const dispatch = useDispatch();
-
-//   const [userInfo, setUserInfo] = useState({
-//     fName: customer?.firstName || '',
-//     lName: customer?.lastName || '',
-//     mobile: customer?.mobileNumber || '',
-//     gender: customer?.gender || '',
-//   });
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = e.target;
-//     setUserInfo((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e: any) => {
-//     e.preventDefault();
-//     const savedUser = await setProfile({ ...userInfo });
-//     if (savedUser?.data?.data) {
-//       dispatch(setUser(userInfo));
-//       setUserInfo({
-//         fName: '',
-//         lName: '',
-//         mobile: '',
-//         gender: '',
-//       });
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     dispatch(setUser(null));
-//     logoutRes();
-//   };
-
-//   return (
-//     <div className="h-screen flex mt-28 lg:justify-center justify-around bg-white p-6 w-full relative">
-//       <div className="max-w-2xl flex flex-col">
-//         <h1 className="text-3xl font-bold text-gray-900 mb-8">Update Your Profile</h1>
-//         <form onSubmit={handleSubmit} className="space-y-8">
-//           {/* Form content */}
-//         </form>
-//       </div>
-//       <div className="">
-//         <button
-//           className="p-2 h-fit bg-red-500 text-white rounded-full shadow-md hover:bg-red-600"
-//           onClick={handleLogout}
-//         >
-//           <img src="/logout.svg" alt="Logout" className="w-6 h-6" />
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }

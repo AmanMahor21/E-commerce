@@ -1,9 +1,10 @@
 import { setExpectedAddress } from '@/reduxStore/internalSlice';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const AddressPopup = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
+  const addressFound = useSelector((state: any) => state.internal.expectedAddress);
   const [addressData, setAddressData] = useState();
 
   const handleSaveButton = () => {

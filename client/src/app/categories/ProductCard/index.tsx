@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Swal from 'sweetalert2';
 
 import {
@@ -22,7 +22,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const BASE_URL = process.env.BASE_URL;
   const cartItem = useSelector((state: any) => state.internal.cartItemId);
   const [imageUrl, setImageUrl] = useState('/Offer2.svg');
-  const { handleSave, handleAddToCart } = useProductActions();
+
+  const loginBtnRef = useRef(null);
+
+  const { handleSave, handleAddToCart } = useProductActions(loginBtnRef);
 
   const pathname = usePathname();
   const dispatch = useDispatch();
@@ -41,17 +44,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 
   // Handle product Favourite btn
-  const handleSaveBtn = async (e: any) => {
-    e.stopPropagation();
-    const alreadyFavourite = internalState?.FavProducts?.find(
-      (fav: any) => fav.productId === Number(product?.productId),
-    );
-    if (alreadyFavourite) {
-      removeFavProduct(alreadyFavourite?.productFavId);
-    } else {
-      const response = await saveFavProduct({ productId: product?.productId });
-    }
-  };
+  // const handleSaveBtn = async (e: any) => {
+  //   e.stopPropagation();
+  //   const alreadyFavourite = internalState?.FavProducts?.find(
+  //     (fav: any) => fav.productId === Number(product?.productId),
+  //   );
+  //   if (alreadyFavourite) {
+  //     removeFavProduct(alreadyFavourite?.productFavId);
+  //   } else {
+  //     const response = await saveFavProduct({ productId: product?.productId });
+  //   }
+  // };
 
   // Checking product already added in cart
   const isAlreadyAdded = cartProducts?.data?.some(
@@ -135,6 +138,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             }
             // onclick={(e) => handleAddTocart }
           >
+            {/* {isAlreadyAdded ? loginBtnRef :""} */}
             {isAlreadyAdded ? 'Go to Cart' : 'Add to Cart'}
           </button>
         </div>
@@ -147,9 +151,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
 
           <div
+            id="login-btn"
             className={`w-8 h-8 cursor-pointer ${isFavorite ? 'scale-110' : ''}`}
             // onClick={(e) => handleSaveBtn(e, product)}
-            onClick={handleSaveBtn}
+            onClick={(e) => handleSave(product, e)}
           >
             <img
               src={isFavorite ? '/iconoir_heart.svg' : '/Heart.svg'}

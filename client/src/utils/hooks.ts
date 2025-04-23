@@ -6,7 +6,7 @@ import {
 } from '@/services/api';
 import { setCartItemId } from '@/reduxStore/internalSlice';
 
-export const useProductActions = () => {
+export const useProductActions = (loginRef: any) => {
   const dispatch = useDispatch();
   const internalState = useSelector((state: any) => state.internal);
   const [addToCart] = useAddToCartMutation();
@@ -15,6 +15,16 @@ export const useProductActions = () => {
 
   const handleSave = async (product: any, e: any) => {
     e.stopPropagation();
+    if (!internalState?.customerInfo?.fName) {
+      const loginBtn = document.getElementById('login-btn');
+      if (loginBtn) {
+        loginBtn.classList.add('tilt');
+        setTimeout(() => {
+          loginBtn.classList.remove('tilt');
+        }, 500);
+      }
+      return;
+    }
     const alreadyFavourite = internalState?.FavProducts?.find(
       (fav: any) => fav.productId === Number(product?.productId),
     );
@@ -27,6 +37,17 @@ export const useProductActions = () => {
 
   const handleAddToCart = async (product: any, e: any) => {
     e.stopPropagation();
+    if (!internalState?.customerInfo?.fName) {
+      const loginBtn = document.getElementById('login-btn');
+      if (loginBtn) {
+        loginBtn.classList.add('tilt');
+        setTimeout(() => {
+          loginBtn.classList.remove('tilt');
+        }, 500);
+      }
+      return;
+    }
+
     const cartItem = {
       productId: product?.productId,
       name: product?.name,

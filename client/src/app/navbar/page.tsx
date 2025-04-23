@@ -177,7 +177,7 @@ export default function Page() {
 
           {/* SignUp/Login */}
           {!internalState?.customerInfo?.fName ? (
-            <div className=" lg:flex">
+            <div className=" lg:flex" id="login-btn">
               <div
                 className="px-2 md:px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-md cursor-pointer transition-all duration-200"
                 onClick={() => router.push('/login')}
