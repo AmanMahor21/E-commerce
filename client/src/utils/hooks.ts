@@ -6,7 +6,7 @@ import {
 } from '@/services/api';
 import { setCartItemId } from '@/reduxStore/internalSlice';
 
-export const useProductActions = (loginRef: any) => {
+export const useProductActions = () => {
   const dispatch = useDispatch();
   const internalState = useSelector((state: any) => state.internal);
   const [addToCart] = useAddToCartMutation();

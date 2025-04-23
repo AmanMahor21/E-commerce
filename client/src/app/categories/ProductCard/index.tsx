@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const loginBtnRef = useRef(null);
 
-  const { handleSave, handleAddToCart } = useProductActions(loginBtnRef);
+  const { handleSave, handleAddToCart } = useProductActions();
 
   const pathname = usePathname();
   const dispatch = useDispatch();
