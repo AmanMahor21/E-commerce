@@ -60,7 +60,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="min-w-[280px] hidden lg:flex sticky top-6 h-screen bg-slate-900 border-r shadow-md flex-wrap">
+    <aside className="min-w-[280px] hidden left-0 lg:flex fixed top-6 h-screen bg-slate-900 border-r shadow-md flex-wrap">
       <nav className="flex flex-col space-y-2 ps-4 mt-4 fixed top-24 grow w-max">
         {routes.map((route) => {
           const isActive = pathname === route.href;

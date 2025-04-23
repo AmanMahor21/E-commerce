@@ -48,7 +48,7 @@ export default function OrdersPage() {
     <div className="flex flex-col md:flex-row bg-gray-50 mt-24 min-h-screen">
       <Sidebar />
 
-      <main className="w-full flex flex-col justify-between">
+      <main className="lg:ml-72  h-screen w-full p-4">
         <div className="w-full space-y-6 px-4 md:px-6">
           {orders.map((order) => (
             <div

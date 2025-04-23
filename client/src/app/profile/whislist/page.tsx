@@ -43,7 +43,7 @@ export default function ProductPage() {
   const { data, isLoading } = useGetFavProductsQuery(undefined, { skip: !state.mail });
   const productsList: Product[] = data?.data ?? [];
   return (
-    <div className="flex min-h-screen justify-end bg-[#F5F5F5] mt-[96px]">
+    <div className="flex min-h-screen justify-center lg:justify-end bg-[#F5F5F5] mt-[96px]">
       <Sidebar />
 
       <div className=" p-8  lg:w-[calc(100%-280px)]">

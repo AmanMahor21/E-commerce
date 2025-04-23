@@ -24,12 +24,11 @@ const savedCards: Card[] = [
 
 export default function UpiPage() {
   return (
-    <div className="flex flex-col md:flex-row h-screen mt-[96px]">
+    <div className="flex h-screen mt-[96px] justify-end">
       <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-6 bg-gray-50">
-        {/* Saved UPI IDs Section */}
+      <main className=" p-8 w-full  lg:w-[calc(100%-280px)] bg-gray-50">
         <section className="mb-8">
           <h2 className="text-lg font-semibold mb-4">Saved UPI IDs</h2>
           <div className="space-y-4">

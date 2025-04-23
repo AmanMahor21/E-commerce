@@ -23,30 +23,6 @@ type Address = {
   isSelected?: boolean;
 };
 
-const addresses: Address[] = [
-  {
-    id: 1,
-    name: 'Home',
-    delivery: 'Delivering to',
-    images: [],
-    pincode: '507303',
-    phone: '7780417876',
-    address: 'mig - 85, Sathpally, khammam,',
-    city: 'Hyderabad, telengana',
-    postalCode: '500072',
-    isSelected: true,
-  },
-  {
-    id: 2,
-    name: 'Work',
-    delivery: 'Delivering to',
-    images: [],
-    pincode: '507303',
-    phone: '7757473773',
-    address: 'mig - 85, Sathpally, khamm...',
-  },
-];
-
 // function AddressCard(address: GetAddress , setDefaultAddress:() => void) {
 function AddressCard({
   address,
@@ -61,11 +37,13 @@ function AddressCard({
   const [updateAddress, { data }] = useUpdateAddressMutation();
 
   // Selecting the address to edit
-  const handleEdit = (updatedAddress: any) => {
-    // console.log(updateAddress, 'qq');
-    updateAddress(updatedAddress);
+  const handleEdit = () => {
     setIsOpen(true);
     if (address) setSelectedAddress(address);
+  };
+
+  const handleUpdatedForm = (updatedAddress: any) => {
+    updateAddress(updatedAddress);
   };
 
   // Passing the selected address in a callback function to set it as the default address.
@@ -96,7 +74,7 @@ function AddressCard({
             </div>
             <button
               className="flex items-center gap-2 font-bold text-gray-600 hover:text-orange-400"
-              onClick={(e) => handleEdit}
+              onClick={handleEdit}
             >
               <span>edit</span>
               <PenSquare className="w-5 h-5" />
@@ -105,7 +83,7 @@ function AddressCard({
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
               address={selectedAddress || ({} as GetAddress)}
-              onSave={handleEdit}
+              onSave={handleUpdatedForm}
             />
           </div>
         </div>
@@ -158,9 +136,9 @@ export default function Page() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 mt-[96px]">
+    <div className="flex min-h-screen bg-gray-50 mt-[96px] justify-center">
       <Sidebar />
-      <main className=" p-6 w-full lg:w-2/3 mx-auto">
+      <main className=" p-6 w-full lg:w-2/3 lg:ml-64">
         <div className="bg-zinc-600 text-slate-100 p-4 rounded-lg mb-6 flex items-center gap-3">
           <HousePlus className="w-6 h-6" />
           <h1 className="text-xl font-semibold">Saved addresses</h1>
