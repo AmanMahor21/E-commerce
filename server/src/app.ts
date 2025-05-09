@@ -13,10 +13,6 @@ import path from 'path';
 import cors from 'cors'; // ✅ Import cors
 import { CustomErrorHandler } from './auth/errorHandler';
 useContainer(Container);
-// dotenv.config();
-// const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
-// dotenv.config({ path: envFile });
-// console.log(process.env.TYPEORM_HOST, 'bbbbbbbbbbbb');
 
 const PORT = process.env.PORT || 8000;
 const fileExtension = process.env.NODE_ENV === 'production' ? 'js' : 'ts';
@@ -34,10 +30,7 @@ connectMysql()
     app.use(cookieParser()); // ✅ Use cookie-parser
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
     useExpressServer(app, {
-      // controllers: Object.values(controllers),
-      // controllers: [path.join(__dirname, `/controllers/**/*.js`)],
       controllers: [path.join(__dirname, `/controllers/**/*.ts`)],
-      // controllers: [path.join(__dirname, `/controllers/**/*.${fileExtension}`)],
 
       routePrefix: '/api',
       cors: {
