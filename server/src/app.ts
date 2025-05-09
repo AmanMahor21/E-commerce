@@ -25,7 +25,7 @@ connectMysql()
     const app = express();
     app.use(
       cors({
-        origin: process.env.FRONTEND_URL, // e.g., 'https://your-frontend-url.vercel.app'
+        origin: process.env.FRONTEND_URL,
         credentials: true,
       })
     );
@@ -35,7 +35,8 @@ connectMysql()
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
     useExpressServer(app, {
       // controllers: Object.values(controllers),
-      controllers: [path.join(__dirname, `/controllers/**/*.js`)],
+      // controllers: [path.join(__dirname, `/controllers/**/*.js`)],
+      controllers: [path.join(__dirname, `/controllers/**/*.ts`)],
       // controllers: [path.join(__dirname, `/controllers/**/*.${fileExtension}`)],
 
       routePrefix: '/api',

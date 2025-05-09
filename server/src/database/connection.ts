@@ -11,7 +11,6 @@ import * as path from 'path';
 const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
 dotenv.config({ path: envFile });
 
-console.log(process.env.TYPEORM_PORT, 'nconnection nnnnnnn');
 export const AppDataSource = new DataSource({
   type: 'mysql', // or as 'mysql' if you know it's mysql
   host: process.env.TYPEORM_HOST,
@@ -23,33 +22,19 @@ export const AppDataSource = new DataSource({
   logging: false,
   subscribers: [],
   driver: require('mysql2'), // Add this line
-  entities: [path.join(__dirname, '/../models/*.js')],
-  // entities: [path.join(__dirname, '/../models/*.ts')],
+  // entities: [path.join(__dirname, '/../models/*.js')],
+  entities: [path.join(__dirname, '/../models/*.ts')],
   migrations: Object.values(migrations),
-  // extra: {
-  //   connectTimeout: 30000, // 30 seconds
-  //   ssl:
-  //     process.env.NODE_ENV === 'production'
-  //       ? {
-  //           rejectUnauthorized: false, // Required for Railway
-  //         }
-  //       : false,
-  // },
-
-  // entities: Object.values(entit) as Function[], // Ensure entities are correctly loaded
+  extra: {
+    ssl: {
+      rejectUnauthorized: false, // uses system CA
+    },
+  },
 });
 
 export const connectMysql = async (): Promise<void> => {
   try {
     await AppDataSource.initialize();
-    console.log(AppDataSource.isInitialized, 'jjjjjjjjjjjj');
-    // Object.values(entit).forEach(entity => {
-    //   Container.set({
-    //     id: `Repository<${entity.name}>`,
-    //     value: AppDataSource.getRepository(entity),
-    //   });
-    // });
-
     console.log('DB connected');
   } catch (err) {
     console.error('DB Connection Error:', err);
