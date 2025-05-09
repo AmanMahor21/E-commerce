@@ -30,7 +30,8 @@ connectMysql()
     app.use(cookieParser()); // ✅ Use cookie-parser
     app.get('/api/test', (req, res) => res.json({ test: 'OK' }));
     useExpressServer(app, {
-      controllers: [path.join(__dirname, `/controllers/**/*.ts`)],
+      controllers: [path.join(__dirname, `/controllers/**/*.js`)],
+      // controllers: [path.join(__dirname, `/controllers/**/*.ts`)],
 
       routePrefix: '/api',
       cors: {
